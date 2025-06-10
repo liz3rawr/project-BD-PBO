@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectdouble.controller.AdminController">
+   <children>
+      <Label fx:id="welcome" layoutX="14.0" layoutY="14.0">
+         <font>
+            <Font name="System Bold Italic" size="30.0" />
+         </font>
+      </Label>
+      <TabPane layoutX="12.0" layoutY="59.0" prefHeight="559.0" prefWidth="922.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Announcements">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="288.0" prefWidth="542.0">
+                     <children>
+                        <Label layoutX="357.0" layoutY="14.0" text="MANAGE ANNOUNCEMENTS">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="16.0" layoutY="45.0" prefHeight="169.0" prefWidth="893.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="443.66668701171875" minWidth="10.0" prefWidth="74.33331298828125" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="837.6666666666666" minWidth="10.0" prefWidth="818.3333536783854" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="156.66666666666666" minHeight="10.0" prefHeight="116.66665140787762" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="65.0" minHeight="0.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Title">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Content" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Attachment" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <TextField promptText="ex: Penerimaan Rapor" GridPane.columnIndex="1" />
+                              <TextArea prefHeight="117.0" prefWidth="819.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <TextField />
+                                    <Button mnemonicParsing="false" text="Choose File" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </GridPane>
+                        <GridPane layoutX="226.0" layoutY="225.0" prefHeight="30.0" prefWidth="469.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button mnemonicParsing="false" text="Publish Announcement" GridPane.halignment="RIGHT" />
+                              <Button mnemonicParsing="false" text="Update Selected" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                              <Button mnemonicParsing="false" text="Delete Selected" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
+                           </children>
+                        </GridPane>
+                        <TableView layoutX="16.0" layoutY="268.0" prefHeight="257.0" prefWidth="894.0">
+                          <columns>
+                            <TableColumn prefWidth="137.33330726623535" text="TITLE" />
+                              <TableColumn prefWidth="126.00001525878906" text="DATE/TIME" />
+                            <TableColumn prefWidth="525.3334350585938" text="CONTENT" />
+                              <TableColumn prefWidth="103.333251953125" text="ATTACHMENT" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Entry Student Data">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane layoutX="14.0" layoutY="46.0" prefHeight="295.0" prefWidth="435.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.66668701171875" minWidth="10.0" prefWidth="105.3333257039388" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.00000254313153" minWidth="10.0" prefWidth="330.00000762939453" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="NIS" />
+                              <Label text="NAME" GridPane.rowIndex="1" />
+                              <Label text="GENDER" GridPane.rowIndex="2" />
+                              <Label text="PLACE OF BIRTH" GridPane.rowIndex="3" />
+                              <Label text="DATE OF BIRTH" GridPane.rowIndex="4" />
+                              <Label text="ADDRESS" GridPane.rowIndex="5" />
+                              <ComboBox prefWidth="150.0" promptText="choose" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField GridPane.columnIndex="1" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Button mnemonicParsing="false" text="Add Data" GridPane.rowIndex="6" />
+                           </children>
+                        </GridPane>
+                        <Label layoutX="14.0" layoutY="18.0" text="INPUT STUDENT DATA">
+                           <font>
+                              <Font name="Bookman Old Style Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="398.0" text="INPUT STUDENT USER">
+                           <font>
+                              <Font name="Bookman Old Style Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="14.0" layoutY="424.0" prefHeight="91.0" prefWidth="445.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.66668701171875" minWidth="10.0" prefWidth="90.3333511352539" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="355.6666488647461" minWidth="10.0" prefWidth="355.6666488647461" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Username" />
+                              <Label text="Password" GridPane.rowIndex="1" />
+                              <TextField promptText="NIS" GridPane.columnIndex="1" />
+                              <TextField promptText="DD/MM/YYYY" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Button mnemonicParsing="false" text="Add User" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           </children>
+                        </GridPane>
+                        <Label layoutX="511.0" layoutY="18.0" text="EDIT STUDENT DATA">
+                           <font>
+                              <Font name="Bookman Old Style Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="511.0" layoutY="46.0" prefHeight="363.0" prefWidth="393.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.66668701171875" minWidth="10.0" prefWidth="155.66668701171875" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="253.6666259765625" minWidth="10.0" prefWidth="238.33331298828125" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="103.3333740234375" minHeight="10.0" prefHeight="91.66665649414062" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="40.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="SELECT NIS" />
+                              <Label text="NIS" GridPane.rowIndex="1" />
+                              <Label text="NAME" GridPane.rowIndex="2" />
+                              <Label text="GENDER" GridPane.rowIndex="3" />
+                              <Label text="PLACE OF BIRTH" GridPane.rowIndex="4" />
+                              <Label text="DATE OF BIRTH" GridPane.rowIndex="5" />
+                              <Label text="ADDRESS" GridPane.rowIndex="6" />
+                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label text="USERNAME" GridPane.rowIndex="7" />
+                              <Label text="PASSWORD" GridPane.rowIndex="8" />
+                              <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <Label GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                           </children>
+                        </GridPane>
+                        <Button layoutX="511.0" layoutY="416.0" mnemonicParsing="false" text="Update Data" />
+                        <Button layoutX="607.0" layoutY="416.0" mnemonicParsing="false" text="Delete Data" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="View Students">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="400.0" layoutY="14.0" text="STUDENTS DATA">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="14.0" layoutY="45.0" prefHeight="30.0" prefWidth="237.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.3333511352539" minWidth="10.0" prefWidth="48.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="190.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Search" />
+                              <TextField promptText="NIS/NAME" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                        <TableView layoutX="13.0" layoutY="92.0" prefHeight="421.0" prefWidth="895.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="NIS" />
+                            <TableColumn prefWidth="155.9999771118164" text="NAME" />
+                              <TableColumn prefWidth="90.0" text="GENDER" />
+                              <TableColumn prefWidth="130.66668701171875" text="PLACE OF BIRTH" />
+                              <TableColumn prefWidth="129.3333740234375" text="DATE OF BIRTH" />
+                              <TableColumn prefWidth="316.0" text="ADDRESS" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="View Teachers">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane layoutX="14.0" layoutY="46.0" prefHeight="30.0" prefWidth="237.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.3333511352539" minWidth="10.0" prefWidth="48.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="190.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Search" />
+                              <TextField promptText="NIP/NAME" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                        <Label layoutX="401.0" layoutY="14.0" text="TEACHERS DATA">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TableView layoutX="13.0" layoutY="83.0" prefHeight="438.0" prefWidth="895.0">
+                           <columns>
+                              <TableColumn prefWidth="128.0" text="NIP/USERNAME" />
+                              <TableColumn prefWidth="161.3333282470703" text="PASSWORD" />
+                              <TableColumn prefWidth="184.66668701171875" text="NAME" />
+                              <TableColumn prefWidth="166.6666259765625" text="GENDER" />
+                              <TableColumn prefWidth="132.00006103515625" text="EMAIL" />
+                              <TableColumn prefWidth="124.0" text="PHONE NUMBER" />
+                           </columns>
+                        </TableView>
+                        <Button layoutX="809.0" layoutY="48.0" mnemonicParsing="false" text="Delete Selected" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Manage Schedules">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="ADD SCHEDULE">
+                           <font>
+                              <Font name="Bookman Old Style Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="14.0" layoutY="41.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="278.0" prefWidth="449.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.33331298828125" minWidth="-Infinity" percentWidth="0.0" prefWidth="118.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="-Infinity" prefWidth="332.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="DAY" />
+                              <ChoiceBox prefHeight="25.0" prefWidth="378.0" GridPane.columnIndex="1" />
+                              <Label text="START TIME (HH:MM)" GridPane.rowIndex="1" />
+                              <Label text="END TIME (HH:MM)" GridPane.rowIndex="2" />
+                              <Label text="SUBJECT" GridPane.rowIndex="3" />
+                              <ChoiceBox prefHeight="25.0" prefWidth="340.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="CLASS" GridPane.rowIndex="4" />
+                              <ChoiceBox prefHeight="25.0" prefWidth="365.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label layoutX="10.0" layoutY="142.0" text="TEACHER" GridPane.rowIndex="5" />
+                              <ChoiceBox layoutX="160.0" layoutY="138.0" prefHeight="25.0" prefWidth="373.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField promptText="e.g. 08:00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField prefHeight="16.0" prefWidth="302.0" promptText="e.g. 09:10" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="SCHOOL YEAR" GridPane.rowIndex="6" />
+                              <ComboBox prefHeight="25.0" prefWidth="337.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <ComboBox prefHeight="25.0" prefWidth="339.0" promptText="GANJIL/GENAP" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <Button mnemonicParsing="false" text="Add Schedule" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Manage Classes">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="CREATE NEW CLASS">
+                           <font>
+                              <Font name="Bookman Old Style Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="14.0" layoutY="41.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="449.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.33331298828125" minWidth="-Infinity" percentWidth="0.0" prefWidth="128.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="-Infinity" prefWidth="322.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="CLASS NAME" />
+                              <Label prefHeight="17.0" prefWidth="135.0" text="HOMEROOM TEACHER" GridPane.rowIndex="1" />
+                              <ChoiceBox prefHeight="25.0" prefWidth="340.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="SCHOOL YEAR" GridPane.rowIndex="2" />
+                              <ComboBox prefHeight="25.0" prefWidth="337.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ComboBox prefHeight="25.0" prefWidth="339.0" promptText="GANJIL/GENAP" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Button mnemonicParsing="false" text="Create Class" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField promptText="e.g. 5A" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                        <Label layoutX="510.0" layoutY="14.0" text="EDIT/DELETE CLASS">
+                           <font>
+                              <Font name="Bookman Old Style Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="510.0" layoutY="41.0" prefHeight="154.0" prefWidth="396.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.0" minWidth="10.0" prefWidth="126.66668701171875" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.33331298828125" minWidth="10.0" prefWidth="269.33331298828125" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="CLASS NAME" />
+                              <Label text="HOMEROOM TEACHER" GridPane.rowIndex="1" />
+                              <Label text="SCHOOL YEAR" GridPane.rowIndex="2" />
+                              <ComboBox prefHeight="25.0" prefWidth="274.0" GridPane.columnIndex="1" />
+                              <ComboBox prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ComboBox prefHeight="25.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ComboBox prefHeight="25.0" prefWidth="279.0" promptText="GANJIL/GENAP" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Button mnemonicParsing="false" text="Update Class" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                              <Button mnemonicParsing="false" text="Delete Class" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                           </children>
+                        </GridPane>
+                        <Label layoutX="14.0" layoutY="216.0" text="ASSIGN STUDENT TO CLASS">
+                           <font>
+                              <Font name="Bookman Old Style Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TableView layoutX="10.0" layoutY="347.0" prefHeight="147.0" prefWidth="247.0">
+                          <columns>
+                            <TableColumn prefWidth="74.66665840148926" text="NIS" />
+                            <TableColumn prefWidth="170.00003814697266" text="NAME" />
+                          </columns>
+                        </TableView>
+                        <GridPane layoutX="14.0" layoutY="234.0" prefHeight="105.0" prefWidth="266.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.00002034505208" minWidth="10.0" prefWidth="81.99997965494792" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.99995930989581" minWidth="10.0" prefWidth="124.00002034505208" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="CLASS" GridPane.rowIndex="1" />
+                              <Label text="SCHOOL YEAR" GridPane.rowIndex="2" />
+                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ComboBox prefHeight="25.0" prefWidth="147.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ComboBox prefWidth="150.0" promptText="GANJIL/GENAP" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="SEARCH" />
+                              <TextField promptText="NIS/NAME" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                        <Button layoutX="69.0" layoutY="501.0" mnemonicParsing="false" text="Assign Student" />
+                        <Label layoutX="375.0" layoutY="216.0" text="STUDENT IN SELECTED CLASS">
+                           <font>
+                              <Font name="Bookman Old Style Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="375.0" layoutY="240.0" prefHeight="110.0" prefWidth="205.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.00002034505208" minWidth="10.0" prefWidth="81.99997965494792" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.99995930989581" minWidth="10.0" prefWidth="124.00002034505208" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="CLASS" />
+                              <Label text="SCHOOL YEAR" GridPane.rowIndex="1" />
+                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
+                              <ComboBox prefHeight="25.0" prefWidth="147.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ComboBox prefWidth="150.0" promptText="GANJIL/GENAP" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           </children>
+                        </GridPane>
+                        <TableView layoutX="591.0" layoutY="240.0" prefHeight="275.0" prefWidth="313.0">
+                           <columns>
+                              <TableColumn prefWidth="109.3333740234375" text="NIS" />
+                              <TableColumn prefWidth="197.99993896484375" text="NAME" />
+                           </columns>
+                        </TableView>
+                        <Button layoutX="450.0" layoutY="445.0" mnemonicParsing="false" text="Edit Selected Student" />
+                        <Button layoutX="463.0" layoutY="481.0" mnemonicParsing="false" text="Remove from Class" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Manage School Agenda">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="398.0" layoutY="14.0" text="SCHOOL AGENDA">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="14.0" layoutY="47.0" prefHeight="206.0" prefWidth="346.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.3333740234375" minWidth="10.0" prefWidth="86.00000381469727" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="516.6666641235352" minWidth="10.0" prefWidth="262.33332951863605" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="CONTENT" />
+                              <Label text="START" GridPane.rowIndex="1" />
+                              <Label text="END" GridPane.rowIndex="2" />
+                              <Label text="SCHOOL YEAR" GridPane.rowIndex="3" />
+                              <TextField GridPane.columnIndex="1" />
+                              <ComboBox prefHeight="25.0" prefWidth="267.0" promptText="GANJIL/GENAP" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <ComboBox prefHeight="25.0" prefWidth="319.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <DatePicker prefHeight="25.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <DatePicker prefHeight="25.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Button mnemonicParsing="false" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                           </children>
+                        </GridPane>
+                        <GridPane layoutX="461.0" layoutY="47.0" prefHeight="52.0" prefWidth="443.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.3333740234375" minWidth="10.0" prefWidth="86.00000381469727" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="516.6666641235352" minWidth="10.0" prefWidth="262.33332951863605" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="SCHOOL YEAR" />
+                              <ComboBox prefHeight="25.0" prefWidth="312.0" promptText="GANJIL/GENAP" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ComboBox prefHeight="25.0" prefWidth="319.0" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                        <TableView layoutX="461.0" layoutY="107.0" prefHeight="382.0" prefWidth="443.0">
+                          <columns>
+                            <TableColumn prefWidth="204.66668701171875" text="CONTENT" />
+                            <TableColumn prefWidth="118.66668701171875" text="START" />
+                              <TableColumn prefWidth="110.0" text="END" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="461.0" layoutY="496.0" mnemonicParsing="false" text="Delete" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Extracurricular">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="INPUT MENTOR">
+                           <font>
+                              <Font name="Bookman Old Style Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="14.0" layoutY="32.0" prefHeight="181.0" prefWidth="329.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.66665649414062" minWidth="10.0" prefWidth="111.33331298828125" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.33335367838538" minWidth="10.0" prefWidth="217.33335367838538" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="EXTRACURRICULAR" />
+                              <Label text="MENTOR" GridPane.rowIndex="1" />
+                              <Label text="LEVEL" GridPane.rowIndex="5" />
+                              <ComboBox prefHeight="25.0" prefWidth="237.0" GridPane.columnIndex="1" />
+                              <ComboBox prefHeight="25.0" prefWidth="238.0" promptText="mentor 1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ComboBox prefHeight="25.0" prefWidth="239.0" promptText="mentor 2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ComboBox prefHeight="25.0" prefWidth="249.0" promptText="mentor 3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <ComboBox prefHeight="25.0" prefWidth="281.0" promptText="mentor 4" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <ComboBox prefHeight="25.0" prefWidth="283.0" promptText="Siaga/Penggalang" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Button mnemonicParsing="false" text="Add Mentor" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                           </children>
+                        </GridPane>
+                        <Label layoutX="14.0" layoutY="234.0" text="EXTRACURRICULAR">
+                           <font>
+                              <Font name="Bookman Old Style Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TableView layoutX="14.0" layoutY="259.0" prefHeight="232.0" prefWidth="381.0">
+                          <columns>
+                            <TableColumn prefWidth="113.33330726623535" text="NAME" />
+                              <TableColumn prefWidth="90.66668701171875" text="LEVEL" />
+                            <TableColumn prefWidth="171.99998474121094" text="MENTOR" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="189.0" layoutY="498.0" mnemonicParsing="false" text="Delete" />
+                        <Label layoutX="461.0" layoutY="23.0" text="INPUT SISWA">
+                           <font>
+                              <Font name="Bookman Old Style Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="461.0" layoutY="41.0" prefHeight="181.0" prefWidth="329.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.66665649414062" minWidth="10.0" prefWidth="111.33331298828125" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.33335367838538" minWidth="10.0" prefWidth="217.33335367838538" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="CLASS" />
+                              <Label text="SCHOOL YEAR" GridPane.rowIndex="1" />
+                              <Label text="LEVEL" GridPane.rowIndex="4" />
+                              <ComboBox prefHeight="25.0" prefWidth="237.0" GridPane.columnIndex="1" />
+                              <ComboBox prefHeight="25.0" prefWidth="238.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ComboBox prefHeight="25.0" prefWidth="239.0" promptText="GANJIL/GENAP" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ComboBox prefHeight="25.0" prefWidth="249.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <ComboBox prefHeight="25.0" prefWidth="281.0" promptText="Siaga/Penggalang" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <ComboBox prefHeight="25.0" prefWidth="283.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Button mnemonicParsing="false" text="Add Student" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label text="EXTRACURRICULAR" GridPane.rowIndex="3" />
+                              <Label text="STUDENT" GridPane.rowIndex="5" />
+                           </children>
+                        </GridPane>
+                        <TableView layoutX="461.0" layoutY="243.0" prefHeight="248.0" prefWidth="448.0">
+                          <columns>
+                            <TableColumn prefWidth="108.66665649414062" text="NIS" />
+                            <TableColumn prefWidth="215.33331298828125" text="NAME" />
+                              <TableColumn prefWidth="102.0" text="CLASS" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="633.0" layoutY="498.0" mnemonicParsing="false" text="Remove Student" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button fx:id="logout" layoutX="877.0" layoutY="14.0" mnemonicParsing="false" onAction="#actionLogout" text="Logout" />
+   </children>
+</AnchorPane>
