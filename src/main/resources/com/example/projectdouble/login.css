@@ -1,0 +1,69 @@
+/* Style dasar untuk seluruh jendela */
+.root {
+    -fx-background-color: #F8F9FA;
+}
+
+/* Untuk tulisan "Welcome to" - Ukuran 30px dari FXML */
+.header-subtitle {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
+    -fx-text-fill: #495057; /* Warna sedikit lebih lembut dari judul utama */
+}
+
+/* Untuk tulisan "Petra Elementary School" - Ukuran 35px dari FXML */
+.header-main {
+    -fx-font-family: "Georgia", serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 35px;
+    -fx-text-fill: #343A40;
+}
+
+/* Untuk label "Username" & "Password" - Ukuran 20px dari FXML */
+.login-label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #495057;
+}
+
+/* Style untuk semua kotak input (TextField, PasswordField, ComboBox) */
+.text-field, .password-field, .combo-box {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #CED4DA;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-pref-height: 32px; /* Menyesuaikan dengan prefHeight dari FXML */
+}
+
+/* Style untuk tombol LOGIN utama */
+.login-button {
+    -fx-background-color: #4A90E2;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-pref-height: 32px; /* Menyamakan tinggi tombol */
+}
+
+/* Efek saat mouse berada di atas tombol LOGIN */
+.login-button:hover {
+    -fx-background-color: #357ABD;
+    -fx-cursor: hand;
+}
+
+/* EFEK HOVER UNTUK KOMPONEN (BARU DITAMBAHKAN) */
+.combo-box:hover, .choice-box:hover {
+    -fx-background-color: #E9ECEF; /* Warna abu-abu muda saat kursor di atas */
+}
+
+
+/* Efek hover untuk pilihan di dalam ComboBox */
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #D3E5F5;
+    -fx-text-fill: #343A40;
+}
+.combo-box-popup .list-view .list-cell:filled:selected {
+    -fx-background-color: #3182CE;
+    -fx-text-fill: white;
+}

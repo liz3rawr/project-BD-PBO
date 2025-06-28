@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="945.0" stylesheets="@guru.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectdouble.controller.GuruController">
+    <children>
+        <Label fx:id="welcome" layoutX="14.0">
+            <font>
+                <Font name="System Bold Italic" size="30.0" />
+            </font>
+        </Label>
+        <TabPane fx:id="tabPane" layoutX="13.0" layoutY="49.0" prefHeight="531.0" prefWidth="919.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Announcements">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="484.0" prefWidth="919.0">
+                            <children>
+                                <Label layoutX="396.0" layoutY="14.0" text="ANNOUNCEMENTS">
+                                    <font>
+                                        <Font name="System Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <TableView fx:id="announcementsTable" layoutX="13.0" layoutY="51.0" prefHeight="435.0" prefWidth="894.0">
+                                    <columns>
+                                        <TableColumn fx:id="announcementsTitleCol" prefWidth="137.0" text="TITLE" />
+                                        <TableColumn fx:id="announcementsDateCol" prefWidth="126.0" text="DATE/TIME" />
+                                        <TableColumn fx:id="announcementsContentCol" prefWidth="511.0" text="CONTENT" />
+                                        <TableColumn fx:id="announcementsAttachmentCol" prefWidth="117.0" text="ATTACHMENT" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Biodata">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <GridPane layoutX="14.0" layoutY="39.0" prefHeight="141.0" prefWidth="366.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="133.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="277.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="NIP" />
+                                        <Label text="NAME" GridPane.rowIndex="1" />
+                                        <Label text="GENDER" GridPane.rowIndex="2" />
+                                        <Label text="EMAIL" GridPane.rowIndex="3" />
+                                        <Label text="PHONE NUMBER" GridPane.rowIndex="4" />
+                                        <TextField fx:id="biodataNipField" editable="false" GridPane.columnIndex="1" />
+                                        <TextField fx:id="biodataNameField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="biodataEmailField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField fx:id="biodataPhoneField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <ComboBox fx:id="biodataGenderCombo" disable="true" prefWidth="264.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    </children>
+                                </GridPane>
+                                <Label layoutX="14.0" layoutY="14.0" text="MY BIODATA">
+                                    <font>
+                                        <Font name="Bookman Old Style Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="460.0" layoutY="14.0" text="EDIT BIODATA">
+                                    <font>
+                                        <Font name="Bookman Old Style Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <GridPane layoutX="460.0" layoutY="39.0" prefHeight="172.0" prefWidth="366.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="133.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="277.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="NIP" />
+                                        <Label text="NAME" GridPane.rowIndex="1" />
+                                        <Label text="GENDER" GridPane.rowIndex="2" />
+                                        <Label text="EMAIL" GridPane.rowIndex="3" />
+                                        <Label text="PHONE NUMBER" GridPane.rowIndex="4" />
+                                        <TextField fx:id="editBiodataNipField" editable="false" GridPane.columnIndex="1" />
+                                        <TextField fx:id="editBiodataNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="editBiodataEmailField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField fx:id="editBiodataPhoneField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <ComboBox fx:id="editBiodataGenderCombo" prefWidth="264.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Button fx:id="updateBiodataButton" mnemonicParsing="false" onAction="#handleUpdateBiodataButtonAction" text="Update Data" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    </children>
+                                </GridPane>
+                                <Label layoutX="14.0" layoutY="251.0" text="EDIT PASSWORD">
+                                    <font>
+                                        <Font name="Bookman Old Style Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <GridPane layoutX="14.0" layoutY="278.0" prefHeight="141.0" prefWidth="366.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="133.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="277.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="USERNAME" />
+                                        <Label text="PASSWORD" GridPane.rowIndex="1" />
+                                        <Label text="NEW PASSWORD" GridPane.rowIndex="2" />
+                                        <TextField fx:id="editPasswordUsernameField" editable="false" promptText="NIP" GridPane.columnIndex="1" />
+                                        <TextField fx:id="editPasswordOldPassField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="editPasswordNewPassField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Button fx:id="changePasswordButton" mnemonicParsing="false" onAction="#handleChangePasswordButtonAction" text="Change Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Class Schedule">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label layoutX="384.0" layoutY="14.0" text="MY CLASS SCHEDULE">
+                                    <font>
+                                        <Font name="System Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <TableView fx:id="scheduleTable" layoutX="26.0" layoutY="52.0" prefHeight="434.0" prefWidth="867.0">
+                                    <columns>
+                                        <TableColumn fx:id="scheduleDayCol" prefWidth="166.0" text="DAY" />
+                                        <TableColumn fx:id="scheduleStartCol" prefWidth="163.0" text="START" />
+                                        <TableColumn fx:id="scheduleEndCol" prefWidth="149.0" text="END" />
+                                        <TableColumn fx:id="scheduleSubjectCol" prefWidth="257.0" text="SUBJECT" />
+                                        <TableColumn fx:id="scheduleClassCol" prefWidth="126.0" text="CLASS" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Input Exam Score">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label layoutX="388.0" layoutY="14.0" text="INPUT EXAM SCORE">
+                                    <font>
+                                        <Font name="System Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <GridPane layoutX="14.0" layoutY="60.0" prefHeight="237.0" prefWidth="337.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="141.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="244.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="SELECT CLASS" />
+                                        <Label text="SELECT SUBJECT" GridPane.rowIndex="1" />
+                                        <Label text="SELECT STUDENT" GridPane.rowIndex="3" />
+                                        <Label text="EXAM TYPE" GridPane.rowIndex="2" />
+                                        <Label text="INPUT SCORE" GridPane.rowIndex="4" />
+                                        <Label text="SCHOOL YEAR" GridPane.rowIndex="5" />
+                                        <ComboBox fx:id="inputScoreClassCombo" prefWidth="253.0" GridPane.columnIndex="1" />
+                                        <ComboBox fx:id="inputScoreSubjectCombo" prefWidth="237.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <ComboBox fx:id="inputScoreExamTypeCombo" prefWidth="258.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <ComboBox fx:id="inputScoreStudentCombo" prefWidth="229.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <ComboBox fx:id="inputScoreSchoolYearCombo" prefWidth="261.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <TextField fx:id="inputScoreField" promptText="0-100" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <Button fx:id="inputScoreSubmitButton" mnemonicParsing="false" onAction="#handleSubmitScoreButtonAction" text="Submit Data" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    </children>
+                                </GridPane>
+                                <TableView fx:id="existingScoreTable" layoutX="388.0" layoutY="80.0" prefHeight="406.0" prefWidth="523.0">
+                                    <columns>
+                                        <TableColumn fx:id="existingScoreStudentCol" prefWidth="174.0" text="STUDENT NAME" />
+                                        <TableColumn fx:id="existingScoreExamTypeCol" prefWidth="212.0" text="EXAM TYPE" />
+                                        <TableColumn fx:id="existingScoreCol" prefWidth="121.0" text="SCORE" />
+                                    </columns>
+                                </TableView>
+                                <Label layoutX="388.0" layoutY="60.0" style="-fx-font-weight: bold;" text="Existing Exam Score (for selected student/subject/school year):" />
+                                <Label layoutX="14.0" layoutY="337.0" text="EDIT DATA">
+                                    <font>
+                                        <Font name="Bookman Old Style Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="14.0" layoutY="355.0" prefHeight="17.0" prefWidth="316.0" style="-fx-font-weight: bold;" text="select class, subject, exam type, student, &amp; school year">
+                                    <font>
+                                        <Font name="System Bold Italic" size="12.0" />
+                                    </font>
+                                </Label>
+                                <GridPane layoutX="14.0" layoutY="380.0" prefHeight="53.0" prefWidth="337.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="141.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="244.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="CHANGE SCORE" />
+                                        <TextField fx:id="editScoreField" promptText="0-100" GridPane.columnIndex="1" />
+                                        <Button fx:id="updateScoreButton" mnemonicParsing="false" onAction="#handleUpdateScoreButtonAction" text="Update Data" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Manage Assignments">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <GridPane layoutX="14.0" layoutY="14.0" prefHeight="322.0" prefWidth="322.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="111.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="211.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="96.66666666666666" minHeight="10.0" prefHeight="96.66666666666666" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="49.333333333333314" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Select Class" />
+                                        <Label text="Select Subject" GridPane.rowIndex="1" />
+                                        <Label text="School Year" GridPane.rowIndex="2" />
+                                        <Label text="Title" GridPane.rowIndex="3" />
+                                        <Label text="Description" GridPane.rowIndex="4" />
+                                        <Label text="Deadline" GridPane.rowIndex="5" />
+                                        <ComboBox fx:id="assignmentClassCombo" prefWidth="256.0" GridPane.columnIndex="1" />
+                                        <ComboBox fx:id="assignmentSubjectCombo" prefWidth="226.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <ComboBox fx:id="assignmentSchoolYearCombo" prefWidth="279.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <TextField fx:id="assignmentTitleField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextArea fx:id="assignmentDescriptionArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <DatePicker fx:id="assignmentDeadlinePicker" prefWidth="217.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <Button fx:id="addAssignmentButton" mnemonicParsing="false" onAction="#handleAddAssignmentButtonAction" text="Add Assignment" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    </children>
+                                </GridPane>
+                                <TableView fx:id="assignmentTable" layoutX="404.0" layoutY="14.0" prefHeight="479.0" prefWidth="501.0">
+                                    <columns>
+                                        <TableColumn fx:id="assignmentTitleCol" prefWidth="89.0" text="TITLE" />
+                                        <TableColumn fx:id="assignmentDescCol" prefWidth="146.0" text="DESCRIPTION" />
+                                        <TableColumn fx:id="assignmentDeadlineCol" prefWidth="97.0" text="DEADLINE" />
+                                        <TableColumn fx:id="assignmentSubjectCol" prefWidth="108.0" text="SUBJECT" />
+                                        <TableColumn fx:id="assignmentClassCol" prefWidth="56.0" text="CLASS" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="homeroomTab" text="Homeroom Teacher">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label layoutX="342.0" layoutY="14.0" text="YOU'RE A HOMEROOM TEACHER">
+                                    <font>
+                                        <Font name="System Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <GridPane layoutX="14.0" layoutY="48.0" prefHeight="63.0" prefWidth="348.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="112.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="236.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Select School Year" />
+                                        <Label text="CLASS" GridPane.rowIndex="1" />
+                                        <ComboBox fx:id="homeroomSchoolYearCombo" prefWidth="270.0" GridPane.columnIndex="1" />
+                                        <TextField fx:id="homeroomClassField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    </children>
+                                </GridPane>
+                                <TableView fx:id="homeroomStudentsTable" layoutX="14.0" layoutY="140.0" prefHeight="209.0" prefWidth="349.0">
+                                    <columns>
+                                        <TableColumn fx:id="homeroomNisCol" prefWidth="79.0" text="NIS" />
+                                        <TableColumn fx:id="homeroomStudentNameCol" prefWidth="166.0" text="STUDENT NAME" />
+                                        <TableColumn fx:id="homeroomGenderCol" prefWidth="94.0" text="GENDER" />
+                                    </columns>
+                                </TableView>
+                                <Label layoutX="14.0" layoutY="119.0" text="STUDENTS">
+                                    <font>
+                                        <Font name="Bookman Old Style Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="442.0" layoutY="48.0" text="ABSENSI">
+                                    <font>
+                                        <Font name="Bookman Old Style Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="442.0" layoutY="63.0" prefHeight="17.0" prefWidth="316.0" style="-fx-font-weight: bold;" text="select school year">
+                                    <font>
+                                        <Font name="System Bold Italic" size="12.0" />
+                                    </font>
+                                </Label>
+                                <GridPane layoutX="442.0" layoutY="82.0" prefHeight="111.0" prefWidth="460.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="116.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="343.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Select Student" />
+                                        <Label text="Date" GridPane.rowIndex="1" />
+                                        <Label text="Status" GridPane.rowIndex="2" />
+                                        <ComboBox fx:id="homeroomAttendanceStudentCombo" prefWidth="400.0" GridPane.columnIndex="1" />
+                                        <ComboBox fx:id="homeroomAttendanceStatusCombo" prefWidth="403.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <DatePicker fx:id="homeroomAttendanceDatePicker" prefWidth="398.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Button fx:id="recordAttendanceButton" mnemonicParsing="false" onAction="#handleRecordAttendanceButtonAction" text="Record Attendance" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    </children>
+                                </GridPane>
+                                <TableView fx:id="homeroomAttendanceTable" layoutX="442.0" layoutY="200.0" prefHeight="290.0" prefWidth="467.0">
+                                    <columns>
+                                        <TableColumn fx:id="homeroomAttendanceDateCol" prefWidth="97.0" text="DATE" />
+                                        <TableColumn fx:id="homeroomAttendanceStudentCol" prefWidth="179.0" text="STUDENT NAME" />
+                                        <TableColumn fx:id="homeroomAttendanceStatusCol" prefWidth="105.0" text="STATUS" />
+                                        <TableColumn fx:id="homeroomAttendanceClassCol" prefWidth="74.0" text="CLASS" />
+                                    </columns>
+                                </TableView>
+                                <Label layoutX="14.0" layoutY="370.0" text="RAPOR">
+                                    <font>
+                                        <Font name="Bookman Old Style Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="14.0" layoutY="388.0" prefHeight="17.0" prefWidth="316.0" style="-fx-font-weight: bold;" text="select school year">
+                                    <font>
+                                        <Font name="System Bold Italic" size="12.0" />
+                                    </font>
+                                </Label>
+                                <GridPane layoutX="15.0" layoutY="409.0" prefHeight="63.0" prefWidth="348.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="112.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="236.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Select Student" />
+                                        <ComboBox fx:id="homeroomRaporStudentCombo" prefWidth="270.0" GridPane.columnIndex="1" />
+                                        <Button fx:id="homeroomPrintRaporButton" mnemonicParsing="false" onAction="#handlePrintRaporButtonAction" text="Print" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="School Agenda">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label layoutX="396.0" layoutY="14.0" text="SCHOOL AGENDA">
+                                    <font>
+                                        <Font name="System Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <GridPane layoutX="14.0" layoutY="47.0" prefHeight="52.0" prefWidth="351.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="86.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="262.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="SCHOOL YEAR" />
+                                        <ComboBox fx:id="agendaSchoolYearCombo" prefWidth="319.0" GridPane.columnIndex="1" />
+                                    </children>
+                                </GridPane>
+                                <TableView fx:id="agendaTable" layoutX="16.0" layoutY="88.0" prefHeight="408.0" prefWidth="888.0">
+                                    <columns>
+                                        <TableColumn fx:id="agendaContentCol" prefWidth="575.0" text="CONTENT" />
+                                        <TableColumn fx:id="agendaStartCol" prefWidth="153.0" text="START" />
+                                        <TableColumn fx:id="agendaEndCol" prefWidth="138.0" text="END" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="extracurricularTab" text="Extracurricular Mentor">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label layoutX="389.0" layoutY="14.0" text="YOU'RE A MENTOR!">
+                                    <font>
+                                        <Font name="System Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                                <TableView fx:id="mentorExtracurricularTable" layoutX="14.0" layoutY="51.0" prefHeight="200.0" prefWidth="221.0">
+                                    <columns>
+                                        <TableColumn fx:id="mentorExtraNameCol" prefWidth="134.0" text="EXTRACURRICULAR" />
+                                        <TableColumn fx:id="mentorExtraLevelCol" prefWidth="85.0" text="LEVEL" />
+                                    </columns>
+                                </TableView>
+                                <GridPane layoutX="302.0" layoutY="51.0" prefHeight="97.0" prefWidth="337.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="141.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="244.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="EXTRACURRICULAR" />
+                                        <Label text="SCHOOL YEAR" GridPane.rowIndex="2" />
+                                        <ComboBox fx:id="mentorExtraSelectCombo" prefWidth="253.0" GridPane.columnIndex="1" />
+                                        <ComboBox fx:id="mentorSchoolYearCombo" prefWidth="261.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label fx:id="mentorLevelLabel" text="LEVEL" GridPane.rowIndex="1" />
+                                        <ComboBox fx:id="mentorLevelSelectCombo" prefWidth="253.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    </children>
+                                </GridPane>
+                                <TableView fx:id="mentorStudentTable" layoutX="302.0" layoutY="139.0" prefHeight="347.0" prefWidth="607.0">
+                                    <columns>
+                                        <TableColumn fx:id="mentorStudentNisCol" prefWidth="98.0" text="NIS" />
+                                        <TableColumn fx:id="mentorStudentNameCol" prefWidth="220.0" text="STUDENT NAME" />
+                                        <TableColumn fx:id="mentorStudentGenderCol" prefWidth="169.0" text="GENDER" />
+                                        <TableColumn fx:id="mentorStudentClassCol" prefWidth="117.0" text="CLASS" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <Button fx:id="logout" layoutX="879.0" layoutY="10.0" mnemonicParsing="false" onAction="#actionLogout" text="Logout" />
+    </children>
+</AnchorPane>
