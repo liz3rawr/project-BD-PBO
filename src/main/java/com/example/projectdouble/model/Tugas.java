@@ -8,15 +8,13 @@ public class Tugas {
     private String judul;
     private String deskripsi;
     private LocalDate tanggalDeadline;
-    private Integer idMapel; // Foreign Key ke MataPelajaran
-    private String namaMapel; // Untuk tampilan
-    private Integer idKelas; // Foreign Key ke Kelas
-    private String namaKelas; // Untuk tampilan
-    private String nipGuru; // Foreign Key ke Guru
-    private String namaGuru; // Untuk tampilan
+    private Integer idMapel;
+    private String namaMapel;
+    private Integer idKelas;
+    private String namaKelas;
+    private String nipGuru;
+    private String namaGuru;
 
-    // Konstruktor untuk mengambil dari database (dengan semua detail join yang ada di DDL terbaru)
-    // id_tahun_ajaran dan tahun_ajaran_lengkap tidak lagi di constructor ini
     public Tugas(int idTugas, String judul, String deskripsi, LocalDate tanggalDeadline,
                  Integer idMapel, String namaMapel,
                  Integer idKelas, String namaKelas,
@@ -33,8 +31,6 @@ public class Tugas {
         this.namaGuru = namaGuru;
     }
 
-    // Konstruktor untuk menambahkan tugas baru (ID di-generate DB)
-    // Parameter idTahunAjaran dihapus dari sini
     public Tugas(String judul, String deskripsi, LocalDate tanggalDeadline,
                  Integer idMapel, Integer idKelas, String nipGuru) {
         this.judul = judul;
@@ -45,8 +41,6 @@ public class Tugas {
         this.nipGuru = nipGuru;
     }
 
-    // Konstruktor untuk menambahkan tugas baru (dengan ID, tapi ID seringkali auto-generated)
-    // Parameter idTahunAjaran dihapus dari sini
     public Tugas(int idTugas, String judul, String deskripsi, LocalDate tanggalDeadline,
                  Integer idMapel, Integer idKelas, String nipGuru) {
         this.idTugas = idTugas;

@@ -9,17 +9,16 @@ public class JadwalKelas {
     private String hari;
     private LocalTime jamMulai;
     private LocalTime jamSelesai;
-    private int idKelas; // Foreign Key ke Kelas
-    private String namaKelas; // Untuk tampilan
-    private int idMapel; // Foreign Key ke MataPelajaran
-    private String namaMapel; // Untuk tampilan
-    private String nipGuru; // Foreign Key ke Guru
-    private String namaGuru; // Untuk tampilan
-    private int idTahunAjaran; // Foreign Key ke TahunAjaran
-    private String tahunAjaranLengkap; // Untuk tampilan
-    private String kelasDanTahunAjaran; // Untuk kombinasi nama kelas dan tahun ajaran
+    private int idKelas;
+    private String namaKelas;
+    private int idMapel;
+    private String namaMapel;
+    private String nipGuru;
+    private String namaGuru;
+    private int idTahunAjaran;
+    private String tahunAjaranLengkap;
+    private String kelasDanTahunAjaran;
 
-    // Konstruktor untuk menambahkan jadwal baru
     public JadwalKelas(String hari, LocalTime jamMulai, LocalTime jamSelesai, int idKelas, int idMapel, String nipGuru, int idTahunAjaran) {
         this.hari = hari;
         this.jamMulai = jamMulai;
@@ -30,7 +29,6 @@ public class JadwalKelas {
         this.idTahunAjaran = idTahunAjaran;
     }
 
-    // Konstruktor untuk mengambil data jadwal dari database (dengan detail join)
     public JadwalKelas(int idJadwalKelas, String hari, LocalTime jamMulai, LocalTime jamSelesai,
                        int idKelas, String namaKelas, int idMapel, String namaMapel,
                        String nipGuru, String namaGuru, int idTahunAjaran, String tahunAjaranLengkap) {

@@ -10,10 +10,9 @@ public class AgendaSekolah {
     private String deskripsi;
     private LocalDate tanggalMulai;
     private LocalDate tanggalSelesai;
-    private Integer idTahunAjaran; // Foreign Key ke TahunAjaran (ON DELETE SET NULL)
-    private String tahunAjaranLengkap; // Untuk tampilan
+    private Integer idTahunAjaran;
+    private String tahunAjaranLengkap;
 
-    // Konstruktor untuk menambahkan agenda baru
     public AgendaSekolah(String judul, String deskripsi, LocalDate tanggalMulai, LocalDate tanggalSelesai, Integer idTahunAjaran) {
         this.judul = judul;
         this.deskripsi = deskripsi;
@@ -22,7 +21,6 @@ public class AgendaSekolah {
         this.idTahunAjaran = idTahunAjaran;
     }
 
-    // Konstruktor untuk mengambil agenda dari database
     public AgendaSekolah(int idAgendaSekolah, String judul, String deskripsi, LocalDate tanggalMulai, LocalDate tanggalSelesai, Integer idTahunAjaran, String tahunAjaranLengkap) {
         this.idAgendaSekolah = idAgendaSekolah;
         this.judul = judul;
@@ -93,7 +91,6 @@ public class AgendaSekolah {
 
     @Override
     public String toString() {
-        // Format tampilan agenda, misalnya "Judul: [Tanggal Mulai] - [Tanggal Selesai]"
         return judul + " (" + tanggalMulai.format(DateTimeFormatter.ofPattern("dd MMM")) + " - " + tanggalSelesai.format(DateTimeFormatter.ofPattern("dd MMM")) + ")";
     }
 

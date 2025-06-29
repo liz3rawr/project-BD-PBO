@@ -155,20 +155,13 @@ public class EkstrakurikulerDAO {
         }
     }
 
-    /**
-     * Menghapus ekstrakurikuler dari database berdasarkan ID.
-     * @param idEkstrakurikuler ID ekstrakurikuler yang akan dihapus.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean deleteEkstrakurikuler(int idEkstrakurikuler) {
-        // Menggunakan nama tabel lowercase 'ekstrakurikuler'
-        // Hapus juga entri terkait di tabel 'pembina' dan 'peserta_ekskul'
         String sqlDeletePembina = "DELETE FROM pembina WHERE id_ekstrakurikuler = ?";
         String sqlDeletePeserta = "DELETE FROM peserta_ekskul WHERE id_ekstrakurikuler = ?";
         String sqlDeleteEkskul = "DELETE FROM ekstrakurikuler WHERE id_ekstrakurikuler = ?";
 
         try (Connection conn = DBConnect.getConnection()) {
-            conn.setAutoCommit(false); // Mulai transaksi
+            conn.setAutoCommit(false);
 
             try (PreparedStatement stmtPembina = conn.prepareStatement(sqlDeletePembina)) {
                 stmtPembina.setInt(1, idEkstrakurikuler);
@@ -183,14 +176,14 @@ public class EkstrakurikulerDAO {
             try (PreparedStatement stmtEkskul = conn.prepareStatement(sqlDeleteEkskul)) {
                 stmtEkskul.setInt(1, idEkstrakurikuler);
                 int rowsAffected = stmtEkskul.executeUpdate();
-                conn.commit(); // Commit transaksi
+                conn.commit();
                 return rowsAffected > 0;
             }
         } catch (SQLException e) {
             System.err.println("Error saat menghapus ekstrakurikuler: " + e.getMessage());
             e.printStackTrace();
-            try (Connection conn = DBConnect.getConnection()) { // Ambil koneksi baru untuk rollback
-                conn.rollback(); // Rollback transaksi jika terjadi error
+            try (Connection conn = DBConnect.getConnection()) {
+                conn.rollback();
             } catch (SQLException rollbackEx) {
                 System.err.println("Error saat rollback transaksi: " + rollbackEx.getMessage());
             }
@@ -200,15 +193,6 @@ public class EkstrakurikulerDAO {
 
     }
 
-    // Di dalam class PesertaEkskulDAO { ... }
-
-    /**
-     * Mengambil daftar siswa yang terdaftar dalam ekstrakurikuler tertentu dan tahun ajaran tertentu.
-     * Mengembalikan objek Siswa dengan informasi user (jika ada).
-     * @param idEkstrakurikuler ID ekstrakurikuler.
-     * @param idTahunAjaran ID Tahun Ajaran.
-     * @return List objek Siswa.
-     */
     public List<Siswa> getStudentsByExtracurricularAndTahunAjaran(int idEkstrakurikuler, int idTahunAjaran) {
         List<Siswa> studentList = new ArrayList<>();
         String sql = "SELECT s.nis, s.nama, s.jenis_kelamin, s.tempat_lahir, s.tanggal_lahir, s.alamat, " +
@@ -219,7 +203,7 @@ public class EkstrakurikulerDAO {
                 "LEFT JOIN users u ON s.id_user = u.id_user " +
                 "LEFT JOIN kelas k ON s.id_kelas = k.id_kelas " +
                 "LEFT JOIN tahun_ajaran ta ON s.id_tahun_ajaran = ta.id_tahun_ajaran " +
-                "WHERE pe.id_ekstrakurikuler = ? AND s.id_tahun_ajaran = ? " + // Filter berdasarkan tahun ajaran siswa
+                "WHERE pe.id_ekstrakurikuler = ? AND s.id_tahun_ajaran = ? " +
                 "ORDER BY s.nama";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

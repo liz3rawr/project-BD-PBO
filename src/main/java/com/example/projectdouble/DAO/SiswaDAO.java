@@ -9,15 +9,9 @@ import java.util.List;
 
 public class SiswaDAO {
 
-    private UserDAO userDao = new UserDAO(); // Digunakan untuk operasi terkait user
+    private UserDAO userDao = new UserDAO();
 
-    /**
-     * Menambahkan data siswa baru ke database.
-     * @param siswa Objek Siswa yang akan ditambahkan.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean addSiswa(Siswa siswa) {
-        // Menggunakan nama tabel lowercase 'siswa'
         String sql = "INSERT INTO siswa (nis, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -25,7 +19,7 @@ public class SiswaDAO {
             stmt.setString(2, siswa.getNama());
             stmt.setString(3, siswa.getJenisKelamin());
             stmt.setString(4, siswa.getTempatLahir());
-            stmt.setDate(5, Date.valueOf(siswa.getTanggalLahir())); // Konversi LocalDate ke java.sql.Date
+            stmt.setDate(5, Date.valueOf(siswa.getTanggalLahir()));
             stmt.setString(6, siswa.getAlamat());
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
@@ -36,13 +30,7 @@ public class SiswaDAO {
         }
     }
 
-    /**
-     * Memperbarui data siswa di database.
-     * @param siswa Objek Siswa dengan data terbaru.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean updateSiswa(Siswa siswa) {
-        // Menggunakan nama tabel lowercase 'siswa'
         String sql = "UPDATE siswa SET nama = ?, jenis_kelamin = ?, tempat_lahir = ?, tanggal_lahir = ?, alamat = ? WHERE nis = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -61,18 +49,10 @@ public class SiswaDAO {
         }
     }
 
-    /**
-     * Mengaitkan user ID ke siswa.
-     * Digunakan setelah user baru dibuat.
-     * @param siswa Objek Siswa yang akan diperbarui idUser-nya.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean updateSiswaUser(Siswa siswa) {
-        // Menggunakan nama tabel lowercase 'siswa'
         String sql = "UPDATE siswa SET id_user = ? WHERE nis = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            // Gunakan setInt jika idUser tidak null, atau setNull jika null
             if (siswa.getIdUser() != null) {
                 stmt.setInt(1, siswa.getIdUser());
             } else {
@@ -88,15 +68,6 @@ public class SiswaDAO {
         }
     }
 
-    /**
-     * Menghapus semua informasi kelas dari siswa (set id_kelas, id_tahun_ajaran, semester ke NULL).
-     * Ini mengasumsikan kolom-kolom ini ada di tabel siswa.
-     * JIKA DDL Anda tidak memiliki kolom id_kelas, id_tahun_ajaran, semester di tabel siswa,
-     * MAKA FUNGSI INI PERLU DIMODIFIKASI UNTUK MENGHAPUS DARI TABEL `kelas_siswa` ATAU TABEL PENGHUBUNG LAINNYA.
-     * Contoh implementasi untuk tabel `kelas_siswa` akan diberikan di bawah (jika Anda memiliki tabel ini).
-     * @param nis NIS siswa yang akan direset informasi kelasnya.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean removeClassInfoFromStudent(String nis) {
         String sql = "UPDATE siswa SET id_kelas = NULL, id_tahun_ajaran = NULL WHERE nis = ?";
         try (Connection conn = DBConnect.getConnection();
@@ -111,12 +82,6 @@ public class SiswaDAO {
         }
     }
 
-
-    /**
-     * Mengambil data siswa berdasarkan NIS.
-     * @param nis NIS siswa yang dicari.
-     * @return Objek Siswa jika ditemukan, null jika tidak.
-     */
     public Siswa getSiswaByNis(String nis) {
         String sql = "SELECT s.nis, s.nama, s.jenis_kelamin, s.tempat_lahir, s.tanggal_lahir, s.alamat, " +
                 "u.id_user, u.username AS username_user, u.password AS password_user, " +
@@ -154,10 +119,6 @@ public class SiswaDAO {
         return null;
     }
 
-    /**
-     * Mengambil semua data siswa dari database.
-     * @return List objek Siswa.
-     */
     public List<Siswa> getAllSiswa() {
         List<Siswa> siswaList = new ArrayList<>();
         String sql = "SELECT s.nis, s.nama, s.jenis_kelamin, s.tempat_lahir, s.tanggal_lahir, s.alamat, " +
@@ -195,11 +156,6 @@ public class SiswaDAO {
         return siswaList;
     }
 
-    /**
-     * Mencari siswa berdasarkan keyword di nama atau NIS.
-     * @param keyword Kata kunci pencarian.
-     * @return List objek Siswa yang cocok.
-     */
     public List<Siswa> searchSiswa(String keyword) {
         List<Siswa> siswaList = new ArrayList<>();
         String sql = "SELECT s.nis, s.nama, s.jenis_kelamin, s.tempat_lahir, s.tanggal_lahir, s.alamat, " +
@@ -239,12 +195,6 @@ public class SiswaDAO {
         return siswaList;
     }
 
-    /**
-     * Menghapus data siswa dari database.
-     * Ini juga akan menghapus user terkait jika ada.
-     * @param nis NIS siswa yang akan dihapus.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean deleteSiswa(String nis) {
         Siswa siswaToDelete = getSiswaByNis(nis);
         if (siswaToDelete == null) {
@@ -252,7 +202,6 @@ public class SiswaDAO {
             return false;
         }
 
-        // Hapus entri dari peserta_ekskul terkait
         String sqlDeletePesertaEkskul = "DELETE FROM peserta_ekskul WHERE nis = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmtPesertaEkskul = conn.prepareStatement(sqlDeletePesertaEkskul)) {
@@ -263,7 +212,6 @@ public class SiswaDAO {
             e.printStackTrace();
         }
 
-        // Hapus siswa dari tabel siswa
         String sqlSiswa = "DELETE FROM siswa WHERE nis = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmtSiswa = conn.prepareStatement(sqlSiswa)) {
@@ -284,13 +232,6 @@ public class SiswaDAO {
         }
     }
 
-    /**
-     * Menetapkan siswa ke kelas. Ini akan menambahkan entri ke tabel `kelas_siswa`.
-     * @param nis NIS siswa.
-     * @param idKelas ID kelas.
-     * @param idTahunAjaran ID tahun ajaran.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean assignStudentToClass(String nis, Integer idKelas, Integer idTahunAjaran) {
         String sql = "UPDATE siswa SET id_kelas = ?, id_tahun_ajaran = ? WHERE nis = ?";
         try (Connection conn = DBConnect.getConnection();
@@ -315,12 +256,6 @@ public class SiswaDAO {
         }
     }
 
-    /**
-     * Mengambil daftar siswa dalam kelas tertentu untuk tahun ajaran dan semester tertentu.
-     * @param idKelas ID kelas.
-     * @param idTahunAjaran ID tahun ajaran.
-     * @return List objek Siswa dalam kelas tersebut.
-     */
     public List<Siswa> getStudentsInClass(int idKelas, int idTahunAjaran) {
         List<Siswa> siswaList = new ArrayList<>();
         String sql = "SELECT s.nis, s.nama, s.jenis_kelamin, s.tempat_lahir, s.tanggal_lahir, s.alamat, " +
@@ -360,12 +295,6 @@ public class SiswaDAO {
         return siswaList;
     }
 
-    /**
-     * Memperbarui informasi kelas dan tahun ajaran untuk seorang siswa.
-     * Jika idKelas atau idTahunAjaran adalah null, akan diatur ke NULL di database.
-     * @param siswa Objek Siswa dengan NIS yang sudah ada, dan idKelas, idTahunAjaran yang baru.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean updateSiswaKelasTahunAjaran(Siswa siswa) {
         String sql = "UPDATE siswa SET id_kelas = ?, id_tahun_ajaran = ? WHERE nis = ?";
         try (Connection conn = DBConnect.getConnection();
@@ -394,14 +323,6 @@ public class SiswaDAO {
         }
     }
 
-    // Di dalam class SiswaDAO { ... }
-
-    /**
-     * Mengambil daftar siswa dalam kelas tertentu untuk tahun ajaran tertentu.
-     * @param idKelas ID kelas.
-     * @param idTahunAjaran ID tahun ajaran.
-     * @return List objek Siswa dalam kelas tersebut.
-     */
     public List<Siswa> getStudentsInClassByTahunAjaran(int idKelas, int idTahunAjaran) {
         List<Siswa> siswaList = new ArrayList<>();
         String sql = "SELECT s.nis, s.nama, s.jenis_kelamin, s.tempat_lahir, s.tanggal_lahir, s.alamat, " +
@@ -412,7 +333,7 @@ public class SiswaDAO {
                 "LEFT JOIN kelas k ON s.id_kelas = k.id_kelas " +
                 "LEFT JOIN tahun_ajaran ta ON s.id_tahun_ajaran = ta.id_tahun_ajaran " +
                 "WHERE s.id_kelas = ? AND s.id_tahun_ajaran = ? " +
-                "ORDER BY s.nama"; // Tambahkan ORDER BY
+                "ORDER BY s.nama";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, idKelas);
@@ -442,11 +363,6 @@ public class SiswaDAO {
         return siswaList;
     }
 
-    /**
-     * Mendapatkan NIS siswa terakhir dari database.
-     *
-     * @return NIS terakhir, atau null jika tidak ada siswa.
-     */
     public String getLastNis() {
         String sql = "SELECT nis FROM siswa ORDER BY nis DESC LIMIT 1";
         try (Connection conn = DBConnect.getConnection();

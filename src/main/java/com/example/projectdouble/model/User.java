@@ -5,24 +5,21 @@ import java.util.Objects;
 public class User {
     private int idUser;
     private String username;
-    private String password; // Perhatian: untuk produksi, simpan hash password, bukan plainteks
-    private Role role; // Objek Role untuk menyimpan id_role dan nama_role
-    private String displayName; // Misalnya nama guru/siswa
+    private String password;
+    private Role role;
+    private String displayName; //nama guru/siswa
 
     public User(int idUser, String username, String password, Role role) {
         this.idUser = idUser;
         this.username = username;
         this.password = password;
         this.role = role;
-        this.displayName = username; // Default, bisa diubah nanti
+        this.displayName = username;
     }
 
-    // Konstruktor tanpa idUser (untuk saat membuat user baru sebelum id dihasilkan database)
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-//        this.role = null; // Role akan diset setelah user dibuat/ditemukan
-//        this.displayName = username;
     }
 
     // Getters

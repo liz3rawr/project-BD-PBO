@@ -6,12 +6,11 @@ public class Kelas {
     private int idKelas;
     private String namaKelas;
     private String tingkat;
-    private String nipWaliKelas; // Foreign Key ke Guru
-    private String namaWaliKelas; // Untuk tampilan
-    private int idTahunAjaran; // Foreign Key ke TahunAjaran
-    private String tahunAjaranLengkap; // Untuk tampilan
+    private String nipWaliKelas;
+    private String namaWaliKelas;
+    private int idTahunAjaran;
+    private String tahunAjaranLengkap;
 
-    // Konstruktor untuk menambahkan kelas baru
     public Kelas(String namaKelas, String tingkat, String nipWaliKelas, int idTahunAjaran) {
         this.namaKelas = namaKelas;
         this.tingkat = tingkat;
@@ -19,7 +18,6 @@ public class Kelas {
         this.idTahunAjaran = idTahunAjaran;
     }
 
-    // Konstruktor untuk mengambil data kelas dari database
     public Kelas(int idKelas, String namaKelas, String tingkat, String nipWaliKelas, String namaWaliKelas, int idTahunAjaran, String tahunAjaranLengkap) {
         this.idKelas = idKelas;
         this.namaKelas = namaKelas;

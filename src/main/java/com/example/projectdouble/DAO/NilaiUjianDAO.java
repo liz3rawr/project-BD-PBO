@@ -9,13 +9,6 @@ import java.util.List;
 
 public class NilaiUjianDAO {
 
-    /**
-     * Menambahkan nilai ujian baru ke database.
-     * Sekarang menyimpan id_tahun_ajaran secara langsung.
-     *
-     * @param nilaiUjian Objek NilaiUjian yang akan ditambahkan.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean addNilaiUjian(NilaiUjian nilaiUjian) {
         String sql = "INSERT INTO nilai_ujian (jenis_ujian, nilai, id_mapel, nis, id_tahun_ajaran) VALUES (?, ?, ?, ?, ?) RETURNING id_nilai_ujian";
         try (Connection conn = DBConnect.getConnection();
@@ -24,7 +17,7 @@ public class NilaiUjianDAO {
             stmt.setBigDecimal(2, nilaiUjian.getNilai());
             stmt.setInt(3, nilaiUjian.getIdMapel());
             stmt.setString(4, nilaiUjian.getNis());
-            stmt.setInt(5, nilaiUjian.getIdTahunAjaran()); // Menggunakan id_tahun_ajaran
+            stmt.setInt(5, nilaiUjian.getIdTahunAjaran());
 
             int rowsAffected = stmt.executeUpdate();
 
@@ -44,13 +37,6 @@ public class NilaiUjianDAO {
         }
     }
 
-    /**
-     * Memperbarui nilai ujian yang sudah ada di database.
-     * Sekarang memperbarui id_tahun_ajaran secara langsung.
-     *
-     * @param nilaiUjian Objek NilaiUjian dengan informasi yang diperbarui.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean updateNilaiUjian(NilaiUjian nilaiUjian) {
         String sql = "UPDATE nilai_ujian SET jenis_ujian = ?, nilai = ?, id_mapel = ?, nis = ?, id_tahun_ajaran = ? WHERE id_nilai_ujian = ?";
         try (Connection conn = DBConnect.getConnection();
@@ -59,7 +45,7 @@ public class NilaiUjianDAO {
             stmt.setBigDecimal(2, nilaiUjian.getNilai());
             stmt.setInt(3, nilaiUjian.getIdMapel());
             stmt.setString(4, nilaiUjian.getNis());
-            stmt.setInt(5, nilaiUjian.getIdTahunAjaran()); // Memperbarui id_tahun_ajaran
+            stmt.setInt(5, nilaiUjian.getIdTahunAjaran());
             stmt.setInt(6, nilaiUjian.getIdNilaiUjian());
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
@@ -70,12 +56,6 @@ public class NilaiUjianDAO {
         }
     }
 
-    /**
-     * Menghapus nilai ujian dari database berdasarkan ID.
-     *
-     * @param idNilaiUjian ID nilai ujian yang akan dihapus.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean deleteNilaiUjian(int idNilaiUjian) {
         String sql = "DELETE FROM nilai_ujian WHERE id_nilai_ujian = ?";
         try (Connection conn = DBConnect.getConnection();
@@ -90,13 +70,6 @@ public class NilaiUjianDAO {
         }
     }
 
-    /**
-     * Mengambil nilai ujian dari database berdasarkan ID.
-     * Mengambil tahun_ajaran_lengkap dari tabel tahun_ajaran.
-     *
-     * @param idNilaiUjian ID nilai ujian yang akan diambil.
-     * @return Objek NilaiUjian jika ditemukan, null jika tidak.
-     */
     public NilaiUjian getNilaiUjianById(int idNilaiUjian) {
         String sql = "SELECT nu.id_nilai_ujian, nu.jenis_ujian, nu.nilai, " +
                 "nu.id_mapel, mp.nama_mapel, nu.nis, s.nama AS nama_siswa, " +
@@ -104,14 +77,13 @@ public class NilaiUjianDAO {
                 "FROM nilai_ujian nu " +
                 "JOIN mata_pelajaran mp ON nu.id_mapel = mp.id_mapel " +
                 "JOIN siswa s ON nu.nis = s.nis " +
-                "JOIN tahun_ajaran ta ON nu.id_tahun_ajaran = ta.id_tahun_ajaran " + // Join langsung ke tahun_ajaran
+                "JOIN tahun_ajaran ta ON nu.id_tahun_ajaran = ta.id_tahun_ajaran " +
                 "WHERE nu.id_nilai_ujian = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, idNilaiUjian);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                // Menggunakan static factory method dari model NilaiUjian
                 return NilaiUjian.fromResultSet(rs);
             }
         } catch (SQLException e) {
@@ -121,11 +93,6 @@ public class NilaiUjianDAO {
         return null;
     }
 
-    /**
-     * Mengambil semua data nilai ujian.
-     *
-     * @return List objek NilaiUjian.
-     */
     public List<NilaiUjian> getAllNilaiUjian() {
         List<NilaiUjian> nilaiList = new ArrayList<>();
         String sql = "SELECT nu.id_nilai_ujian, nu.jenis_ujian, nu.nilai, " +
@@ -134,13 +101,12 @@ public class NilaiUjianDAO {
                 "FROM nilai_ujian nu " +
                 "JOIN mata_pelajaran mp ON nu.id_mapel = mp.id_mapel " +
                 "JOIN siswa s ON nu.nis = s.nis " +
-                "JOIN tahun_ajaran ta ON nu.id_tahun_ajaran = ta.id_tahun_ajaran " + // Join langsung ke tahun_ajaran
+                "JOIN tahun_ajaran ta ON nu.id_tahun_ajaran = ta.id_tahun_ajaran " +
                 "ORDER BY s.nama, mp.nama_mapel, nu.jenis_ujian";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                // Menggunakan static factory method dari model NilaiUjian
                 nilaiList.add(NilaiUjian.fromResultSet(rs));
             }
         } catch (SQLException e) {
@@ -150,16 +116,6 @@ public class NilaiUjianDAO {
         return nilaiList;
     }
 
-    /**
-     * Mengambil nilai ujian yang difilter berdasarkan kriteria tertentu.
-     * Memfilter berdasarkan NIS, ID Mata Pelajaran, Jenis Ujian, dan ID Tahun Ajaran.
-     *
-     * @param nis          NIS Siswa (bisa null jika tidak ingin filter siswa).
-     * @param idMapel      ID Mata Pelajaran (bisa null jika tidak ingin filter mapel).
-     * @param jenisUjian   Jenis Ujian (bisa null jika tidak ingin filter jenis ujian).
-     * @param idTahunAjaran ID Tahun Ajaran (bisa null jika tidak ingin filter tahun ajaran).
-     * @return List objek NilaiUjian.
-     */
     public List<NilaiUjian> getNilaiUjianFiltered(String nis, Integer idMapel, String jenisUjian, Integer idTahunAjaran) {
         List<NilaiUjian> nilaiList = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
@@ -169,7 +125,7 @@ public class NilaiUjianDAO {
                         "FROM nilai_ujian nu " +
                         "JOIN mata_pelajaran mp ON nu.id_mapel = mp.id_mapel " +
                         "JOIN siswa s ON nu.nis = s.nis " +
-                        "JOIN tahun_ajaran ta ON nu.id_tahun_ajaran = ta.id_tahun_ajaran " + // Join langsung ke tahun_ajaran
+                        "JOIN tahun_ajaran ta ON nu.id_tahun_ajaran = ta.id_tahun_ajaran " +
                         "WHERE 1=1"
         );
         List<Object> params = new ArrayList<>();
@@ -186,7 +142,7 @@ public class NilaiUjianDAO {
             sql.append(" AND nu.jenis_ujian = ?");
             params.add(jenisUjian);
         }
-        if (idTahunAjaran != null && idTahunAjaran != 0) { // Filter berdasarkan id_tahun_ajaran
+        if (idTahunAjaran != null && idTahunAjaran != 0) {
             sql.append(" AND nu.id_tahun_ajaran = ?");
             params.add(idTahunAjaran);
         }
@@ -202,7 +158,6 @@ public class NilaiUjianDAO {
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                // Menggunakan static factory method dari model NilaiUjian
                 nilaiList.add(NilaiUjian.fromResultSet(rs));
             }
         } catch (SQLException e) {
@@ -212,13 +167,6 @@ public class NilaiUjianDAO {
         return nilaiList;
     }
 
-    /**
-     * Mengambil daftar nilai ujian untuk siswa tertentu pada tahun ajaran tertentu.
-     *
-     * @param nis           NIS Siswa.
-     * @param idTahunAjaran ID Tahun Ajaran.
-     * @return List objek NilaiUjian.
-     */
     public List<NilaiUjian> getNilaiUjianByNisAndTahunAjaran(String nis, int idTahunAjaran) {
         List<NilaiUjian> nilaiList = new ArrayList<>();
         String sql = "SELECT nu.id_nilai_ujian, nu.jenis_ujian, nu.nilai, " +
@@ -227,7 +175,7 @@ public class NilaiUjianDAO {
                 "FROM nilai_ujian nu " +
                 "JOIN mata_pelajaran mp ON nu.id_mapel = mp.id_mapel " +
                 "JOIN siswa s ON nu.nis = s.nis " +
-                "JOIN tahun_ajaran ta ON nu.id_tahun_ajaran = ta.id_tahun_ajaran " + // Join langsung ke tahun_ajaran
+                "JOIN tahun_ajaran ta ON nu.id_tahun_ajaran = ta.id_tahun_ajaran " +
                 "WHERE nu.nis = ? AND nu.id_tahun_ajaran = ? " +
                 "ORDER BY mp.nama_mapel, nu.jenis_ujian";
         try (Connection conn = DBConnect.getConnection();
@@ -236,7 +184,6 @@ public class NilaiUjianDAO {
             stmt.setInt(2, idTahunAjaran);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                // Menggunakan static factory method dari model NilaiUjian
                 nilaiList.add(NilaiUjian.fromResultSet(rs));
             }
         } catch (SQLException e) {

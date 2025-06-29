@@ -5,20 +5,18 @@ import java.util.Objects;
 
 public class Rapor {
     private int idRapor;
-    private String nisSiswa; // Foreign Key ke Siswa
-    private String namaSiswa; // Untuk tampilan
-    private Integer idTahunAjaran; // Foreign Key ke TahunAjaran
-    private String tahunAjaranLengkap; // Untuk tampilan
+    private String nisSiswa;
+    private String namaSiswa;
+    private Integer idTahunAjaran;
+    private String tahunAjaranLengkap;
     private LocalDate tanggalCetak;
 
-    // Konstruktor untuk membuat entri rapor baru
     public Rapor(String nisSiswa, Integer idTahunAjaran, LocalDate tanggalCetak) {
         this.nisSiswa = nisSiswa;
         this.idTahunAjaran = idTahunAjaran;
         this.tanggalCetak = tanggalCetak;
     }
 
-    // Konstruktor untuk mengambil data rapor dari database
     public Rapor(int idRapor, String nisSiswa, String namaSiswa, Integer idTahunAjaran, String tahunAjaranLengkap, LocalDate tanggalCetak) {
         this.idRapor = idRapor;
         this.nisSiswa = nisSiswa;

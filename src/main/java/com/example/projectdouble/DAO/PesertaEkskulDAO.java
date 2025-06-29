@@ -10,12 +10,6 @@ import java.util.List;
 
 public class PesertaEkskulDAO {
 
-    /**
-     * Menambahkan peserta ekstrakurikuler baru ke database.
-     *
-     * @param peserta Objek PesertaEkskul yang akan ditambahkan.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean addPesertaEkskul(PesertaEkskul peserta) {
         String sql = "INSERT INTO peserta_ekskul (nis, id_ekstrakurikuler) VALUES (?, ?) RETURNING id_peserta";
         try (Connection conn = DBConnect.getConnection();
@@ -40,12 +34,6 @@ public class PesertaEkskulDAO {
         }
     }
 
-    /**
-     * Memperbarui informasi peserta ekstrakurikuler yang sudah ada.
-     *
-     * @param peserta Objek PesertaEkskul dengan informasi yang diperbarui.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean updatePesertaEkskul(PesertaEkskul peserta) {
         String sql = "UPDATE peserta_ekskul SET nis = ?, id_ekstrakurikuler = ? WHERE id_peserta = ?";
         try (Connection conn = DBConnect.getConnection();
@@ -62,12 +50,6 @@ public class PesertaEkskulDAO {
         }
     }
 
-    /**
-     * Menghapus peserta ekstrakurikuler dari database.
-     *
-     * @param idPeserta ID peserta yang akan dihapus.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean deletePesertaEkskul(int idPeserta) {
         String sql = "DELETE FROM peserta_ekskul WHERE id_peserta = ?";
         try (Connection conn = DBConnect.getConnection();
@@ -82,12 +64,6 @@ public class PesertaEkskulDAO {
         }
     }
 
-    /**
-     * Mengambil data peserta ekstrakurikuler berdasarkan ID, termasuk detail siswa, kelas, dan ekstrakurikuler.
-     *
-     * @param idPeserta ID peserta.
-     * @return Objek PesertaEkskul jika ditemukan, null jika tidak.
-     */
     public PesertaEkskul getPesertaEkskulById(int idPeserta) {
         String sql = "SELECT pe.id_peserta, pe.nis, s.nama AS nama_siswa, " +
                 "s.id_kelas, k.nama_kelas, s.id_tahun_ajaran, " +
@@ -124,11 +100,6 @@ public class PesertaEkskulDAO {
         return null;
     }
 
-    /**
-     * Mengambil semua data peserta ekstrakurikuler dengan detail lengkap.
-     *
-     * @return List objek PesertaEkskul.
-     */
     public List<PesertaEkskul> getAllPesertaEkskul() {
         List<PesertaEkskul> pesertaList = new ArrayList<>();
         String sql = "SELECT pe.id_peserta, pe.nis, s.nama AS nama_siswa, " +
@@ -165,13 +136,6 @@ public class PesertaEkskulDAO {
         return pesertaList;
     }
 
-    /**
-     * Mengambil daftar siswa yang terdaftar di ekstrakurikuler tertentu pada tahun ajaran tertentu.
-     *
-     * @param idEkstrakurikuler ID Ekstrakurikuler.
-     * @param idTahunAjaran     ID Tahun Ajaran.
-     * @return List objek Siswa.
-     */
     public List<Siswa> getStudentsByExtracurricularAndTahunAjaran(int idEkstrakurikuler, int idTahunAjaran) {
         List<Siswa> siswaList = new ArrayList<>();
         String sql = "SELECT s.nis, s.nama, s.jenis_kelamin, s.tempat_lahir, s.tanggal_lahir, s.alamat, " +
@@ -183,7 +147,7 @@ public class PesertaEkskulDAO {
                 "LEFT JOIN tahun_ajaran ta ON s.id_tahun_ajaran = ta.id_tahun_ajaran " +
                 "LEFT JOIN users u ON s.id_user = u.id_user " +
                 "LEFT JOIN role r ON u.role = r.id_role " +
-                "WHERE pe.id_ekstrakurikuler = ? AND s.id_tahun_ajaran = ? " + // Filter berdasarkan tahun ajaran siswa
+                "WHERE pe.id_ekstrakurikuler = ? AND s.id_tahun_ajaran = ? " +
                 "ORDER BY s.nama";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -224,12 +188,6 @@ public class PesertaEkskulDAO {
         return siswaList;
     }
 
-    /**
-     //     * Mengambil daftar siswa yang terdaftar dalam ekstrakurikuler tertentu.
-     //     * Mengembalikan objek Siswa dengan informasi user (jika ada).
-     //     * @param idEkstrakurikuler ID ekstrakurikuler.
-     //     * @return List objek Siswa.
-     //     */
     public List<Siswa> getStudentsByExtracurricular(int idEkstrakurikuler) {
         List<Siswa> studentList = new ArrayList<>();
         String sql = "SELECT s.nis, s.nama, s.jenis_kelamin, s.tempat_lahir, s.tanggal_lahir, s.alamat, " +
@@ -269,14 +227,7 @@ public class PesertaEkskulDAO {
         return studentList;
     }
 
-    /**
-     * Menghapus seorang siswa dari ekstrakurikuler tertentu berdasarkan NIS dan ID Ekstrakurikuler.
-     * @param nis NIS siswa.
-     * @param idEkstrakurikuler ID ekstrakurikuler.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean deletePesertaEkskulByNisAndEkskulId(String nis, int idEkstrakurikuler) {
-        // Menggunakan nama tabel lowercase 'peserta_ekskul'
         String sql = "DELETE FROM peserta_ekskul WHERE nis = ? AND id_ekstrakurikuler = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

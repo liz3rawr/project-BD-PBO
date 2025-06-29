@@ -8,15 +8,14 @@ import java.util.Objects;
 public class NilaiUjian {
     private int idNilaiUjian;
     private String jenisUjian;
-    private BigDecimal nilai; // Menggunakan BigDecimal untuk NUMERIC
+    private BigDecimal nilai;
     private int idMapel;
     private String nis;
-    private Integer idTahunAjaran; // NEW: Kolom id_tahun_ajaran dari DDL
+    private Integer idTahunAjaran;
 
-    // Untuk memudahkan tampilan
     private String namaMapel;
     private String namaSiswa;
-    private String tahunAjaranLengkap; // NEW: Untuk tampilan tahun ajaran
+    private String tahunAjaranLengkap;
 
     public NilaiUjian(int idNilaiUjian, String jenisUjian, BigDecimal nilai, int idMapel, String nis, Integer idTahunAjaran) {
         this.idNilaiUjian = idNilaiUjian;
@@ -27,7 +26,6 @@ public class NilaiUjian {
         this.idTahunAjaran = idTahunAjaran;
     }
 
-    // Constructor dengan nama-nama terkait dan tahun ajaran lengkap
     public NilaiUjian(int idNilaiUjian, String jenisUjian, BigDecimal nilai,
                       int idMapel, String namaMapel, String nis, String namaSiswa,
                       Integer idTahunAjaran, String tahunAjaranLengkap) {
@@ -42,7 +40,6 @@ public class NilaiUjian {
         this.tahunAjaranLengkap = tahunAjaranLengkap;
     }
 
-    // Contoh konstruktor di NilaiUjian.java
     public NilaiUjian(int idNilaiUjian, String jenisUjian, BigDecimal nilai, Integer idMapel, String namaMapel, String nis, String namaSiswa, Integer idTahunAjaran, String tahunAjaranLengkap) {
         this.idNilaiUjian = idNilaiUjian;
         this.jenisUjian = jenisUjian;
@@ -141,16 +138,9 @@ public class NilaiUjian {
         return Objects.hash(idNilaiUjian);
     }
 
-    /**
-     * Metode pabrik statis untuk membuat objek NilaiUjian dari ResultSet.
-     * Ini memusatkan logika pembacaan data dari ResultSet ke dalam model.
-     * @param rs ResultSet yang berisi data nilai ujian.
-     * @return Objek NilaiUjian yang telah dibuat.
-     * @throws SQLException Jika terjadi kesalahan saat membaca dari ResultSet.
-     */
     public static NilaiUjian fromResultSet(ResultSet rs) throws SQLException {
         String tahunAjaranLengkap = null;
-        Integer idTahunAjaranFromRs = rs.getObject("id_tahun_ajaran", Integer.class); // Menggunakan getObject untuk Nullable Integer
+        Integer idTahunAjaranFromRs = rs.getObject("id_tahun_ajaran", Integer.class);
         if (rs.getObject("tahun_mulai") != null && rs.getObject("tahun_selesai") != null) {
             tahunAjaranLengkap = rs.getInt("tahun_mulai") + "/" + rs.getInt("tahun_selesai");
         }
@@ -158,11 +148,11 @@ public class NilaiUjian {
                 rs.getInt("id_nilai_ujian"),
                 rs.getString("jenis_ujian"),
                 rs.getBigDecimal("nilai"),
-                rs.getObject("id_mapel", Integer.class), // Menggunakan getObject untuk Integer
+                rs.getObject("id_mapel", Integer.class),
                 rs.getString("nama_mapel"),
                 rs.getString("nis"),
                 rs.getString("nama_siswa"),
-                idTahunAjaranFromRs, // Menggunakan nilai Integer yang sudah ditangani null
+                idTahunAjaranFromRs,
                 tahunAjaranLengkap
         );
     }

@@ -8,11 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RaporDAO {
-    /**
-     * Menambahkan rapor baru ke database.
-     * @param rapor Objek Rapor yang akan ditambahkan.
-     * @return true jika berhasil, false jika gagal.
-     */
+
     public boolean addRapor(Rapor rapor) {
         String sql = "INSERT INTO rapor (nis, id_tahun_ajaran, tanggal_cetak) VALUES (?, ?, ?)";
         try (Connection conn = DBConnect.getConnection();
@@ -39,11 +35,6 @@ public class RaporDAO {
         }
     }
 
-    /**
-     * Memperbarui data rapor di database.
-     * @param rapor Objek Rapor dengan data yang diperbarui.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean updateRapor(Rapor rapor) {
         String sql = "UPDATE rapor SET nis = ?, id_tahun_ajaran = ?, tanggal_cetak = ? WHERE id_rapor = ?";
         try (Connection conn = DBConnect.getConnection();
@@ -65,11 +56,6 @@ public class RaporDAO {
         }
     }
 
-    /**
-     * Menghapus rapor dari database.
-     * @param idRapor ID rapor yang akan dihapus.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean deleteRapor(int idRapor) {
         String sql = "DELETE FROM rapor WHERE id_rapor = ?";
         try (Connection conn = DBConnect.getConnection();
@@ -84,10 +70,6 @@ public class RaporDAO {
         }
     }
 
-    /**
-     * Mengambil semua data rapor dari database.
-     * @return List objek Rapor.
-     */
     public List<Rapor> getAllRapor() {
         List<Rapor> raporList = new ArrayList<>();
         String sql = "SELECT r.id_rapor, r.nis, s.nama AS nama_siswa, " +
@@ -117,11 +99,6 @@ public class RaporDAO {
         return raporList;
     }
 
-    /**
-     * Mengambil data rapor berdasarkan ID.
-     * @param idRapor ID rapor yang dicari.
-     * @return Objek Rapor jika ditemukan, null jika tidak.
-     */
     public Rapor getRaporById(int idRapor) {
         String sql = "SELECT r.id_rapor, r.nis, s.nama AS nama_siswa, " +
                 "r.id_tahun_ajaran, ta.tahun_mulai, ta.tahun_selesai, r.tanggal_cetak " +
@@ -151,11 +128,6 @@ public class RaporDAO {
         return null;
     }
 
-    /**
-     * Mengambil daftar rapor untuk siswa tertentu.
-     * @param nis NIS siswa.
-     * @return List objek Rapor.
-     */
     public List<Rapor> getRaporByNis(String nis) {
         List<Rapor> raporList = new ArrayList<>();
         String sql = "SELECT r.id_rapor, r.nis, r.id_tahun_ajaran, r.tanggal_cetak, " +
@@ -190,14 +162,6 @@ public class RaporDAO {
         return raporList;
     }
 
-    /**
-     * Mengambil daftar catatan rapor untuk siswa tertentu pada tahun ajaran tertentu.
-     * Berguna untuk mengecek apakah rapor sudah pernah dicetak.
-     *
-     * @param nis           NIS siswa.
-     * @param idTahunAjaran ID Tahun Ajaran.
-     * @return List objek Rapor.
-     */
     public List<Rapor> getRaporByNisAndTahunAjaran(String nis, int idTahunAjaran) {
         List<Rapor> raporList = new ArrayList<>();
         String sql = "SELECT r.id_rapor, r.nis, s.nama AS nama_siswa, " +
@@ -230,7 +194,6 @@ public class RaporDAO {
         return raporList;
     }
 
-    // Contoh di RaporDAO.java
     public boolean isRaporPrinted(String nisSiswa, int idTahunAjaran) {
         String sql = "SELECT COUNT(*) FROM rapor WHERE nis = ? AND id_tahun_ajaran = ?";
         try (Connection conn = DBConnect.getConnection();

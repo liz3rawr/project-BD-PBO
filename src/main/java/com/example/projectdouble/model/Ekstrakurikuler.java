@@ -5,23 +5,20 @@ import java.util.Objects;
 public class Ekstrakurikuler {
     private int idEkstrakurikuler;
     private String nama;
-    private String tingkat; // Contoh: "Siaga", "Penggalang" untuk Pramuka
-    private String mentorNames; // Untuk menampilkan nama guru pembina
+    private String tingkat;
+    private String mentorNames;
 
-    // Konstruktor untuk menambahkan ekstrakurikuler baru
     public Ekstrakurikuler(String nama, String tingkat) {
         this.nama = nama;
         this.tingkat = tingkat;
     }
 
-    // Konstruktor untuk mengambil data ekstrakurikuler dari database
     public Ekstrakurikuler(int idEkstrakurikuler, String nama, String tingkat) {
         this.idEkstrakurikuler = idEkstrakurikuler;
         this.nama = nama;
         this.tingkat = tingkat;
     }
 
-    // Konstruktor untuk mengambil data dengan nama pembina
     public Ekstrakurikuler(int idEkstrakurikuler, String nama, String tingkat, String namaPembina) {
         this.idEkstrakurikuler = idEkstrakurikuler;
         this.nama = nama;

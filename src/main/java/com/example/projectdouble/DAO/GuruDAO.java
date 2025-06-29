@@ -12,15 +12,9 @@ import java.util.List;
 
 public class GuruDAO {
 
-    private UserDAO userDao = new UserDAO(); // Digunakan untuk operasi terkait user
+    private UserDAO userDao = new UserDAO();
 
-    /**
-     * Menambahkan data guru baru ke database.
-     * @param guru Objek Guru yang akan ditambahkan.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean addGuru(Guru guru) {
-        // Menggunakan nama tabel lowercase 'guru'
         String sql = "INSERT INTO guru (nip, nama, jenis_kelamin, email, no_hp) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -38,13 +32,7 @@ public class GuruDAO {
         }
     }
 
-    /**
-     * Memperbarui data guru di database.
-     * @param guru Objek Guru dengan data terbaru.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean updateGuru(Guru guru) {
-        // Menggunakan nama tabel lowercase 'guru'
         String sql = "UPDATE guru SET nama = ?, jenis_kelamin = ?, email = ?, no_hp = ? WHERE nip = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -76,18 +64,12 @@ public class GuruDAO {
         return guru;
     }
 
-    /**
-     * Mengambil data guru berdasarkan NIP, termasuk detail user jika ada.
-     *
-     * @param nip NIP guru.
-     * @return Objek Guru jika ditemukan, null jika tidak.
-     */
     public Guru getGuruByNip(String nip) {
         String sql = "SELECT g.nip, g.nama, g.jenis_kelamin, g.email, g.no_hp, " +
                 "u.id_user, u.username, u.password " +
                 //", r.id_role, r.nama_role " +
                 "FROM guru g " +
-                "LEFT JOIN users u ON TRIM(UPPER(g.nip)) = TRIM(UPPER(u.username)) " + // Asumsi username user adalah NIP guru
+                "LEFT JOIN users u ON TRIM(UPPER(g.nip)) = TRIM(UPPER(u.username)) " +
                 //"LEFT JOIN role r ON u.role = r.id_role " +
                 "WHERE TRIM(UPPER(g.nip)) = TRIM(UPPER(?))";
         try (Connection conn = DBConnect.getConnection();
@@ -104,19 +86,13 @@ public class GuruDAO {
         return null;
     }
 
-
-    /**
-     * Mengambil semua data guru.
-     *
-     * @return List objek Guru.
-     */
     public List<Guru> getAllGuru() {
         List<Guru> guruList = new ArrayList<>();
         String sql = "SELECT g.nip, g.nama, g.jenis_kelamin, g.email, g.no_hp, " +
                 "u.id_user, u.username, u.password " +
                 //", r.id_role, r.nama_role " +
                 "FROM guru g " +
-                "LEFT JOIN users u ON TRIM(UPPER(g.nip)) = TRIM(UPPER(u.username)) " + // Asumsi username user adalah NIP guru
+                "LEFT JOIN users u ON TRIM(UPPER(g.nip)) = TRIM(UPPER(u.username)) " +
                 //"LEFT JOIN role r ON u.role = r.id_role " +
                 "ORDER BY g.nip ASC";
         try (Connection conn = DBConnect.getConnection();
@@ -133,14 +109,8 @@ public class GuruDAO {
         return guruList;
     }
 
-    /**
-     * Mencari guru berdasarkan keyword di nama atau NIP.
-     * @param keyword Kata kunci pencarian.
-     * @return List objek Guru yang cocok.
-     */
     public List<Guru> searchGuru(String keyword) {
         List<Guru> guruList = new ArrayList<>();
-        // Menggunakan nama tabel lowercase 'guru' dan 'users'
         String sql = "SELECT g.nip, g.nama, g.jenis_kelamin, g.email, g.no_hp, u.id_user, u.username, u.password " +
                 "FROM guru g LEFT JOIN users u ON TRIM(UPPER(g.nip)) = TRIM(UPPER(u.username)) " +
                 "WHERE g.nama ILIKE ? OR g.nip ILIKE ?";
@@ -159,14 +129,8 @@ public class GuruDAO {
         return guruList;
     }
 
-    /**
-     * Menghapus data guru dari database.
-     * Ini juga akan menghapus user terkait jika ada.
-     * @param nip NIP guru yang akan dihapus.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean deleteGuru(String nip) {
-        Guru guruToDelete = getGuruByNip(nip); // Ambil data guru lengkap
+        Guru guruToDelete = getGuruByNip(nip);
         if (guruToDelete == null) {
             System.err.println("Guru dengan NIP " + nip + " tidak ditemukan untuk dihapus.");
             return false;

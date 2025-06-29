@@ -33,7 +33,6 @@ import java.util.stream.Collectors;
 
 public class GuruController implements Initializable {
 
-    //<editor-fold desc="DAO Instances and FXML Declarations">
     private final GuruDAO guruDAO = new GuruDAO();
     private final UserDAO userDAO = new UserDAO();
     private final PengumumanDAO pengumumanDAO = new PengumumanDAO();
@@ -43,7 +42,7 @@ public class GuruController implements Initializable {
     private final MataPelajaranDAO mataPelajaranDAO = new MataPelajaranDAO();
     private final SiswaDAO siswaDAO = new SiswaDAO();
     private final NilaiUjianDAO nilaiUjianDAO = new NilaiUjianDAO();
-    private final TugasDAO tugasDAO = new TugasDAO(); // Sesuaikan inisialisasi jika ada
+    private final TugasDAO tugasDAO = new TugasDAO();
     private final TahunAjaranDAO tahunAjaranDAO = new TahunAjaranDAO();
     private final PembinaDAO pembinaDAO = new PembinaDAO();
     private final PesertaEkskulDAO pesertaEkskulDAO = new PesertaEkskulDAO();
@@ -74,8 +73,8 @@ public class GuruController implements Initializable {
     // Class Schedule Tab
     @FXML private TableView<JadwalKelas> scheduleTable;
     @FXML private TableColumn<JadwalKelas, String> scheduleDayCol, scheduleSubjectCol, scheduleClassCol;
-    @FXML private TableColumn<JadwalKelas, LocalTime> scheduleStartCol, scheduleEndCol; // Perbaikan tipe data
-    @FXML private Button refreshScheduleButton; // Tambahkan ini jika belum ada di FXML
+    @FXML private TableColumn<JadwalKelas, LocalTime> scheduleStartCol, scheduleEndCol;
+    @FXML private Button refreshScheduleButton;
 
     // Input Exam Score Tab
     @FXML private ComboBox<Kelas> inputScoreClassCombo;
@@ -90,18 +89,18 @@ public class GuruController implements Initializable {
     @FXML private TableColumn<NilaiUjian, BigDecimal> existingScoreCol;
 
     // Manage Assignments Tab
-    @FXML private ComboBox<Kelas> assignmentClassCombo; // ComboBox ini tidak akan mempengaruhi data tugas yang disimpan di DB
-    @FXML private ComboBox<MataPelajaran> assignmentSubjectCombo; // ComboBox ini tidak akan mempengaruhi data tugas yang disimpan di DB
-    @FXML private ComboBox<TahunAjaran> assignmentSchoolYearCombo; // ComboBox ini tidak akan mempengaruhi data tugas yang disimpan di DB
+    @FXML private ComboBox<Kelas> assignmentClassCombo;
+    @FXML private ComboBox<MataPelajaran> assignmentSubjectCombo;
+    @FXML private ComboBox<TahunAjaran> assignmentSchoolYearCombo;
     @FXML private TextField assignmentTitleField;
     @FXML private TextArea assignmentDescriptionArea;
     @FXML private DatePicker assignmentDeadlinePicker;
     @FXML private Button addAssignmentButton;
     @FXML private TableView<Tugas> assignmentTable;
     @FXML private TableColumn<Tugas, String> assignmentTitleCol, assignmentDescCol;
-    @FXML private TableColumn<Tugas, LocalDate> assignmentDeadlineCol; // Perbaikan tipe data
-    @FXML private TableColumn<Tugas, String> assignmentSubjectCol; // Kolom ini akan kosong jika Tugas model tidak memiliki namaMapel
-    @FXML private TableColumn<Tugas, String> assignmentClassCol; // Kolom ini akan kosong jika Tugas model tidak memiliki namaKelas
+    @FXML private TableColumn<Tugas, LocalDate> assignmentDeadlineCol;
+    @FXML private TableColumn<Tugas, String> assignmentSubjectCol;
+    @FXML private TableColumn<Tugas, String> assignmentClassCol;
 
     // Homeroom Teacher Tab
     @FXML private Tab homeroomTab;
@@ -121,7 +120,7 @@ public class GuruController implements Initializable {
     @FXML private ComboBox<TahunAjaran> agendaSchoolYearCombo;
     @FXML private TableView<AgendaSekolah> agendaTable;
     @FXML private TableColumn<AgendaSekolah, String> agendaContentCol;
-    @FXML private TableColumn<AgendaSekolah, LocalDate> agendaStartCol, agendaEndCol; // Perbaikan tipe data
+    @FXML private TableColumn<AgendaSekolah, LocalDate> agendaStartCol, agendaEndCol;
 
     // Extracurricular Mentor Tab
     @FXML private Tab extracurricularTab;
@@ -133,7 +132,6 @@ public class GuruController implements Initializable {
     @FXML private ComboBox<TahunAjaran> mentorSchoolYearCombo;
     @FXML private TableView<Siswa> mentorStudentTable;
     @FXML private TableColumn<Siswa, String> mentorStudentNisCol, mentorStudentNameCol, mentorStudentGenderCol, mentorStudentClassCol;
-    //</editor-fold>
 
     private Guru currentTeacher;
 
@@ -189,7 +187,6 @@ public class GuruController implements Initializable {
 
 
         // Load Assignments (now general tasks)
-        // Dipanggil di sini untuk memuat semua tugas, karena tidak ada lagi filter berdasarkan guru
         assignmentTable.setItems(FXCollections.observableArrayList(tugasDAO.getTugasByGuruNip(currentTeacher.getNip())));
 
         checkAndSetupConditionalTabs();
@@ -210,10 +207,10 @@ public class GuruController implements Initializable {
                     super.updateItem(item, empty);
                     if (empty || item == null) {
                         setText(null);
-                        setGraphic(null); // Important to clear graphic if any
+                        setGraphic(null);
                     } else {
                         setText(item.toString());
-                        setGraphic(null); // Important to clear graphic if any
+                        setGraphic(null);
                         setStyle("-fx-alignment: CENTER;");
                     }
                 }
@@ -229,10 +226,10 @@ public class GuruController implements Initializable {
 
                 {
                     text = new Text();
-                    text.wrappingWidthProperty().bind(column.widthProperty().subtract(5)); // Subtract a bit for padding
+                    text.wrappingWidthProperty().bind(column.widthProperty().subtract(5));
                     setGraphic(text);
                     setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-                    setAlignment(Pos.CENTER_LEFT); // Default left alignment if only wrapping
+                    setAlignment(Pos.CENTER_LEFT);
                     setPrefHeight(Control.USE_COMPUTED_SIZE);
                 }
 
@@ -264,7 +261,7 @@ public class GuruController implements Initializable {
         scheduleStartCol.setCellValueFactory(new PropertyValueFactory<>("jamMulai"));
         scheduleEndCol.setCellValueFactory(new PropertyValueFactory<>("jamSelesai"));
         scheduleSubjectCol.setCellValueFactory(new PropertyValueFactory<>("namaMapel"));
-        scheduleClassCol.setCellValueFactory(new PropertyValueFactory<>("kelasDanTahunAjaran")); // Menggunakan properti gabungan
+        scheduleClassCol.setCellValueFactory(new PropertyValueFactory<>("kelasDanTahunAjaran"));
 
         // Existing Score Table
         existingScoreStudentCol.setCellValueFactory(new PropertyValueFactory<>("namaSiswa"));
@@ -287,7 +284,7 @@ public class GuruController implements Initializable {
         homeroomAttendanceDateCol.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
         homeroomAttendanceStudentCol.setCellValueFactory(new PropertyValueFactory<>("namaSiswa"));
         homeroomAttendanceStatusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
-        homeroomAttendanceClassCol.setCellValueFactory(new PropertyValueFactory<>("namaKelas")); // Menggunakan properti gabungan
+        homeroomAttendanceClassCol.setCellValueFactory(new PropertyValueFactory<>("namaKelas"));
 
         // Agenda Table
         agendaContentCol.setCellValueFactory(new PropertyValueFactory<>("judul"));
@@ -355,7 +352,7 @@ public class GuruController implements Initializable {
     }
 
     private void addListeners() {
-        // Listener untuk Input Score Tab: filter siswa berdasarkan kelas dan tahun ajaran
+        // untuk Input Score Tab: filter siswa berdasarkan kelas dan tahun ajaran
         inputScoreClassCombo.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null && inputScoreSchoolYearCombo.getValue() != null) {
                 ObservableList<Siswa> studentsInClass = FXCollections.observableArrayList(
@@ -365,31 +362,29 @@ public class GuruController implements Initializable {
             } else {
                 inputScoreStudentCombo.setItems(FXCollections.observableArrayList());
             }
-            filterExistingScores(); // Filter nilai saat kelas berubah
+            filterExistingScores();
         });
 
-        // Listener untuk Input Score Tab: filter siswa berdasarkan kelas dan tahun ajaran
-        // Menggunakan logika baru dari code yang user berikan
+        // untuk Input Score Tab: filter siswa berdasarkan kelas dan tahun ajaran
         inputScoreSchoolYearCombo.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 List<Kelas> filteredKelas = kelasDAO.getAllKelas().stream()
                         .filter(k -> Objects.equals(k.getIdTahunAjaran(), newVal.getIdTahunAjaran()))
                         .collect(Collectors.toList());
                 inputScoreClassCombo.setItems(FXCollections.observableArrayList(filteredKelas));
-                inputScoreClassCombo.getSelectionModel().clearSelection(); // Clear class selection when school year changes
+                inputScoreClassCombo.getSelectionModel().clearSelection();
             } else {
                 inputScoreClassCombo.getItems().clear();
             }
-            filterExistingScores(); // Filter nilai saat tahun ajaran berubah
+            filterExistingScores();
         });
 
         assignmentClassCombo.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newKelas) -> {
             if (newKelas != null) {
-                // Temukan TahunAjaran yang sesuai dengan idTahunAjaran dari Kelas yang dipilih
                 TahunAjaran associatedTahunAjaran = assignmentSchoolYearCombo.getItems().stream()
                         .filter(ta -> Objects.equals(ta.getIdTahunAjaran(), newKelas.getIdTahunAjaran()))
                         .findFirst()
-                        .orElse(null); // Jika tidak ditemukan, biarkan null
+                        .orElse(null);
 
                 assignmentSchoolYearCombo.getSelectionModel().select(associatedTahunAjaran);
             } else {
@@ -419,10 +414,9 @@ public class GuruController implements Initializable {
         mentorSchoolYearCombo.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> filterMentorStudents());
 
 
-        // Listener untuk Homeroom Tab:
+        // untuk Homeroom Tab:
         homeroomSchoolYearCombo.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (currentTeacher != null && newVal != null) {
-                // Cari kelas wali kelas untuk tahun ajaran yang dipilih
                 Kelas homeroomClass = kelasDAO.getKelasByNipAndTahunAjaran(currentTeacher.getNip(), newVal.getIdTahunAjaran());
                 if (homeroomClass != null) {
                     homeroomClassField.setText(homeroomClass.getNamaKelas() + " (" + homeroomClass.getTahunAjaranLengkap() + ")");
@@ -432,7 +426,6 @@ public class GuruController implements Initializable {
                     homeroomStudentsTable.setItems(students);
                     homeroomAttendanceStudentCombo.setItems(students);
                     homeroomRaporStudentCombo.setItems(students);
-                    //filterHomeroomAttendanceByStudent(); // Muat ulang absensi awal untuk kelas/tahun ajaran
                 } else {
                     homeroomClassField.clear();
                     homeroomStudentsTable.setItems(FXCollections.observableArrayList());
@@ -450,16 +443,16 @@ public class GuruController implements Initializable {
             filterHomeroomAttendanceByStudent();
         });
 
-        // Listener untuk memfilter tabel absensi setelah siswa dipilih
+        // untuk memfilter tabel absensi setelah siswa dipilih
         homeroomAttendanceStudentCombo.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             filterHomeroomAttendanceByStudent();
         });
-        // Listener untuk memfilter tabel absensi setelah tanggal/status absensi diubah (jika relevan untuk filtering)
+        // untuk memfilter tabel absensi setelah tanggal/status absensi diubah (jika relevan untuk filtering)
         homeroomAttendanceDatePicker.valueProperty().addListener((obs, oldVal, newVal) -> filterHomeroomAttendanceByStudent());
         homeroomAttendanceStatusCombo.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> filterHomeroomAttendanceByStudent());
 
 
-        // Listener untuk validasi input skor secara real-time
+        // input skor secara real-time
         addNumericOnlyListener(inputScoreField);
         addNumericOnlyListener(editScoreField);
     }
@@ -475,19 +468,18 @@ public class GuruController implements Initializable {
         homeroomSchoolYearCombo.setItems(allSchoolYears);
         mentorSchoolYearCombo.setItems(allSchoolYears);
 
-        // Load all classes and subjects for input score and assignment
+        // input score and assignment
         inputScoreClassCombo.setItems(FXCollections.observableArrayList(kelasDAO.getAllKelas()));
         inputScoreSubjectCombo.setItems(FXCollections.observableArrayList(mataPelajaranDAO.getAllMataPelajaran()));
         assignmentClassCombo.setItems(FXCollections.observableArrayList(kelasDAO.getAllKelas()));
         assignmentSubjectCombo.setItems(FXCollections.observableArrayList(mataPelajaranDAO.getAllMataPelajaran()));
 
-        // Load extracurriculars for mentor tab
+        // mentor tab
         mentorExtracurricularTable.setItems(FXCollections.observableArrayList(ekstrakurikulerDAO.getAllEkstrakurikulerWithMentors()));
         mentorExtraSelectCombo.setItems(FXCollections.observableArrayList(ekstrakurikulerDAO.getAllEkstrakurikuler()));
     }
 
     private void checkAndSetupConditionalTabs() {
-        // Cek apakah guru adalah wali kelas untuk SEMUA tahun ajaran
         boolean isHomeroomTeacherForAnyYear = kelasDAO.getAllKelas().stream()
                 .anyMatch(k -> Objects.equals(k.getNipWaliKelas(), currentTeacher.getNip()));
         homeroomTab.setDisable(!isHomeroomTeacherForAnyYear);
@@ -529,7 +521,6 @@ public class GuruController implements Initializable {
         if (!mentoredEkskul.isEmpty()) {
             mentorExtracurricularTable.setItems(FXCollections.observableArrayList(mentoredEkskul));
             mentorExtraSelectCombo.setItems(FXCollections.observableArrayList(mentoredEkskul));
-            // Inisialisasi tampilan siswa mentor jika ada ekskul yang dimentori
             filterMentorStudents();
         }
         mentorLevelLabel.setVisible(false);
@@ -539,15 +530,14 @@ public class GuruController implements Initializable {
 
     private void filterMentorStudents() {
         Ekstrakurikuler selectedEkskul = mentorExtraSelectCombo.getValue();
-        String selectedPramukaLevel = mentorLevelSelectCombo.getValue(); // Ini akan menjadi "Siaga", "Penggalang", dll.
-        TahunAjaran selectedSchoolYear = mentorSchoolYearCombo.getSelectionModel().getSelectedItem(); // Ambil tahun ajaran yang dipilih
+        String selectedPramukaLevel = mentorLevelSelectCombo.getValue();
+        TahunAjaran selectedSchoolYear = mentorSchoolYearCombo.getSelectionModel().getSelectedItem();
 
         if (selectedEkskul == null || selectedSchoolYear == null) {
             mentorStudentTable.getItems().clear();
             return;
         }
 
-        // Dapatkan semua siswa yang terdaftar di ekstrakurikuler dan tahun ajaran yang dipilih
         List<Siswa> studentsInEkskul = pesertaEkskulDAO.getStudentsByExtracurricularAndTahunAjaran(
                 selectedEkskul.getIdEkstrakurikuler(), selectedSchoolYear.getIdTahunAjaran()
         );
@@ -575,7 +565,6 @@ public class GuruController implements Initializable {
                     .collect(Collectors.toList());
             mentorStudentTable.setItems(FXCollections.observableArrayList(filteredStudents));
         } else {
-            // Jika bukan Pramuka atau level belum dipilih, tampilkan semua siswa di ekskul tersebut untuk tahun ajaran yang dipilih
             mentorStudentTable.setItems(FXCollections.observableArrayList(studentsInEkskul));
         }
     }
@@ -598,19 +587,13 @@ public class GuruController implements Initializable {
         String selectedExamType = inputScoreExamTypeCombo.getSelectionModel().getSelectedItem();
         TahunAjaran selectedTahunAjaran = inputScoreSchoolYearCombo.getSelectionModel().getSelectedItem();
 
-        // Hanya load nilai jika guru ini mengajar mata pelajaran ini di kelas ini untuk tahun ajaran ini
-        // Asumsi: Guru hanya bisa input nilai untuk mata pelajaran yang dia ajar
         if (currentTeacher == null || selectedMapel == null || selectedKelas == null || selectedTahunAjaran == null) {
             existingScoreTable.setItems(FXCollections.observableArrayList());
             return;
         }
 
-        // Cek 1: Apakah guru yang login adalah wali kelas dari kelas yang dipilih?
-        // Diasumsikan kolom nip_guru di tabel 'kelas' adalah untuk wali kelas.
-        // Dan model Kelas memiliki getter getNipWaliKelas()
         boolean isHomeroomTeacher = Objects.equals(currentTeacher.getNip(), selectedKelas.getNipWaliKelas());
 
-        // Pastikan guru mengajar mata pelajaran ini di kelas ini untuk tahun ajaran ini
         boolean guruMengajarDiJadwal = jadwalKelasDAO.getAllJadwalKelasDetails().stream()
                 .anyMatch(j -> Objects.equals(j.getNipGuru(), currentTeacher.getNip()) &&
                         Objects.equals(j.getIdMapel(), selectedMapel.getIdMapel()) &&
@@ -619,12 +602,10 @@ public class GuruController implements Initializable {
 
 
         if (!guruMengajarDiJadwal) {
-            //showAlert(Alert.AlertType.INFORMATION, "Informasi", "Anda tidak mengajar mata pelajaran ini di kelas ini untuk tahun ajaran yang dipilih.");
             existingScoreTable.setItems(FXCollections.observableArrayList());
             return;
         }
 
-        // Jika semua filter terpenuhi, ambil nilai yang relevan
         List<NilaiUjian> filteredScores = nilaiUjianDAO.getNilaiUjianFiltered(
                 selectedSiswa != null ? selectedSiswa.getNis() : null,
                 selectedMapel.getIdMapel(),
@@ -636,18 +617,12 @@ public class GuruController implements Initializable {
 
 
     private void loadHomeroomAttendance(int idKelas, int idTahunAjaran) {
-        // Method ini akan dipanggil oleh filterHomeroomAttendanceByStudent jika tidak ada siswa spesifik yang dipilih
-        // Meload semua absensi untuk kelas dan tahun ajaran homeroom
         ObservableList<Presensi> attendanceList = FXCollections.observableArrayList(
                 presensiDAO.getPresensiByKelasAndTahunAjaran(idKelas, idTahunAjaran)
         );
         homeroomAttendanceTable.setItems(attendanceList);
     }
 
-    /**
-     * Memfilter tabel absensi kelas homeroom berdasarkan siswa, tanggal, dan status yang dipilih.
-     * Jika tidak ada siswa yang dipilih, semua absensi untuk kelas homeroom dan tahun ajaran yang dipilih akan ditampilkan.
-     */
     private void filterHomeroomAttendanceByStudent() {
         Siswa selectedStudent = homeroomAttendanceStudentCombo.getSelectionModel().getSelectedItem();
         TahunAjaran selectedSchoolYear = homeroomSchoolYearCombo.getSelectionModel().getSelectedItem();
@@ -732,13 +707,12 @@ public class GuruController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Input Salah", "Nomor telepon hanya boleh mengandung angka.");
             return;
         }
-        // Basic email validation
+
         if (!email.matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
             showAlert(Alert.AlertType.ERROR, "Input Salah", "Format email tidak valid.");
             return;
         }
 
-        // Gunakan currentTeacher.getNip() karena NIP tidak bisa diubah dari UI ini
         Guru updatedGuru = new Guru(
                 currentTeacher.getNip(),
                 currentTeacher.getIdUser(),
@@ -748,13 +722,13 @@ public class GuruController implements Initializable {
                 noHp
                 ,
                 currentTeacher.getUsernameUser(),
-                currentTeacher.getPasswordUser() // Password tidak diubah di sini
+                currentTeacher.getPasswordUser()
         );
 
         if (guruDAO.updateGuru(updatedGuru)) {
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Data biodata berhasil diperbarui.");
-            currentTeacher = guruDAO.getGuruByNip(currentTeacher.getNip()); // Refresh currentTeacher object
-            loadDataForGuru(); // Muat ulang data UI
+            currentTeacher = guruDAO.getGuruByNip(currentTeacher.getNip());
+            loadDataForGuru();
         } else {
             showAlert(Alert.AlertType.ERROR, "Gagal", "Gagal memperbarui data biodata di database.");
         }
@@ -770,19 +744,14 @@ public class GuruController implements Initializable {
             return;
         }
 
-        // Asumsi currentTeacher.getPasswordUser() adalah plaintext password dari database (untuk demo)
-        // Di aplikasi nyata, Anda harus membandingkan hash password
         if (!currentTeacher.getPasswordUser().equals(oldPassword)) {
             showAlert(Alert.AlertType.ERROR, "Autentikasi Gagal", "Password lama tidak cocok.");
             return;
         }
 
-        // Update password di tabel 'users'
-        // Anda perlu menambahkan metode ini di UserDAO:
-        // public boolean updatePassword(int userId, String newPassword)
         if (userDAO.updatePassword(currentTeacher.getIdUser(), newPassword)) {
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Password berhasil diubah.");
-            // Perbarui objek currentTeacher agar password di sesi juga terupdate
+
             currentTeacher = guruDAO.getGuruByNip(currentTeacher.getNip());
             editPasswordOldPassField.clear();
             editPasswordNewPassField.clear();
@@ -793,8 +762,6 @@ public class GuruController implements Initializable {
 
     @FXML
     void handleAddAssignmentButtonAction(ActionEvent event) {
-        // Karena tabel 'tugas' tidak memiliki FK ke kelas, mapel, atau tahun ajaran,
-        // ComboBox di UI hanya bersifat informatif bagi pengguna, tidak mempengaruhi data yang disimpan.
         String title = assignmentTitleField.getText();
         String description = assignmentDescriptionArea.getText();
         LocalDate deadline = assignmentDeadlinePicker.getValue();
@@ -808,25 +775,24 @@ public class GuruController implements Initializable {
             return;
         }
 
-        // Menggunakan konstruktor Tugas yang sesuai dengan DDL terbaru
         Tugas newTugas = new Tugas(
-                0, // ID 0 karena auto-generate
+                0,
                 title,
                 description,
                 deadline,
-                Integer.valueOf(selectedMapel.getIdMapel()),          // Explicitly box int to Integer
-                Integer.valueOf(selectedKelas.getIdKelas()),          // Explicitly box int to Integer
+                Integer.valueOf(selectedMapel.getIdMapel()),
+                Integer.valueOf(selectedKelas.getIdKelas()),
                 currentTeacher.getNip()
         );
 
         if (tugasDAO.addTugas(newTugas)) {
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Tugas baru berhasil ditambahkan.");
-            // Muat ulang tugas yang dibuat oleh guru ini
+
             assignmentTable.setItems(FXCollections.observableArrayList(tugasDAO.getTugasByGuruNip(currentTeacher.getNip())));
             assignmentTitleField.clear();
             assignmentDescriptionArea.clear();
             assignmentDeadlinePicker.setValue(null);
-            assignmentClassCombo.getSelectionModel().clearSelection(); // Clear combo boxes after adding
+            assignmentClassCombo.getSelectionModel().clearSelection();
             assignmentSubjectCombo.getSelectionModel().clearSelection();
             assignmentSchoolYearCombo.getSelectionModel().clearSelection();
         } else {
@@ -846,7 +812,6 @@ public class GuruController implements Initializable {
             return;
         }
 
-        // Temukan ID Kelas Homeroom guru untuk tahun ajaran yang dipilih
         Kelas homeroomClass = kelasDAO.getKelasByNipAndTahunAjaran(currentTeacher.getNip(), selectedSchoolYear.getIdTahunAjaran());
 
         if (homeroomClass == null) {
@@ -854,8 +819,6 @@ public class GuruController implements Initializable {
             return;
         }
 
-        // Cek apakah siswa yang dipilih benar-benar ada di kelas homeroom guru untuk tahun ajaran ini
-        // Ini adalah validasi tambahan untuk mencegah data salah input
         if (selectedStudent.getIdKelas() == null || !selectedStudent.getIdKelas().equals(homeroomClass.getIdKelas()) ||
                 selectedStudent.getIdTahunAjaran() == null || !selectedStudent.getIdTahunAjaran().equals(homeroomClass.getIdTahunAjaran())) {
             showAlert(Alert.AlertType.ERROR, "Error", "Siswa yang dipilih tidak terdaftar di kelas homeroom Anda untuk tahun ajaran ini.");
@@ -863,7 +826,6 @@ public class GuruController implements Initializable {
         }
 
 
-        // Cek apakah absensi untuk siswa dan tanggal ini sudah ada (untuk kelas homeroom ini)
         List<Presensi> existingAttendances = presensiDAO.getPresensiByNisAndTahunAjaran(selectedStudent.getNis(), selectedSchoolYear.getIdTahunAjaran()).stream()
                 .filter(p -> p.getTanggal().isEqual(attendanceDate) && Objects.equals(p.getIdKelas(), homeroomClass.getIdKelas()))
                 .collect(Collectors.toList());
@@ -873,19 +835,18 @@ public class GuruController implements Initializable {
             return;
         }
 
-        // Buat objek Presensi baru tanpa id_jadwal_kelas
         Presensi newPresensi = new Presensi(
-                0, // id_presensi (auto-generated)
+                0,
                 attendanceDate,
                 status,
                 selectedStudent.getNis(),
-                homeroomClass.getIdKelas() // Gunakan id_kelas homeroom secara langsung
+                homeroomClass.getIdKelas()
         );
 
         if (presensiDAO.addPresensi(newPresensi)) {
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Absensi berhasil dicatat.");
-            filterHomeroomAttendanceByStudent(); // Muat ulang absensi dengan filter yang aktif
-            homeroomAttendanceStudentCombo.getSelectionModel().clearSelection(); // Bersihkan pilihan siswa setelah input
+            filterHomeroomAttendanceByStudent();
+            homeroomAttendanceStudentCombo.getSelectionModel().clearSelection();
             homeroomAttendanceDatePicker.setValue(null);
             homeroomAttendanceStatusCombo.getSelectionModel().clearSelection();
         } else {
@@ -906,18 +867,15 @@ public class GuruController implements Initializable {
             MataPelajaran mapel = inputScoreSubjectCombo.getValue();
             Siswa siswa = inputScoreStudentCombo.getValue();
             String examType = inputScoreExamTypeCombo.getValue();
-            TahunAjaran tahunAjaran = inputScoreSchoolYearCombo.getValue(); // Ambil tahun ajaran
+            TahunAjaran tahunAjaran = inputScoreSchoolYearCombo.getValue();
 
             if (kelas == null || mapel == null || siswa == null || examType == null || tahunAjaran == null) {
                 showAlert(Alert.AlertType.WARNING, "Input Tidak Valid", "Pastikan semua field terisi dengan benar (Kelas, Mata Pelajaran, Siswa, Tipe Ujian, Tahun Ajaran).");
                 return;
             }
 
-            // --- PERUBAHAN LOGIKA VALIDASI ---
-            // Cek 1: Apakah guru yang login adalah wali kelas dari kelas yang dipilih?
             boolean isHomeroomTeacher = Objects.equals(currentTeacher.getNip(), kelas.getNipWaliKelas());
 
-            // Pastikan guru mengajar mata pelajaran ini di kelas ini untuk tahun ajaran ini
             boolean guruMengajarDiJadwal = jadwalKelasDAO.getAllJadwalKelasDetails().stream()
                     .anyMatch(j -> Objects.equals(j.getNipGuru(), currentTeacher.getNip()) &&
                             Objects.equals(j.getIdMapel(), mapel.getIdMapel()) &&
@@ -935,15 +893,13 @@ public class GuruController implements Initializable {
                 return;
             }
 
-            // Perbarui konstruktor NilaiUjian untuk menyertakan idTahunAjaran
             NilaiUjian newNilai = new NilaiUjian(0, examType, score, mapel.getIdMapel(), siswa.getNis(), tahunAjaran.getIdTahunAjaran());
 
             if(nilaiUjianDAO.addNilaiUjian(newNilai)) {
                 showAlert(Alert.AlertType.INFORMATION, "Sukses", "Nilai berhasil ditambahkan.");
-                filterExistingScores(); // Muat ulang tabel skor yang ada
+                filterExistingScores();
                 inputScoreField.clear();
                 inputScoreExamTypeCombo.getSelectionModel().clearSelection();
-                // Jangan clear kelas, mapel, siswa, tahun ajaran agar bisa input nilai berikutnya dengan cepat
             } else {
                 showAlert(Alert.AlertType.ERROR, "Gagal", "Gagal menambahkan nilai. Nilai mungkin sudah ada untuk siswa ini pada mata pelajaran dan jenis ujian yang sama.");
             }
@@ -973,7 +929,7 @@ public class GuruController implements Initializable {
             selectedNilai.setNilai(newScore);
             if (nilaiUjianDAO.updateNilaiUjian(selectedNilai)) {
                 showAlert(Alert.AlertType.INFORMATION, "Sukses", "Nilai berhasil diperbarui.");
-                filterExistingScores(); // Muat ulang tabel skor yang ada
+                filterExistingScores();
                 editScoreField.clear();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Gagal", "Gagal memperbarui nilai.");
@@ -985,7 +941,6 @@ public class GuruController implements Initializable {
 
     @FXML
     void handleRefreshScheduleButtonAction(ActionEvent event) {
-        // Filter jadwal kelas berdasarkan NIP guru yang sedang login
         if (currentTeacher != null) {
             scheduleTable.setItems(FXCollections.observableArrayList(
                     jadwalKelasDAO.getAllJadwalKelasDetails().stream()
@@ -1008,15 +963,11 @@ public class GuruController implements Initializable {
             return;
         }
 
-        // Cek apakah rapor sudah pernah di-generate/dicatat di tabel rapor
         boolean isAlreadyPrinted = raporDao.isRaporPrinted(selectedStudent.getNis(), selectedSchoolYear.getIdTahunAjaran());
         if (isAlreadyPrinted) {
             showAlert(Alert.AlertType.INFORMATION, "Informasi", "Rapor untuk siswa ini di tahun ajaran ini sudah dicetak sebelumnya.");
-            // Tetap lanjutkan proses generate file TXT
         }
 
-        // 1. Catat ke tabel 'rapor' bahwa rapor telah dicetak
-        // Hanya catat jika belum pernah dicetak sebelumnya untuk menghindari duplikasi
         if (!isAlreadyPrinted) {
             Rapor newRaporEntry = new Rapor(selectedStudent.getNis(), selectedSchoolYear.getIdTahunAjaran(), LocalDate.now());
             raporDao.addRapor(newRaporEntry);
@@ -1030,7 +981,7 @@ public class GuruController implements Initializable {
         }
 
         // 2. Ambil nama wali kelas
-        String waliKelasName = "N/A"; // Default
+        String waliKelasName = "N/A";
         if (studentClass != null && studentClass.getNipWaliKelas() != null) {
             Guru waliKelas = guruDAO.getGuruByNip(studentClass.getNipWaliKelas());
             if (waliKelas != null) {
@@ -1045,7 +996,7 @@ public class GuruController implements Initializable {
         // 4. Ambil daftar presensi siswa untuk tahun ajaran tersebut
         List<Presensi> attendances = presensiDAO.getPresensiByNisAndTahunAjaran(selectedStudent.getNis(), selectedSchoolYear.getIdTahunAjaran());
 
-        // 5. Bangun konten rapor
+        // 5. Konten rapor
         StringBuilder raporContent = new StringBuilder();
         raporContent.append("=============== RAPOR SISWA ===============\n");
         raporContent.append("Nama Siswa    : ").append(studentDetails != null ? studentDetails.getNama() : "N/A").append("\n");
@@ -1070,9 +1021,9 @@ public class GuruController implements Initializable {
             long totalIzin = attendances.stream().filter(p -> "Izin".equalsIgnoreCase(p.getStatus())).count();
             long totalSakit = attendances.stream().filter(p -> "Sakit".equalsIgnoreCase(p.getStatus())).count();
             long totalAlpa = attendances.stream().filter(p -> "Alpa".equalsIgnoreCase(p.getStatus())).count();
-            long totalPresensi = attendances.size(); // Total records, not total days attended
+            long totalPresensi = attendances.size();
 
-            raporContent.append("Total Hari Presensi : ").append(totalPresensi).append(" catatan\n"); // Mengubah menjadi "catatan" karena ini total baris, bukan hari unik
+            raporContent.append("Total Hari Presensi : ").append(totalPresensi).append(" catatan\n");
             raporContent.append("Jumlah Hadir        : ").append(totalHadir).append(" catatan\n");
             raporContent.append("Jumlah Izin         : ").append(totalIzin).append(" catatan\n");
             raporContent.append("Jumlah Sakit        : ").append(totalSakit).append(" catatan\n");
@@ -1087,18 +1038,15 @@ public class GuruController implements Initializable {
         // 6. Simpan file TXT ke folder Downloads
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Simpan Rapor");
-        // Sanitasi nama file: ganti karakter non-alfanumerik dengan underscore
         String sanitizedFileName = selectedStudent.getNama().replaceAll("[^a-zA-Z0-9.-]", "_") + " - Rapor " + selectedSchoolYear.getTahunAjaranLengkap().replace("/", "-") + ".txt";
         fileChooser.setInitialFileName(sanitizedFileName);
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files (*.txt)", "*.txt"));
 
-        // Coba set direktori awal ke folder Downloads
         String userHome = System.getProperty("user.home");
         File downloadsDir = new File(userHome, "Downloads");
         if (downloadsDir.exists() && downloadsDir.isDirectory()) {
             fileChooser.setInitialDirectory(downloadsDir);
         } else {
-            // Fallback ke direktori home pengguna jika Downloads tidak ada
             fileChooser.setInitialDirectory(new File(userHome));
         }
 
@@ -1106,7 +1054,6 @@ public class GuruController implements Initializable {
         File file = fileChooser.showSaveDialog(new Stage());
         if (file != null) {
             try {
-                // Menulis konten ke file dengan UTF-8 encoding
                 java.nio.file.Files.write(file.toPath(), raporContent.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8));
                 showAlert(Alert.AlertType.INFORMATION, "Sukses", "Rapor berhasil disimpan ke:\n" + file.getAbsolutePath());
             } catch (IOException e) {

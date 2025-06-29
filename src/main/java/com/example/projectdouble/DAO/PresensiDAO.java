@@ -9,13 +9,6 @@ import java.util.List;
 
 public class PresensiDAO {
 
-    /**
-     * Menambahkan data presensi baru ke database.
-     * Sekarang menyimpan id_kelas langsung.
-     *
-     * @param presensi Objek Presensi yang akan ditambahkan.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean addPresensi(Presensi presensi) {
         String sql = "INSERT INTO presensi (tanggal, status, nis, id_kelas) VALUES (?, ?, ?, ?) RETURNING id_presensi";
         try (Connection conn = DBConnect.getConnection();
@@ -23,7 +16,7 @@ public class PresensiDAO {
             stmt.setDate(1, Date.valueOf(presensi.getTanggal()));
             stmt.setString(2, presensi.getStatus());
             stmt.setString(3, presensi.getNisSiswa());
-            stmt.setObject(4, presensi.getIdKelas(), java.sql.Types.INTEGER); // Menggunakan id_kelas langsung (bisa NULL)
+            stmt.setObject(4, presensi.getIdKelas(), java.sql.Types.INTEGER);
 
             int rowsAffected = stmt.executeUpdate();
 
@@ -43,12 +36,6 @@ public class PresensiDAO {
         }
     }
 
-    /**
-     * Memperbarui informasi presensi yang sudah ada di database.
-     *
-     * @param presensi Objek Presensi dengan informasi yang diperbarui.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean updatePresensi(Presensi presensi) {
         String sql = "UPDATE presensi SET tanggal = ?, status = ?, nis = ?, id_kelas = ? WHERE id_presensi = ?";
         try (Connection conn = DBConnect.getConnection();
@@ -56,7 +43,7 @@ public class PresensiDAO {
             stmt.setDate(1, Date.valueOf(presensi.getTanggal()));
             stmt.setString(2, presensi.getStatus());
             stmt.setString(3, presensi.getNisSiswa());
-            stmt.setObject(4, presensi.getIdKelas(), java.sql.Types.INTEGER); // Menggunakan id_kelas langsung
+            stmt.setObject(4, presensi.getIdKelas(), java.sql.Types.INTEGER);
             stmt.setInt(5, presensi.getIdPresensi());
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
@@ -67,12 +54,6 @@ public class PresensiDAO {
         }
     }
 
-    /**
-     * Menghapus presensi dari database berdasarkan ID.
-     *
-     * @param idPresensi ID presensi yang akan dihapus.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean deletePresensi(int idPresensi) {
         String sql = "DELETE FROM presensi WHERE id_presensi = ?";
         try (Connection conn = DBConnect.getConnection();
@@ -87,18 +68,12 @@ public class PresensiDAO {
         }
     }
 
-    /**
-     * Mengambil presensi dari database berdasarkan ID.
-     *
-     * @param idPresensi ID presensi yang akan diambil.
-     * @return Objek Presensi jika ditemukan, null jika tidak.
-     */
     public Presensi getPresensiById(int idPresensi) {
         String sql = "SELECT p.id_presensi, p.tanggal, p.status, p.nis, s.nama AS nama_siswa, " +
                 "p.id_kelas, k.nama_kelas, ta.tahun_mulai, ta.tahun_selesai " +
                 "FROM presensi p " +
                 "JOIN siswa s ON p.nis = s.nis " +
-                "LEFT JOIN kelas k ON p.id_kelas = k.id_kelas " + // Gunakan LEFT JOIN karena id_kelas bisa NULL
+                "LEFT JOIN kelas k ON p.id_kelas = k.id_kelas " +
                 "LEFT JOIN tahun_ajaran ta ON k.id_tahun_ajaran = ta.id_tahun_ajaran " +
                 "WHERE p.id_presensi = ?";
         try (Connection conn = DBConnect.getConnection();
@@ -130,11 +105,6 @@ public class PresensiDAO {
         return null;
     }
 
-    /**
-     * Mengambil semua data presensi.
-     *
-     * @return List objek Presensi.
-     */
     public List<Presensi> getAllPresensi() {
         List<Presensi> presensiList = new ArrayList<>();
         String sql = "SELECT p.id_presensi, p.tanggal, p.status, p.nis, s.nama AS nama_siswa, " +
@@ -172,13 +142,6 @@ public class PresensiDAO {
         return presensiList;
     }
 
-    /**
-     * Mengambil data presensi untuk kelas tertentu dan tahun ajaran tertentu.
-     *
-     * @param idKelas ID Kelas.
-     * @param idTahunAjaran ID Tahun Ajaran.
-     * @return List objek Presensi.
-     */
     public List<Presensi> getPresensiByKelasAndTahunAjaran(int idKelas, int idTahunAjaran) {
         List<Presensi> presensiList = new ArrayList<>();
         String sql = "SELECT p.id_presensi, p.tanggal, p.status, " +
@@ -186,9 +149,9 @@ public class PresensiDAO {
                 "p.id_kelas, k.nama_kelas, ta.tahun_mulai, ta.tahun_selesai " +
                 "FROM presensi p " +
                 "JOIN siswa s ON p.nis = s.nis " +
-                "JOIN kelas k ON p.id_kelas = k.id_kelas " + // JOIN ke kelas karena filter by id_kelas
+                "JOIN kelas k ON p.id_kelas = k.id_kelas " +
                 "LEFT JOIN tahun_ajaran ta ON k.id_tahun_ajaran = ta.id_tahun_ajaran " +
-                "WHERE p.id_kelas = ? AND k.id_tahun_ajaran = ? " + // Filter berdasarkan id_kelas di presensi dan id_tahun_ajaran di kelas
+                "WHERE p.id_kelas = ? AND k.id_tahun_ajaran = ? " +
                 "ORDER BY p.tanggal DESC, s.nama";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -206,7 +169,7 @@ public class PresensiDAO {
                         rs.getString("status"),
                         rs.getString("nis"),
                         rs.getString("nama_siswa"),
-                        rs.getInt("id_kelas"), // Mengambil id_kelas
+                        rs.getInt("id_kelas"),
                         rs.getString("nama_kelas"),
                         tahunAjaranLengkap
                 ));
@@ -218,13 +181,6 @@ public class PresensiDAO {
         return presensiList;
     }
 
-    /**
-     * Mengambil data presensi untuk siswa tertentu pada tahun ajaran tertentu.
-     *
-     * @param nis NIS Siswa.
-     * @param idTahunAjaran ID Tahun Ajaran.
-     * @return List objek Presensi.
-     */
     public List<Presensi> getPresensiByNisAndTahunAjaran(String nis, int idTahunAjaran) {
         List<Presensi> presensiList = new ArrayList<>();
         String sql = "SELECT p.id_presensi, p.tanggal, p.status, " +
@@ -232,9 +188,9 @@ public class PresensiDAO {
                 "p.id_kelas, k.nama_kelas, ta.tahun_mulai, ta.tahun_selesai " +
                 "FROM presensi p " +
                 "JOIN siswa s ON p.nis = s.nis " +
-                "JOIN kelas k ON p.id_kelas = k.id_kelas " + // JOIN ke kelas untuk mendapatkan tahun_ajaran
+                "JOIN kelas k ON p.id_kelas = k.id_kelas " +
                 "LEFT JOIN tahun_ajaran ta ON k.id_tahun_ajaran = ta.id_tahun_ajaran " +
-                "WHERE p.nis = ? AND k.id_tahun_ajaran = ? " + // Filter presensi berdasarkan NIS siswa dan tahun ajaran kelas siswa
+                "WHERE p.nis = ? AND k.id_tahun_ajaran = ? " +
                 "ORDER BY p.tanggal DESC, s.nama";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -252,7 +208,7 @@ public class PresensiDAO {
                         rs.getString("status"),
                         rs.getString("nis"),
                         rs.getString("nama_siswa"),
-                        rs.getInt("id_kelas"), // Mengambil id_kelas
+                        rs.getInt("id_kelas"),
                         rs.getString("nama_kelas"),
                         tahunAjaranLengkap
                 ));

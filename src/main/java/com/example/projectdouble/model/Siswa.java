@@ -12,16 +12,14 @@ public class Siswa {
     private String tempatLahir;
     private LocalDate tanggalLahir;
     private String alamat;
-    private Integer idKelas; // Foreign Key ke Kelas (bisa NULL jika belum masuk kelas)
-    private String namaKelas; // Untuk tampilan
-    private Integer idTahunAjaran; // Foreign Key ke TahunAjaran (bisa NULL jika belum masuk tahun ajaran)
-    private String tahunAjaranLengkap; // Untuk tampilan
-    private Integer idUser; // Foreign Key ke Users (bisa NULL jika siswa belum punya akun login)
-    private String usernameUser; // Untuk mempermudah akses
-    private String passwordUser; // Untuk mempermudah akses (hati-hati di produksi)
-    //private String kelasTahunAjaran;
+    private Integer idKelas;
+    private String namaKelas;
+    private Integer idTahunAjaran;
+    private String tahunAjaranLengkap;
+    private Integer idUser;
+    private String usernameUser;
+    private String passwordUser;
 
-    // Konstruktor lengkap untuk data dari database
     public Siswa(String nis, String nama, String jenisKelamin, String tempatLahir, LocalDate tanggalLahir, String alamat,
                  Integer idKelas, String namaKelas, Integer idTahunAjaran, String tahunAjaranLengkap, Integer idUser, String usernameUser, String passwordUser) {
         this.nis = nis;
@@ -37,10 +35,8 @@ public class Siswa {
         this.idUser = idUser;
         this.usernameUser = usernameUser;
         this.passwordUser = passwordUser;
-        //this.kelasTahunAjaran = namaKelas + "(" + tahunAjaranLengkap + ")";
     }
 
-    // Konstruktor untuk membuat siswa baru (tanpa idUser, idKelas, idTahunAjaran di awal)
     public Siswa(String nis, String nama, String jenisKelamin, String tempatLahir, LocalDate tanggalLahir, String alamat) {
         this.nis = nis;
         this.nama = nama;
@@ -57,7 +53,6 @@ public class Siswa {
         this.passwordUser = null;
     }
 
-    // Konstruktor untuk siswa dengan kelas dan tahun ajaran (misal saat menambah siswa ke kelas)
     public Siswa(String nis, String nama, String jenisKelamin, String tempatLahir, LocalDate tanggalLahir, String alamat,
                  Integer idKelas, Integer idTahunAjaran) {
         this.nis = nis;
@@ -68,7 +63,7 @@ public class Siswa {
         this.alamat = alamat;
         this.idKelas = idKelas;
         this.idTahunAjaran = idTahunAjaran;
-        this.idUser = null; // Bisa diset kemudian
+        this.idUser = null;
         this.usernameUser = null;
         this.passwordUser = null;
     }

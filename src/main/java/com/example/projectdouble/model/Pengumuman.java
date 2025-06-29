@@ -8,9 +8,8 @@ public class Pengumuman {
     private String judul;
     private String deskripsi;
     private LocalDateTime tanggal;
-    private String lampiran; // Path atau nama file lampiran
+    private String lampiran;
 
-    // Konstruktor untuk menambahkan pengumuman baru
     public Pengumuman(String judul, String deskripsi, LocalDateTime tanggal, String lampiran) {
         this.judul = judul;
         this.deskripsi = deskripsi;
@@ -18,7 +17,6 @@ public class Pengumuman {
         this.lampiran = lampiran;
     }
 
-    // Konstruktor untuk mengambil pengumuman dari database
     public Pengumuman(int idPengumuman, String judul, String deskripsi, LocalDateTime tanggal, String lampiran) {
         this.idPengumuman = idPengumuman;
         this.judul = judul;

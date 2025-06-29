@@ -3,16 +3,15 @@ package com.example.projectdouble.model;
 import java.util.Objects;
 
 public class Guru {
-    private String nip; // Primary Key
-    private Integer idUser; // Foreign Key ke Users (BISA NULL jika guru belum punya akun login)
+    private String nip;
+    private Integer idUser;
     private String nama;
     private String jenisKelamin;
     private String email;
     private String noHp;
-    private String usernameUser; // Untuk mempermudah akses
-    private String passwordUser; // Untuk mempermudah akses (hati-hati di produksi)
+    private String usernameUser;
+    private String passwordUser;
 
-    // Konstruktor dengan semua field
     public Guru(String nip, Integer idUser, String nama, String jenisKelamin, String email, String noHp, String usernameUser, String passwordUser) {
         this.nip = nip;
         this.idUser = idUser;
@@ -24,14 +23,13 @@ public class Guru {
         this.passwordUser = passwordUser;
     }
 
-    // Konstruktor tanpa idUser (untuk kasus dimana guru belum memiliki akun login)
     public Guru(String nip, String nama, String jenisKelamin, String email, String noHp) {
         this.nip = nip;
         this.nama = nama;
         this.jenisKelamin = jenisKelamin;
         this.email = email;
         this.noHp = noHp;
-        this.idUser = null; // Set null jika tidak ada akun user
+        this.idUser = null;
         this.usernameUser = null;
         this.passwordUser = null;
     }

@@ -66,10 +66,10 @@ public class SiswaController implements Initializable {
     @FXML private TableView<Tugas> assignmentTable;
     @FXML private TableColumn<Tugas, String> assignmentTitleCol, assignmentDescCol, assignmentDeadlineCol;
 
-    // Extracurricular tables - Perbaikan di sini
-    @FXML private TableView<Ekstrakurikuler> extracurricularTable1; // Tabel untuk ekskul yang diikuti siswa
+    // Extracurricular tables
+    @FXML private TableView<Ekstrakurikuler> extracurricularTable1;
     @FXML private TableColumn<Ekstrakurikuler, String> extracurricularNameCol1, extracurricularLevelCol1, extracurricularMentorCol1;
-    @FXML private TableView<Ekstrakurikuler> extracurricularTable; // Tabel untuk semua ekskul di sekolah
+    @FXML private TableView<Ekstrakurikuler> extracurricularTable;
     @FXML private TableColumn<Ekstrakurikuler, String> extracurricularNameCol, extracurricularLevelCol, extracurricularMentorCol;
 
 
@@ -82,8 +82,8 @@ public class SiswaController implements Initializable {
     @FXML private TableView<NilaiUjian> gradeTable;
     @FXML private TableColumn<NilaiUjian, String> gradeExamCol;
     @FXML private TableColumn<NilaiUjian, BigDecimal> gradeGradeCol;
-    @FXML private TableColumn<NilaiUjian, String> gradeSemesterCol; // Akan diisi sesuai logika semester
-    @FXML private Tab reportTab; // Tambahkan fx:id untuk Tab Report
+    @FXML private TableColumn<NilaiUjian, String> gradeSemesterCol;
+    @FXML private Tab reportTab;
     @FXML private TextField reportClassField;
     @FXML private TableView<NilaiUjian> reportTable;
     @FXML private TableColumn<NilaiUjian, String> reportSubjectCol, reportExamCol;
@@ -138,10 +138,10 @@ public class SiswaController implements Initializable {
                     super.updateItem(item, empty);
                     if (empty || item == null) {
                         setText(null);
-                        setGraphic(null); // Important to clear graphic if any
+                        setGraphic(null);
                     } else {
                         setText(item.toString());
-                        setGraphic(null); // Important to clear graphic if any
+                        setGraphic(null);
                         setStyle("-fx-alignment: CENTER;");
                     }
                 }
@@ -157,10 +157,10 @@ public class SiswaController implements Initializable {
 
                 {
                     text = new Text();
-                    text.wrappingWidthProperty().bind(column.widthProperty().subtract(5)); // Subtract a bit for padding
+                    text.wrappingWidthProperty().bind(column.widthProperty().subtract(5));
                     setGraphic(text);
                     setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-                    setAlignment(Pos.CENTER_LEFT); // Default left alignment if only wrapping
+                    setAlignment(Pos.CENTER_LEFT);
                     setPrefHeight(Control.USE_COMPUTED_SIZE);
                 }
 
@@ -181,7 +181,8 @@ public class SiswaController implements Initializable {
 
     private void setupAllUIComponents() {
         announcementTitleCol.setCellValueFactory(new PropertyValueFactory<>("judul"));
-        announcementDateCol.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getTanggal().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
+        announcementDateCol.setCellValueFactory(cellData ->
+                new javafx.beans.property.SimpleStringProperty(cellData.getValue().getTanggal().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
         announcementContentCol.setCellValueFactory(new PropertyValueFactory<>("deskripsi"));
         announcementAttachmentCol.setCellValueFactory(new PropertyValueFactory<>("lampiran"));
         assignmentTitleCol.setCellValueFactory(new PropertyValueFactory<>("judul"));
@@ -191,12 +192,12 @@ public class SiswaController implements Initializable {
         // Setup for extracurricularTable1 (My Extracurricular)
         extracurricularNameCol1.setCellValueFactory(new PropertyValueFactory<>("nama"));
         extracurricularLevelCol1.setCellValueFactory(new PropertyValueFactory<>("tingkat"));
-        extracurricularMentorCol1.setCellValueFactory(new PropertyValueFactory<>("mentorNames")); // Asumsi ada getter ini di model Ekstrakurikuler
+        extracurricularMentorCol1.setCellValueFactory(new PropertyValueFactory<>("mentorNames"));
 
-        // Setup for extracurricularTable (All Extracurriculars) - Baru ditambahkan
+        // Setup for extracurricularTable (All Extracurriculars)
         extracurricularNameCol.setCellValueFactory(new PropertyValueFactory<>("nama"));
         extracurricularLevelCol.setCellValueFactory(new PropertyValueFactory<>("tingkat"));
-        extracurricularMentorCol.setCellValueFactory(new PropertyValueFactory<>("mentorNames")); // Asumsi ada getter ini di model Ekstrakurikuler
+        extracurricularMentorCol.setCellValueFactory(new PropertyValueFactory<>("mentorNames"));
 
         agendaContentCol.setCellValueFactory(new PropertyValueFactory<>("judul"));
         agendaStartCol.setCellValueFactory(new PropertyValueFactory<>("tanggalMulai"));
@@ -207,7 +208,6 @@ public class SiswaController implements Initializable {
         scheduleSubjectCol.setCellValueFactory(new PropertyValueFactory<>("namaMapel"));
         gradeExamCol.setCellValueFactory(new PropertyValueFactory<>("jenisUjian"));
         gradeGradeCol.setCellValueFactory(new PropertyValueFactory<>("nilai"));
-        // Mengatur nilai kolom Semester berdasarkan jenisUjian
         gradeSemesterCol.setCellValueFactory(cellData -> {
             String jenisUjian = cellData.getValue().getJenisUjian();
             String semester;
@@ -225,7 +225,7 @@ public class SiswaController implements Initializable {
                     semester = "Genap";
                     break;
                 default:
-                    semester = "-"; // Atau nilai default lainnya
+                    semester = "-";
                     break;
             }
             return new javafx.beans.property.SimpleStringProperty(semester);
@@ -283,7 +283,6 @@ public class SiswaController implements Initializable {
         schoolYearHeaderCombo.setItems(allSchoolYears);
         agendaSchoolYearCombo.setItems(allSchoolYears);
 
-        // Set converter for schoolYearHeaderCombo for proper display
         schoolYearHeaderCombo.setConverter(new StringConverter<TahunAjaran>() {
             @Override
             public String toString(TahunAjaran object) {
@@ -302,7 +301,7 @@ public class SiswaController implements Initializable {
         if (this.currentSiswa != null) {
             welcome.setText("Welcome, " + this.currentSiswa.getNama() + "!");
             populateMyBiodata();
-            loadAllTablesForSiswa(); // Akan memanggil updateHeaderAndRaporStatusBasedOnSelectedYear di dalamnya
+            loadAllTablesForSiswa();
         } else {
             showAlert(Alert.AlertType.ERROR, "Data Error", "Data siswa tidak ditemukan.");
         }
@@ -334,39 +333,37 @@ public class SiswaController implements Initializable {
 
         // Handle Report Tab visibility and content
         if (selectedYear != null && raporDAO.isRaporPrinted(currentSiswa.getNis(), selectedYear.getIdTahunAjaran())) {
-            reportTab.setDisable(false); // Aktifkan tab
+            reportTab.setDisable(false);
             reportTable.setItems(FXCollections.observableArrayList(
                     nilaiUjianDAO.getNilaiUjianByNisAndTahunAjaran(currentSiswa.getNis(), selectedYear.getIdTahunAjaran())
             ));
-            reportTable.setPlaceholder(new Label("")); // Hapus placeholder jika ada data
+            reportTable.setPlaceholder(new Label(""));
         } else {
-            reportTab.setDisable(true); // Nonaktifkan tab
+            reportTab.setDisable(true);
             reportTable.getItems().clear();
             reportTable.setPlaceholder(new Label("Rapor untuk tahun ajaran ini belum tersedia atau belum dicetak oleh wali kelas."));
         }
 
-        // Muat ulang tabel nilai (grades) dan tugas juga berdasarkan tahun ajaran yang dipilih
-        // Jika siswa pindah tahun ajaran di header, tabel grades dan assignments juga harus merefleksikan tahun ajaran yang sesuai
+
         if (selectedYear != null) {
             // Update Grades Table
             masterReportList.setAll(nilaiUjianDAO.getNilaiUjianByNisAndTahunAjaran(currentSiswa.getNis(), selectedYear.getIdTahunAjaran()));
             gradeTable.setItems(masterReportList);
-            filterGrades(); // Apply subject filter if any
+            filterGrades();
 
             // Update Assignments Table
             masterTugasList.setAll(tugasDAO.getTugasByKelasAndTahunAjaran(
-                    currentSiswa.getIdKelas() != null ? currentSiswa.getIdKelas() : 0, // Assume 0 or handle null if kelas can be null
+                    currentSiswa.getIdKelas() != null ? currentSiswa.getIdKelas() : 0,
                     selectedYear.getIdTahunAjaran()
             ));
             assignmentTable.setItems(masterTugasList);
-            filterAssignments(); // Apply subject filter if any
+            filterAssignments();
 
             // Update Attendance Table
             attendanceTable.setItems(FXCollections.observableArrayList(
                     presensiDAO.getPresensiByNisAndTahunAjaran(currentSiswa.getNis(), selectedYear.getIdTahunAjaran())
             ));
         } else {
-            // Clear all tables if no school year is selected in the header combo
             gradeTable.getItems().clear();
             assignmentTable.getItems().clear();
             attendanceTable.getItems().clear();
@@ -376,18 +373,15 @@ public class SiswaController implements Initializable {
     private void loadAllTablesForSiswa() {
         if(currentSiswa == null) return;
 
-        // Initialize header fields and set initial school year combo selection
         if (currentSiswa.getIdTahunAjaran() != null) {
             TahunAjaran initialYear = tahunAjaranDAO.getTahunAjaranById(currentSiswa.getIdTahunAjaran());
             if (initialYear != null) {
                 schoolYearHeaderCombo.getSelectionModel().select(initialYear);
             }
         }
-        // Panggil updateHeaderAndRaporStatusBasedOnSelectedYear untuk inisialisasi awal
-        // Ini akan memicu pembaruan semua tabel terkait tahun ajaran
+
         updateHeaderAndRaporStatusBasedOnSelectedYear();
 
-        // Load jadwal kelas (ini tidak terpengaruh oleh schoolYearHeaderCombo karena sudah diambil berdasarkan currentSiswa.idKelas)
         if(currentSiswa.getIdKelas() != null) {
             scheduleTable.setItems(FXCollections.observableArrayList(
                     jadwalKelasDAO.getAllJadwalKelasDetails().stream()
@@ -396,24 +390,13 @@ public class SiswaController implements Initializable {
             );
         }
 
-        // Ini diisi di updateHeaderAndRaporStatusBasedOnSelectedYear() sekarang
         masterReportList.setAll(nilaiUjianDAO.getNilaiUjianByNisAndTahunAjaran(currentSiswa.getNis(), currentSiswa.getIdTahunAjaran()));
         gradeTable.setItems(masterReportList);
 
-        // Report table juga diatur di updateHeaderAndRaporStatusBasedOnSelectedYear()
-//         reportTable.getItems().clear();
-//         if (currentSiswa.getIdTahunAjaran() != null && raporDAO.isRaporPrinted(currentSiswa.getNis(), currentSiswa.getIdTahunAjaran())) {
-//             reportTable.setItems(masterReportList);
-//         } else {
-//             reportTable.setPlaceholder(new Label("Rapor untuk tahun ajaran ini belum tersedia."));
-//         }
 
-        // attendanceTable juga diatur di updateHeaderAndRaporStatusBasedOnSelectedYear()
-        // attendanceTable.setItems(FXCollections.observableArrayList(presensiDAO.getPresensiByNis(currentSiswa.getNis())));
         attendanceClassField.setText(currentSiswa.getNamaKelas() != null ? currentSiswa.getNamaKelas() : "N/A");
         reportClassField.setText(currentSiswa.getNamaKelas() != null ? currentSiswa.getNamaKelas() : "N/A");
 
-        // Load "My Extracurricular" table (extracurricularTable1)
         List<Ekstrakurikuler> allEkskulWithMentors = ekstrakurikulerDAO.getAllEkstrakurikulerWithMentors();
         List<PesertaEkskul> myParticipation = pesertaEkskulDAO.getAllPesertaEkskul().stream().filter(p -> p.getNisSiswa().equals(currentSiswa.getNis())).collect(Collectors.toList());
 
@@ -425,13 +408,10 @@ public class SiswaController implements Initializable {
         }
         extracurricularTable1.setItems(FXCollections.observableArrayList(myEkskul));
 
-        // Load "All Extracurriculars" table (extracurricularTable) - Baru ditambahkan
         extracurricularTable.setItems(FXCollections.observableArrayList(allEkskulWithMentors));
 
 
-        // masterTugasList juga diisi di updateHeaderAndRaporStatusBasedOnSelectedYear()
-//         masterTugasList.setAll(tugasDAO.getAllTugas().stream().filter(t -> Objects.equals(t.getIdKelas(), currentSiswa.getIdKelas())).collect(Collectors.toList()));
-//         assignmentTable.setItems(masterTugasList);
+
     }
 
     private void filterAssignments() {
@@ -443,7 +423,6 @@ public class SiswaController implements Initializable {
             return;
         }
 
-        // Ambil semua tugas yang terkait dengan kelas siswa dan tahun ajaran yang dipilih
         List<Tugas> tasksForClassAndYear = tugasDAO.getTugasByKelasAndTahunAjaran(
                 currentSiswa.getIdKelas() != null ? currentSiswa.getIdKelas() : 0,
                 selectedSchoolYear.getIdTahunAjaran()
@@ -459,7 +438,6 @@ public class SiswaController implements Initializable {
         }
     }
 
-    // New method to filter grades table by subject
     private void filterGrades() {
         MataPelajaran selectedSubject = gradeSubjectCombo.getValue();
         TahunAjaran selectedSchoolYear = schoolYearHeaderCombo.getValue();
@@ -477,7 +455,6 @@ public class SiswaController implements Initializable {
             gradeTable.setItems(FXCollections.observableArrayList(scoresForStudentAndYear));
         } else {
             FilteredList<NilaiUjian> filteredData = new FilteredList<>(FXCollections.observableArrayList(scoresForStudentAndYear), nilai -> {
-                // Menggunakan Objects.equals() untuk perbandingan yang aman terhadap null
                 return Objects.equals(nilai.getIdMapel(), selectedSubject.getIdMapel());
             });
             gradeTable.setItems(filteredData);

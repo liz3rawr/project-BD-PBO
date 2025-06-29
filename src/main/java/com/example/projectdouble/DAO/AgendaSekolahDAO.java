@@ -9,13 +9,7 @@ import java.util.List;
 
 public class AgendaSekolahDAO {
 
-    /**
-     * Menambahkan agenda sekolah baru ke database.
-     * @param agenda Objek AgendaSekolah yang akan ditambahkan.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean addAgendaSekolah(AgendaSekolah agenda) {
-        // Menggunakan nama tabel lowercase 'agenda_sekolah'
         String sql = "INSERT INTO agenda_sekolah (judul, deskripsi, tanggal_mulai, tanggal_selesai, id_tahun_ajaran) VALUES (?, ?, ?, ?, ?) RETURNING id_agenda_sekolah";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -46,10 +40,6 @@ public class AgendaSekolahDAO {
         }
     }
 
-    /**
-     * Mengambil semua agenda sekolah dari database.
-     * @return List objek AgendaSekolah.
-     */
     public List<AgendaSekolah> getAllAgendaSekolah() {
         List<AgendaSekolah> agendaList = new ArrayList<>();
         String sql = "SELECT ag.id_agenda_sekolah, ag.judul, ag.deskripsi, ag.tanggal_mulai, ag.tanggal_selesai, ag.id_tahun_ajaran, " +
@@ -83,13 +73,7 @@ public class AgendaSekolahDAO {
         return agendaList;
     }
 
-    /**
-     * Mengambil agenda sekolah berdasarkan ID.
-     * @param idAgendaSekolah ID agenda sekolah.
-     * @return Objek AgendaSekolah jika ditemukan, null jika tidak.
-     */
     public AgendaSekolah getAgendaSekolahById(int idAgendaSekolah) {
-        // Menggunakan nama tabel lowercase 'agenda_sekolah'
         String sql = "SELECT ag.id_agenda_sekolah, ag.judul, ag.deskripsi, ag.tanggal_mulai, ag.tanggal_selesai, ag.id_tahun_ajaran, " +
                 "ta.tahun_mulai, ta.tahun_selesai " +
                 "FROM agenda_sekolah ag " +
@@ -122,11 +106,6 @@ public class AgendaSekolahDAO {
         return null;
     }
 
-    /**
-     * Mengambil agenda sekolah berdasarkan tahun ajaran.
-     * @param idTahunAjaran ID Tahun Ajaran.
-     * @return List objek AgendaSekolah.
-     */
     public List<AgendaSekolah> getAgendaByTahunAjaran(int idTahunAjaran) {
         List<AgendaSekolah> agendaList = new ArrayList<>();
         String sql = "SELECT ag.id_agenda_sekolah, ag.judul, ag.deskripsi, ag.tanggal_mulai, ag.tanggal_selesai, ag.id_tahun_ajaran, " +
@@ -139,9 +118,6 @@ public class AgendaSekolahDAO {
             stmt.setInt(1, idTahunAjaran);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                // Karena klausa WHERE memastikan ag.id_tahun_ajaran selalu cocok dengan parameter idTahunAjaran (int),
-                // dan tahun_mulai/tahun_selesai di tabel tahun_ajaran adalah INT (tidak null),
-                // maka kita bisa langsung mengambil nilainya.
                 String tahunAjaranLengkap = rs.getInt("tahun_mulai") + "/" + rs.getInt("tahun_selesai");
 
                 agendaList.add(new AgendaSekolah(
@@ -150,7 +126,7 @@ public class AgendaSekolahDAO {
                         rs.getString("deskripsi"),
                         rs.getDate("tanggal_mulai").toLocalDate(),
                         rs.getDate("tanggal_selesai").toLocalDate(),
-                        rs.getInt("id_tahun_ajaran"), // Gunakan nilai Integer dari ResultSet
+                        rs.getInt("id_tahun_ajaran"),
                         tahunAjaranLengkap
                 ));
             }
@@ -161,13 +137,7 @@ public class AgendaSekolahDAO {
         return agendaList;
     }
 
-    /**
-     * Memperbarui data agenda sekolah di database.
-     * @param agenda Objek AgendaSekolah dengan data terbaru.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean updateAgendaSekolah(AgendaSekolah agenda) {
-        // Menggunakan nama tabel lowercase 'agenda_sekolah'
         String sql = "UPDATE agenda_sekolah SET judul = ?, deskripsi = ?, tanggal_mulai = ?, tanggal_selesai = ?, id_tahun_ajaran = ? WHERE id_agenda_sekolah = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -190,13 +160,7 @@ public class AgendaSekolahDAO {
         }
     }
 
-    /**
-     * Menghapus agenda sekolah dari database berdasarkan ID.
-     * @param idAgendaSekolah ID agenda sekolah yang akan dihapus.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean deleteAgendaSekolah(int idAgendaSekolah) {
-        // Menggunakan nama tabel lowercase 'agenda_sekolah'
         String sql = "DELETE FROM agenda_sekolah WHERE id_agenda_sekolah = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

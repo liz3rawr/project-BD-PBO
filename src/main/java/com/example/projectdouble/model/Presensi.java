@@ -8,16 +8,12 @@ public class Presensi {
     private int idPresensi;
     private LocalDate tanggal;
     private String status;
-    private String nisSiswa; // Foreign Key ke Siswa
-    private String namaSiswa; // Untuk tampilan
-    private Integer idKelas; // Foreign Key ke Kelas (sekarang langsung ke Kelas)
-    private String namaKelas; // Untuk tampilan
-    // Informasi jadwal_kelas seperti namaMapel, namaGuru, hari, jamMulai, jamSelesai tidak lagi
-    // diambil langsung oleh tabel presensi. Jika diperlukan, harus didapatkan melalui
-    // relasi siswa->kelas->jadwal_kelas atau logika terpisah di aplikasi.
-    private String tahunAjaranLengkap; // Diambil dari Kelas
+    private String nisSiswa;
+    private String namaSiswa;
+    private Integer idKelas;
+    private String namaKelas;
+    private String tahunAjaranLengkap;
 
-    // Konstruktor untuk menambahkan presensi baru
     public Presensi(int idPresensi, LocalDate tanggal, String status, String nisSiswa, Integer idKelas) {
         this.idPresensi = idPresensi;
         this.tanggal = tanggal;
@@ -26,8 +22,6 @@ public class Presensi {
         this.idKelas = idKelas;
     }
 
-    // Konstruktor untuk mengambil data presensi dari database (dengan detail join)
-    // namaMapel, namaGuru, hari, jamMulai, jamSelesai akan selalu null jika tabel presensi tidak memiliki FK ke jadwal_kelas
     public Presensi(int idPresensi, LocalDate tanggal, String status, String nisSiswa, String namaSiswa,
                     Integer idKelas, String namaKelas, String tahunAjaranLengkap) {
         this.idPresensi = idPresensi;

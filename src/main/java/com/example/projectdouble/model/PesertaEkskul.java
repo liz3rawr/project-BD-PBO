@@ -4,22 +4,20 @@ import java.util.Objects;
 
 public class PesertaEkskul {
     private int idPeserta;
-    private String nisSiswa; // Foreign Key ke Siswa
-    private String namaSiswa; // Untuk tampilan
-    private Integer idKelasSiswa; // Untuk filter jika diperlukan
-    private String namaKelasSiswa; // Untuk tampilan
-    private Integer idTahunAjaranSiswa; // Untuk filter jika diperlukan
-    private int idEkstrakurikuler; // Foreign Key ke Ekstrakurikuler
-    private String namaEkstrakurikuler; // Untuk tampilan
-    private String tingkatEkstrakurikuler; // Untuk tampilan
+    private String nisSiswa;
+    private String namaSiswa;
+    private Integer idKelasSiswa;
+    private String namaKelasSiswa;
+    private Integer idTahunAjaranSiswa;
+    private int idEkstrakurikuler;
+    private String namaEkstrakurikuler;
+    private String tingkatEkstrakurikuler;
 
-    // Konstruktor untuk menambahkan peserta ekstrakurikuler baru
     public PesertaEkskul(String nisSiswa, int idEkstrakurikuler) {
         this.nisSiswa = nisSiswa;
         this.idEkstrakurikuler = idEkstrakurikuler;
     }
 
-    // Konstruktor untuk mengambil data peserta ekstrakurikuler dari database
     public PesertaEkskul(int idPeserta, String nisSiswa, String namaSiswa,
                          Integer idKelasSiswa, String namaKelasSiswa, Integer idTahunAjaranSiswa,
                          int idEkstrakurikuler, String namaEkstrakurikuler, String tingkatEkstrakurikuler) {
@@ -32,7 +30,6 @@ public class PesertaEkskul {
         this.idEkstrakurikuler = idEkstrakurikuler;
         this.namaEkstrakurikuler = namaEkstrakurikuler;
         this.tingkatEkstrakurikuler = tingkatEkstrakurikuler;
-        //this.kelasdanTahunAjaran = namaKelasSiswa +"("+
     }
 
     // Getters

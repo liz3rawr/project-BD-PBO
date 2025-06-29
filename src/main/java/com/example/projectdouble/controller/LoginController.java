@@ -27,42 +27,34 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
 
     @FXML
-    private TextField username; // Mengubah dari usernameField ke username
+    private TextField username;
     @FXML
-    private PasswordField password; // Mengubah dari passwordField ke password
+    private PasswordField password;
     @FXML
-    private ComboBox<Role> role; // Mengubah dari roleComboBox ke role
+    private ComboBox<Role> role;
 
-    private UserDAO userDao; // Objek DAO untuk operasi user
+    private UserDAO userDao;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        userDao = new UserDAO(); // Inisialisasi UserDao
-        loadRoles(); // Memuat role ke ComboBox saat inisialisasi
+        userDao = new UserDAO();
+        loadRoles();
 
     }
 
-    /**
-     * Memuat daftar role dari database ke ComboBox.
-     */
     private void loadRoles() {
         ObservableList<Role> roles = FXCollections.observableArrayList(userDao.getAllRoles());
-        role.setItems(roles); // Menggunakan fx:id baru "role"
+        role.setItems(roles);
     }
 
-    /**
-     * Menangani aksi klik tombol Login.
-     * @param event Objek ActionEvent.
-     */
     @FXML
-    private void actionLogin(ActionEvent event) { // Mengubah dari handleLogin ke actionLogin
-        String inputUsername = username.getText(); // Mengambil username dari input
-        String inputPassword = password.getText(); // Mengambil password dari input
-        Role selectedRole = role.getSelectionModel().getSelectedItem(); // Mengambil role yang dipilih
+    private void actionLogin(ActionEvent event) {
+        String inputUsername = username.getText();
+        String inputPassword = password.getText();
+        Role selectedRole = role.getSelectionModel().getSelectedItem();
 
         // Validasi input
         if (inputUsername.isEmpty() || inputPassword.isEmpty() || selectedRole == null) {
-            // errorMessageLabel.setText("Username, password, dan role harus diisi.");
             DBConnect.showAlert(Alert.AlertType.ERROR, "Login Gagal", "Username, password, dan role harus diisi.");
             return;
         }
@@ -72,7 +64,6 @@ public class LoginController implements Initializable {
 
 
         if (loggedInUser != null) {
-            // Set nama asli untuk welcome message (jika ada)
             String welcomeName = loggedInUser.getUsername();
             if ("guru".equals(loggedInUser.getRole().getNamaRole())) {
                 String guruName = userDao.getGuruNameByNip(loggedInUser.getUsername());
@@ -85,15 +76,13 @@ public class LoginController implements Initializable {
                     welcomeName = siswaName;
                 }
             }
-            loggedInUser.setDisplayName(welcomeName); // Set username di objek User menjadi nama asli
+            loggedInUser.setDisplayName(welcomeName);
 
-            SessionManager.setLoggedInUser(loggedInUser); // Simpan user yang login di SessionManager
+            SessionManager.setLoggedInUser(loggedInUser);
 
             try {
-                // Mendapatkan Stage saat ini dari event
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-                // Menentukan FXML dashboard berdasarkan role
                 String fxmlPath;
                 String dashboardTitle;
 
@@ -115,17 +104,15 @@ public class LoginController implements Initializable {
                         return;
                 }
 
-                // Memuat FXML dashboard
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
                 Parent root = loader.load();
 
 
 
-                // Membuat Scene baru dan menetapkannya ke Stage
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
-                stage.setTitle(dashboardTitle); // Mengatur judul jendela
-                stage.show(); // Menampilkan Stage
+                stage.setTitle(dashboardTitle);
+                stage.show();
 
             } catch (IOException e) {
                 System.err.println("Gagal memuat dashboard: " + e.getMessage());
@@ -133,7 +120,6 @@ public class LoginController implements Initializable {
                 DBConnect.showAlert(Alert.AlertType.ERROR, "Error", "Terjadi kesalahan saat memuat tampilan.");
             }
         } else {
-            // errorMessageLabel.setText("Username, password, atau role salah."); // Pesan error jika login gagal
             DBConnect.showAlert(Alert.AlertType.ERROR, "Login Gagal", "Username, password, atau role salah.");
         }
     }

@@ -1,9 +1,8 @@
 /* Latar belakang terang untuk seluruh jendela dan konten tab */
 .root,
 .tab-content-area {
-    -fx-background-color: #F8F9FA; /* Putih Gading */
+    -fx-background-color: #F8F9FA; 
 }
-
 /* --- Tombol dengan Tema Biru --- */
 .button {
     -fx-background-color: #3182CE;
@@ -20,33 +19,33 @@
     -fx-background-color: #C53030;
 }
 
-/* --- Input Fields (Model seperti Login) --- */
+/* --- Input Fields --- */
 .text-field, .text-area, .combo-box, .choice-box, .date-picker {
-    -fx-background-color: #FFFFFF; /* Latar Belakang Putih */
-    -fx-border-color: #CED4DA;     /* Border Abu-abu Muda */
-    -fx-text-fill: #343A40;         /* Teks ketikan berwarna gelap */
-    -fx-prompt-text-fill: #6C757D; /* Teks placeholder abu-abu */
-    -fx-border-radius: 5px;        /* Sudut sedikit melengkung */
+    -fx-background-color: #FFFFFF; 
+    -fx-border-color: #CED4DA;     
+    -fx-text-fill: #343A40;       
+    -fx-prompt-text-fill: #6C757D;
+    -fx-border-radius: 5px;        
     -fx-background-radius: 5px;
 }
 
-/* --- Style untuk daftar pilihan ComboBox dan ChoiceBox (DIPERBARUI) --- */
+/* --- Style untuk daftar pilihan ComboBox dan ChoiceBox --- */
 .combo-box-popup .list-view .list-cell,
 .choice-box .context-menu .menu-item {
     -fx-background-color: white;
     -fx-text-fill: #343A40;
 }
 
-/* EFEK HOVER (SAAT KURSOR DI ATAS PILIHAN) - INI PERBAIKANNYA */
+/* EFEK HOVER (SAAT KURSOR DI ATAS PILIHAN)  */
 .combo-box-popup .list-view .list-cell:hover,
 .choice-box .context-menu .menu-item:focused {
-    -fx-background-color: #D3E5F5; /* Warna biru muda untuk hover */
-    -fx-text-fill: #343A40;         /* Teks tetap gelap (hitam) */
+    -fx-background-color: #D3E5F5; 
+    -fx-text-fill: #343A40;         
 }
 
 /* Efek untuk item yang sudah terpilih di dalam daftar */
 .combo-box-popup .list-view .list-cell:filled:selected {
-    -fx-background-color: #3182CE; /* Warna biru solid untuk item yang terpilih */
+    -fx-background-color: #3182CE; =
     -fx-text-fill: white;
 }
 /* Khusus untuk teks di dalam ChoiceBox agar tidak ikut berubah saat hover */
@@ -57,67 +56,67 @@
 
 /* --- Warna untuk Header Tab --- */
 .tab-pane .tab-header-area .tab-header-background {
-    -fx-background-color: #F8F9FA; /* Header tab menyatu dengan background utama */
+    -fx-background-color: #F8F9FA; =
 }
 .tab-pane .tab {
-    -fx-background-color: #E9ECEF; /* Warna abu-abu netral untuk tab yang tidak aktif */
-    -fx-border-color: #CED4DA;     /* Border untuk semua tab */
-    -fx-border-width: 1 1 0 1;     /* Atas, Kanan, Bawah, Kiri */
+    -fx-background-color: #E9ECEF; 
+    -fx-border-color: #CED4DA;    
+    -fx-border-width: 1 1 0 1;     
 }
 .tab-pane .tab:selected {
-    -fx-background-color: #2B6CB0; /* Biru yang sedikit lebih gelap untuk tab aktif */
+    -fx-background-color: #2B6CB0; 
 }
 .tab-pane .tab:selected .tab-label {
-    -fx-text-fill: white; /* Teks putih di tab yang aktif */
+    -fx-text-fill: white; 
 }
 .tab .tab-label {
-    -fx-text-fill: #495057; /* Teks gelap di tab yang tidak aktif */
+    -fx-text-fill: #495057; 
 }
 
 
 /* --- Table View Styling --- */
 .table-view {
-    -fx-background-color: transparent; /* Latar tabel dibuat transparan agar mengikuti .tab-content-area */
-    -fx-border-color: #A0AEC0; /* Border abu-abu netral */
+    -fx-background-color: transparent; 
+    -fx-border-color: #A0AEC0; 
     -fx-border-radius: 5px;
 }
 
 /* Header Kolom Tabel */
 .table-view .column-header-background {
-    -fx-background-color: #2A4365; /* Biru yang lebih terlihat */
+    -fx-background-color: #2A4365; 
 }
 .table-view .column-header, .table-view .filler {
     -fx-background-color: transparent;
 }
 .table-view .column-header .label {
-    -fx-text-fill: white; /* Teks header putih */
+    -fx-text-fill: white; 
     -fx-font-weight: bold;
 }
 
-/* Baris dan Sel Tabel (tetap terang) */
+/* Baris dan Sel Tabel  */
 .table-row-cell {
     -fx-background-color: #FFFFFF;
-    -fx-border-color: transparent transparent #E9ECEF transparent; /* Garis pemisah antar baris */
+    -fx-border-color: transparent transparent #E9ECEF transparent; 
 }
 .table-row-cell:odd {
     -fx-background-color: #F8F9FA;
 }
 .table-view .table-cell {
-     -fx-text-fill: #343A40; /* Teks gelap di dalam sel */
+     -fx-text-fill: #343A40; 
 }
 
 /* Efek saat baris tabel dipilih (Selected) */
 .table-row-cell:selected {
-    -fx-background-color: #3182CE; /* Warna biru saat baris dipilih */
+    -fx-background-color: #3182CE; 
 }
 .table-row-cell:selected .table-cell {
-    -fx-text-fill: white; /* Teks menjadi putih saat baris dipilih */
+    -fx-text-fill: white; 
 }
 
 
 /* --- Scroll Bar Styling --- */
 .scroll-bar:vertical, .scroll-bar:horizontal{
-    -fx-background-color: #E9ECEF; /* Latar scrollbar abu-abu terang */
+    -fx-background-color: #E9ECEF; 
 }
 
 /* Panah pada scrollbar */
@@ -126,13 +125,13 @@
     -fx-border-color: transparent;
 }
 .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
-    -fx-shape: " "; /* Menghilangkan bentuk panah default */
+    -fx-shape: " "; 
     -fx-padding: 0;
 }
 
 /* Bagian yang bisa digeser (thumb) */
 .scroll-bar .thumb {
-    -fx-background-color: #3182CE; /* Thumb berwarna biru */
+    -fx-background-color: #3182CE; 
     -fx-background-radius: 8px;
 }
 
@@ -140,7 +139,7 @@
     -fx-background-color: transparent;
 }
 
-/* EFEK HOVER UNTUK KOMPONEN (BARU DITAMBAHKAN) */
+/* EFEK HOVER UNTUK KOMPONEN */
 .combo-box:hover, .choice-box:hover {
-    -fx-background-color: #E9ECEF; /* Warna abu-abu muda saat kursor di atas */
+    -fx-background-color: #E9ECEF; 
 }

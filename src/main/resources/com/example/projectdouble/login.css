@@ -3,16 +3,16 @@
     -fx-background-color: #F8F9FA;
 }
 
-/* Untuk tulisan "Welcome to" - Ukuran 30px dari FXML */
+/* Untuk tulisan "Welcome to" */
 .header-subtitle {
     -fx-font-family: "Arial", sans-serif;
     -fx-font-style: italic;
     -fx-font-weight: bold;
     -fx-font-size: 30px;
-    -fx-text-fill: #495057; /* Warna sedikit lebih lembut dari judul utama */
+    -fx-text-fill: #495057; 
 }
 
-/* Untuk tulisan "Petra Elementary School" - Ukuran 35px dari FXML */
+/* Untuk tulisan "Petra Elementary School" */
 .header-main {
     -fx-font-family: "Georgia", serif;
     -fx-font-weight: bold;
@@ -20,7 +20,7 @@
     -fx-text-fill: #343A40;
 }
 
-/* Untuk label "Username" & "Password" - Ukuran 20px dari FXML */
+/* Untuk label "Username" & "Password" */
 .login-label {
     -fx-font-size: 20px;
     -fx-text-fill: #495057;
@@ -33,7 +33,7 @@
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-font-size: 14px;
-    -fx-pref-height: 32px; /* Menyesuaikan dengan prefHeight dari FXML */
+    -fx-pref-height: 32px; 
 }
 
 /* Style untuk tombol LOGIN utama */
@@ -43,7 +43,7 @@
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-background-radius: 5px;
-    -fx-pref-height: 32px; /* Menyamakan tinggi tombol */
+    -fx-pref-height: 32px; 
 }
 
 /* Efek saat mouse berada di atas tombol LOGIN */
@@ -52,9 +52,9 @@
     -fx-cursor: hand;
 }
 
-/* EFEK HOVER UNTUK KOMPONEN (BARU DITAMBAHKAN) */
+/* EFEK HOVER UNTUK KOMPONEN */
 .combo-box:hover, .choice-box:hover {
-    -fx-background-color: #E9ECEF; /* Warna abu-abu muda saat kursor di atas */
+    -fx-background-color: #E9ECEF; 
 }
 
 

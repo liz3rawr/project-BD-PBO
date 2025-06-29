@@ -6,7 +6,7 @@ public class TahunAjaran {
     private int idTahunAjaran;
     private int tahunMulai;
     private int tahunSelesai;
-    private String tahunAjaranLengkap; // Contoh: "2023/2024"
+    private String tahunAjaranLengkap; //"2023/2024"
 
     public TahunAjaran(int idTahunAjaran, int tahunMulai, int tahunSelesai) {
         this.idTahunAjaran = idTahunAjaran;

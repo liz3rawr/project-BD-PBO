@@ -40,9 +40,9 @@ public class AdminController implements Initializable {
 
     // Tab Pane (for switching tabs)
     @FXML
-    private TabPane mainTabPane; // Tambahkan ini jika belum ada di FXML Anda
+    private TabPane mainTabPane;
     @FXML
-    private Tab entryStudentDataTab; // Tambahkan ini jika belum ada di FXML Anda
+    private Tab entryStudentDataTab;
 
     // --- Components for Announcements Tab ---
     @FXML
@@ -141,9 +141,9 @@ public class AdminController implements Initializable {
     @FXML
     private TableColumn<Siswa, String> colStudentAddress;
     @FXML
-    private TableColumn<Siswa, String> colStudentClass; // New column for class
+    private TableColumn<Siswa, String> colStudentClass;
     @FXML
-    private TableColumn<Siswa, String> colStudentSchoolYear; // New column for school year and semester
+    private TableColumn<Siswa, String> colStudentSchoolYear;
     private ObservableList<Siswa> studentList;
 
 
@@ -190,7 +190,7 @@ public class AdminController implements Initializable {
     @FXML
     private Button addScheduleButton;
 
-    // NEW FXML for schedule table
+    // schedule table
     @FXML
     private TableView<JadwalKelas> scheduleTable;
     @FXML
@@ -205,7 +205,6 @@ public class AdminController implements Initializable {
     private TableColumn<JadwalKelas, String> colScheduleTeacher;
     @FXML
     private TableColumn<JadwalKelas, String> colScheduleSemester;
-    // NEW: Delete Schedule Button
     @FXML private Button deleteScheduleButton;
 
     private ObservableList<JadwalKelas> scheduleList;
@@ -362,7 +361,7 @@ public class AdminController implements Initializable {
     private Button addStudentToExtracurricularButton;
 
     @FXML
-    private TableView<Siswa> studentsInExtracurricularTable; // Renamed for clarity
+    private TableView<Siswa> studentsInExtracurricularTable;
     @FXML
     private TableColumn<Siswa, String> colExtracurricularStudentNis;
     @FXML
@@ -383,7 +382,6 @@ public class AdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initialize DAO
         pengumumanDAO = new PengumumanDAO();
         siswaDao = new SiswaDAO();
         userDao = new UserDAO();
@@ -398,7 +396,6 @@ public class AdminController implements Initializable {
         pesertaEkskulDao = new PesertaEkskulDAO();
 
 
-        // Set welcome message
         User loggedInUser = SessionManager.getLoggedInUser();
         if (loggedInUser != null) {
             welcome.setText("Welcome, " + loggedInUser.getDisplayName() + "!");
@@ -406,7 +403,6 @@ public class AdminController implements Initializable {
             welcome.setText("Welcome, Guest!");
         }
 
-        // Initialize UI components for each tab
         setupAnnouncementTab();
         setupStudentEntryTab();
         setupViewStudentsTab();
@@ -416,19 +412,17 @@ public class AdminController implements Initializable {
         setupManageSchoolAgendaTab();
         setupExtracurricularTab();
 
-        // Load initial data
         loadAnnouncements();
         loadAllStudents();
         loadAllTeachers();
-        loadTeachersIntoComboBoxes(); // For Kelas, Jadwal, Pembina
-        loadTahunAjaranIntoComboBoxes(); // For Kelas, Jadwal, Agenda
-        loadKelasIntoComboBoxes(); // For Jadwal, Assign Student, Siswa Ekskul
-        loadMataPelajaranIntoChoiceBoxes(); // For Jadwal
-        loadEkstrakurikulerIntoComboBoxes(); // For Pembina and Peserta Ekskul
-        loadStudentsForExtracurricularAssignment(); // Load students initially for extracurricular assignment
-        loadSchedules(); // Call to load schedules on initialization
+        loadTeachersIntoComboBoxes();
+        loadTahunAjaranIntoComboBoxes();
+        loadKelasIntoComboBoxes();
+        loadMataPelajaranIntoChoiceBoxes();
+        loadEkstrakurikulerIntoComboBoxes();
+        loadStudentsForExtracurricularAssignment();
+        loadSchedules();
 
-        // Listeners for changes in selection to populate edit forms/tables
         setupListeners();
     }
 
@@ -456,10 +450,10 @@ public class AdminController implements Initializable {
                     super.updateItem(item, empty);
                     if (empty || item == null) {
                         setText(null);
-                        setGraphic(null); // Important to clear graphic if any
+                        setGraphic(null);
                     } else {
                         setText(item.toString());
-                        setGraphic(null); // Important to clear graphic if any
+                        setGraphic(null);
                         setStyle("-fx-alignment: CENTER;");
                     }
                 }
@@ -475,10 +469,10 @@ public class AdminController implements Initializable {
 
                 {
                     text = new Text();
-                    text.wrappingWidthProperty().bind(column.widthProperty().subtract(5)); // Subtract a bit for padding
+                    text.wrappingWidthProperty().bind(column.widthProperty().subtract(5));
                     setGraphic(text);
                     setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-                    setAlignment(Pos.CENTER_LEFT); // Default left alignment if only wrapping
+                    setAlignment(Pos.CENTER_LEFT);
                     setPrefHeight(Control.USE_COMPUTED_SIZE);
                 }
 
@@ -506,7 +500,6 @@ public class AdminController implements Initializable {
         colAnnouncementContent.setCellValueFactory(new PropertyValueFactory<>("deskripsi"));
         colAnnouncementAttachment.setCellValueFactory(new PropertyValueFactory<>("lampiran"));
 
-        // Listener for selecting announcements and populating the edit form
         announcementTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 populateAnnouncementFields(newSelection);
@@ -516,15 +509,14 @@ public class AdminController implements Initializable {
         });
 
         wrapTextColumn(colAnnouncementTitle);
-        wrapTextColumn(colAnnouncementContent); // Apply wrapping to content
-        wrapTextColumn(colAnnouncementAttachment); // Apply wrapping to attachment
-        centerAlignColumn(colAnnouncementDate); // Keep date centered
+        wrapTextColumn(colAnnouncementContent);
+        wrapTextColumn(colAnnouncementAttachment);
+        centerAlignColumn(colAnnouncementDate);
     }
 
     private void setupStudentEntryTab() {
         genderComboBox.setItems(FXCollections.observableArrayList("Laki-laki", "Perempuan"));
         genderEditComboBox.setItems(FXCollections.observableArrayList("Laki-laki", "Perempuan"));
-        // Listener for selectNisEditComboBox
         selectNisEditComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 populateEditStudentFields(newSelection);
@@ -541,18 +533,17 @@ public class AdminController implements Initializable {
         colStudentPlaceOfBirth.setCellValueFactory(new PropertyValueFactory<>("tempatLahir"));
         colStudentDateOfBirth.setCellValueFactory(new PropertyValueFactory<>("tanggalLahir"));
         colStudentAddress.setCellValueFactory(new PropertyValueFactory<>("alamat"));
-        colStudentClass.setCellValueFactory(new PropertyValueFactory<>("namaKelas")); // From Siswa model's namaKelas
+        colStudentClass.setCellValueFactory(new PropertyValueFactory<>("namaKelas"));
         colStudentSchoolYear.setCellValueFactory(cellData -> {
             Siswa siswa = cellData.getValue();
             String tahunAjaran = siswa.getTahunAjaranLengkap();
-            // Removed semester
+
             if (tahunAjaran != null) {
                 return new SimpleStringProperty(tahunAjaran);
             }
             return new SimpleStringProperty("");
         });
 
-        // Format date of birth for display
         colStudentDateOfBirth.setCellFactory(column -> new TableCell<Siswa, LocalDate>() {
             private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             @Override
@@ -566,11 +557,10 @@ public class AdminController implements Initializable {
             }
         });
 
-        // Apply center alignment to desired student columns
         centerAlignColumn(colStudentNis);
         centerAlignColumn(colStudentGender);
         centerAlignColumn(colStudentPlaceOfBirth);
-        centerAlignColumn(colStudentDateOfBirth); // Already handled in cell factory above
+        centerAlignColumn(colStudentDateOfBirth);
         centerAlignColumn(colStudentClass);
         centerAlignColumn(colStudentSchoolYear);
         wrapTextColumn(colStudentAddress);
@@ -579,7 +569,7 @@ public class AdminController implements Initializable {
 
     private void setupViewTeachersTab() {
         colTeacherNip.setCellValueFactory(new PropertyValueFactory<>("nip"));
-        colTeacherPassword.setCellValueFactory(new PropertyValueFactory<>("passwordUser")); // Display password (for demo, not for production)
+        colTeacherPassword.setCellValueFactory(new PropertyValueFactory<>("passwordUser"));
         colTeacherName.setCellValueFactory(new PropertyValueFactory<>("nama"));
         colTeacherGender.setCellValueFactory(new PropertyValueFactory<>("jenisKelamin"));
         colTeacherEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -595,15 +585,13 @@ public class AdminController implements Initializable {
     private void setupManageSchedulesTab() {
         dayChoiceBox.setItems(FXCollections.observableArrayList("Senin", "Selasa", "Rabu", "Kamis", "Jumat"));
 
-        // Setup Schedule Table Columns
         colScheduleDay.setCellValueFactory(new PropertyValueFactory<>("hari"));
-        colScheduleTime.setCellValueFactory(new PropertyValueFactory<>("timeRange")); // Uses computed property
+        colScheduleTime.setCellValueFactory(new PropertyValueFactory<>("timeRange"));
         colScheduleSubject.setCellValueFactory(new PropertyValueFactory<>("namaMapel"));
-        colScheduleClass.setCellValueFactory(new PropertyValueFactory<>("namaKelas")); // Uses computed property
+        colScheduleClass.setCellValueFactory(new PropertyValueFactory<>("namaKelas"));
         colScheduleTeacher.setCellValueFactory(new PropertyValueFactory<>("namaGuru"));
-        colScheduleSemester.setCellValueFactory(new PropertyValueFactory<>("tahunAjaranLengkap")); // Removed
+        colScheduleSemester.setCellValueFactory(new PropertyValueFactory<>("tahunAjaranLengkap"));
 
-        // Apply center alignment to all schedule columns
         centerAlignColumn(colScheduleDay);
         centerAlignColumn(colScheduleTime);
         centerAlignColumn(colScheduleSubject);
@@ -623,7 +611,6 @@ public class AdminController implements Initializable {
         centerAlignColumn(colInClassName);
         centerAlignColumn(colInClassNis);
 
-        // Listeners for classes and school years combo boxes to filter student lists
         classStudentsInSelectedClassComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> loadStudentsInSelectedClass());
         schoolYearStudentsInSelectedClassComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> loadStudentsInSelectedClass());
 
@@ -671,26 +658,20 @@ public class AdminController implements Initializable {
         centerAlignColumn(colAgendaStart);
         centerAlignColumn(colAgendaEnd);
 
-        // semesterAgendaAddComboBox.setItems(FXCollections.observableArrayList("Ganjil", "Genap")); // Removed
-        // semesterAgendaViewComboBox.setItems(FXCollections.observableArrayList("Ganjil", "Genap")); // Removed
-
         agendaTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            // Not implemented: no edit agenda in FXML, only add/delete/view
-            // If editing was desired, you'd populate fields here
         });
 
-        // Add listeners for filtering agenda table
         schoolYearAgendaViewComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> loadSchoolAgenda());
     }
 
 
     private void setupExtracurricularTab() {
-        levelInputMentorComboBox.setItems(FXCollections.observableArrayList("Siaga", "Penggalang")); // Example levels
-        levelInputSiswaEkskulComboBox.setItems(FXCollections.observableArrayList("Siaga", "Penggalang")); // Example levels
+        levelInputMentorComboBox.setItems(FXCollections.observableArrayList("Siaga", "Penggalang"));
+        levelInputSiswaEkskulComboBox.setItems(FXCollections.observableArrayList("Siaga", "Penggalang"));
 
         colExtracurricularName.setCellValueFactory(new PropertyValueFactory<>("nama"));
         colExtracurricularLevel.setCellValueFactory(new PropertyValueFactory<>("tingkat"));
-        colExtracurricularMentor.setCellValueFactory(new PropertyValueFactory<>("mentorNames")); // Bind to the derived property
+        colExtracurricularMentor.setCellValueFactory(new PropertyValueFactory<>("mentorNames"));
 
         colExtracurricularStudentNis.setCellValueFactory(new PropertyValueFactory<>("nis"));
         colExtracurricularStudentName.setCellValueFactory(new PropertyValueFactory<>("nama"));
@@ -704,45 +685,33 @@ public class AdminController implements Initializable {
         wrapTextColumn(colExtracurricularMentor);
 
         extracurricularTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            // No edit fields for extracurricular in FXML, only delete.
-            // If editing was desired, you'd populate fields here.
         });
 
-        // Listener for extracurricularInputMentorComboBox to select existing ekskul for adding mentor
         extracurricularInputMentorComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                // Populate levelInputMentorComboBox based on selected extracurricular's level
                 levelInputMentorComboBox.getSelectionModel().select(newVal.getTingkat());
             } else {
                 levelInputMentorComboBox.getSelectionModel().clearSelection();
             }
         });
 
-        // Listener for schoolYearInputSiswaEkskulComboBox to trigger student list load
         schoolYearInputSiswaEkskulComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             loadStudentsForExtracurricularAssignment();
         });
 
-        // Listeners for classInputSiswaEkskulComboBox
         classInputSiswaEkskulComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> loadStudentsForExtracurricularAssignment());
 
-        // Listener for extracurricularInputSiswaEkskulComboBox to load students in its table
         extracurricularInputSiswaEkskulComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            loadStudentsInExtracurricularTable(); // Load students when extracurricular is selected
+            loadStudentsInExtracurricularTable();
         });
 
         studentsInExtracurricularTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            // No edit fields for extracurricular in FXML, only delete.
-            // If editing was desired, you'd populate fields here.
         });
     }
 
     private void setupListeners() {
-        // Listener for searchStudentField on View Students tab
         searchStudentField.textProperty().addListener((observable, oldValue, newValue) -> handleSearchStudent(null));
-        // Listener for searchTeacherField on View Teachers tab
         searchTeacherField.textProperty().addListener((observable, oldValue, newValue) -> handleSearchTeacher(null));
-        // Listener for searchStudentAssignClassField on Manage Classes tab
         searchStudentAssignClassField.textProperty().addListener((observable, oldValue, newValue) -> handleSearchStudentToAssign());
     }
 
@@ -757,8 +726,8 @@ public class AdminController implements Initializable {
     private void loadAllStudents() {
         studentList = FXCollections.observableArrayList(siswaDao.getAllSiswa());
         studentTable.setItems(studentList);
-        selectNisEditComboBox.setItems(studentList); // Populate NIS for editing
-        studentsToAssignTable.setItems(studentList); // Populate table for assigning
+        selectNisEditComboBox.setItems(studentList);
+        studentsToAssignTable.setItems(studentList);
     }
 
     private void loadAllTeachers() {
@@ -815,12 +784,10 @@ public class AdminController implements Initializable {
         TahunAjaran selectedTahunAjaran = schoolYearInputSiswaEkskulComboBox.getSelectionModel().getSelectedItem();
 
         if (selectedClass != null && selectedTahunAjaran != null) {
-            // Call DAO to get students based on class and academic year (no semester)
             ObservableList<Siswa> filteredStudents = FXCollections.observableArrayList(
                     siswaDao.getStudentsInClass(selectedClass.getIdKelas(), selectedTahunAjaran.getIdTahunAjaran()));
             studentInputSiswaEkskulComboBox.setItems(filteredStudents);
         } else {
-            // Clear ComboBox if filters are not complete
             studentInputSiswaEkskulComboBox.setItems(FXCollections.observableArrayList());
         }
     }
@@ -831,7 +798,6 @@ public class AdminController implements Initializable {
         if (selectedTahunAjaran != null) {
             agendaList = FXCollections.observableArrayList(agendaSekolahDao.getAgendaByTahunAjaran(selectedTahunAjaran.getIdTahunAjaran()));
         } else {
-            // Load all if no filter or handle error
             agendaList = FXCollections.observableArrayList(agendaSekolahDao.getAllAgendaSekolah());
         }
         agendaTable.setItems(agendaList);
@@ -850,19 +816,16 @@ public class AdminController implements Initializable {
         }
     }
 
-    // NEW: Load students enrolled in extracurriculars into the table
     private void loadStudentsInExtracurricularTable() {
         Ekstrakurikuler selectedEkskul = extracurricularInputSiswaEkskulComboBox.getSelectionModel().getSelectedItem();
         if (selectedEkskul != null) {
-            // Assume PesertaEkskulDao has a method to get Siswa by extracurricular ID
             ObservableList<Siswa> students = FXCollections.observableArrayList(pesertaEkskulDao.getStudentsByExtracurricular(selectedEkskul.getIdEkstrakurikuler()));
             studentsInExtracurricularTable.setItems(students);
         } else {
-            studentsInExtracurricularTable.setItems(FXCollections.observableArrayList()); // Clear table if no ekskul selected
+            studentsInExtracurricularTable.setItems(FXCollections.observableArrayList());
         }
     }
 
-    // NEW: Load all schedules into the table
     private void loadSchedules() {
         scheduleList = FXCollections.observableArrayList(jadwalKelasDao.getAllJadwalKelasDetails());
         scheduleTable.setItems(scheduleList);
@@ -892,7 +855,7 @@ public class AdminController implements Initializable {
         dateOfBirthEditPicker.setValue(siswa.getTanggalLahir());
         addressEditArea.setText(siswa.getAlamat());
         usernameEditLabel.setText(siswa.getUsernameUser() != null ? siswa.getUsernameUser() : "N/A");
-        passwordEditLabel.setText(siswa.getPasswordUser() != null ? siswa.getPasswordUser() : "N/A"); // For demo only
+        passwordEditLabel.setText(siswa.getPasswordUser() != null ? siswa.getPasswordUser() : "N/A");
     }
 
     private void clearAddStudentFields() {
@@ -922,11 +885,9 @@ public class AdminController implements Initializable {
     }
 
     private void populateEditClassFields(Kelas kelas) {
-        // Find the Kelas object in the combo box items by its ID to ensure selection works correctly
         classNameEditComboBox.getSelectionModel().select(kelas);
         homeroomTeacherEditComboBox.getSelectionModel().select(kelas.getNipWaliKelas() != null ? guruDao.getGuruByNip(kelas.getNipWaliKelas()) : null);
 
-        // FIX: Handle potential null for idTahunAjaran when retrieving from model and passing to DAO
         if (kelas.getIdTahunAjaran() != 0) {
             schoolYearEditClassComboBox.getSelectionModel().select(tahunAjaranDao.getTahunAjaranById(kelas.getIdTahunAjaran()));
         } else {
@@ -972,15 +933,13 @@ public class AdminController implements Initializable {
         levelInputMentorComboBox.getSelectionModel().clearSelection();
     }
 
-    // NEW: Clear fields for "Add Student to Extracurricular" form
     private void clearAddStudentToExtracurricularFields() {
         classInputSiswaEkskulComboBox.getSelectionModel().clearSelection();
         schoolYearInputSiswaEkskulComboBox.getSelectionModel().clearSelection();
-        // semesterInputSiswaEkskulComboBox.getSelectionModel().clearSelection(); // Removed
         extracurricularInputSiswaEkskulComboBox.getSelectionModel().clearSelection();
         levelInputSiswaEkskulComboBox.getSelectionModel().clearSelection();
         studentInputSiswaEkskulComboBox.getSelectionModel().clearSelection();
-        studentInputSiswaEkskulComboBox.setItems(FXCollections.observableArrayList()); // Clear filtered students in the student combo box
+        studentInputSiswaEkskulComboBox.setItems(FXCollections.observableArrayList());
     }
 
     // --- Action Event Handlers ---
@@ -1000,14 +959,14 @@ public class AdminController implements Initializable {
         String judul = announcementTitleField.getText();
         String deskripsi = announcementContentArea.getText();
         String lampiran = announcementAttachmentField.getText();
-        LocalDateTime tanggal = LocalDateTime.now(); // Current date and time
+        LocalDateTime tanggal = LocalDateTime.now();
 
         if (judul.isEmpty() || deskripsi.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Error", "Judul dan konten pengumuman tidak boleh kosong.");
             return;
         }
 
-        Pengumuman newPengumuman = new Pengumuman(0, judul, deskripsi, tanggal, lampiran); // ID 0 because auto-generated
+        Pengumuman newPengumuman = new Pengumuman(0, judul, deskripsi, tanggal, lampiran);
         if (pengumumanDAO.addPengumuman(newPengumuman)) {
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Pengumuman berhasil diterbitkan!");
             loadAnnouncements();
@@ -1028,7 +987,7 @@ public class AdminController implements Initializable {
         String judul = announcementTitleField.getText();
         String deskripsi = announcementContentArea.getText();
         String lampiran = announcementAttachmentField.getText();
-        LocalDateTime tanggal = LocalDateTime.now(); // Update date to current time if desired
+        LocalDateTime tanggal = LocalDateTime.now();
 
         if (judul.isEmpty() || deskripsi.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Error", "Judul dan konten pengumuman tidak boleh kosong.");
@@ -1038,7 +997,7 @@ public class AdminController implements Initializable {
         selectedPengumuman.setJudul(judul);
         selectedPengumuman.setDeskripsi(deskripsi);
         selectedPengumuman.setLampiran(lampiran);
-        selectedPengumuman.setTanggal(tanggal); // Update date
+        selectedPengumuman.setTanggal(tanggal);
 
         if (pengumumanDAO.updatePengumuman(selectedPengumuman)) {
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Pengumuman berhasil diperbarui!");
@@ -1087,12 +1046,10 @@ public class AdminController implements Initializable {
         if (siswaDao.addSiswa(newSiswa)) {
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Data siswa berhasil ditambahkan!");
             clearAddStudentFields();
-            loadAllStudents(); // Refresh student list
+            loadAllStudents();
 
-            // NEW: Auto-fill INPUT STUDENT USER fields
             studentUsernameInputField.setText(nis);
             if (tanggalLahir != null) {
-                // Format date of birth to DD/MM/YYYY
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 studentPasswordInputField.setText(tanggalLahir.format(formatter));
             } else {
@@ -1106,16 +1063,15 @@ public class AdminController implements Initializable {
     @FXML
     private void handleAddStudentUser(ActionEvent event) {
         String username = studentUsernameInputField.getText();
-        String password = studentPasswordInputField.getText(); // In a real app, hash this!
-        int roleId = 3; // Role ID for Siswa (assuming 3 is siswa)
+        String password = studentPasswordInputField.getText();
+        int roleId = 3;
 
         if (username.isEmpty() || password.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Input Error", "Username dan password tidak boleh kosong.");
             return;
         }
 
-        // Check if student NIS exists in the database before creating user
-        Siswa existingSiswa = siswaDao.getSiswaByNis(username); // Username is considered NIS
+        Siswa existingSiswa = siswaDao.getSiswaByNis(username);
         if (existingSiswa == null) {
             showAlert(Alert.AlertType.ERROR, "Error", "Siswa dengan NIS tersebut tidak ditemukan.");
             return;
@@ -1127,12 +1083,11 @@ public class AdminController implements Initializable {
 
         int newUserId = userDao.createNewUser(username, password, roleId);
         if (newUserId != -1) {
-            // Update student with new id_user
             existingSiswa.setIdUser(newUserId);
             if (siswaDao.updateSiswaUser(existingSiswa)) {
                 showAlert(Alert.AlertType.INFORMATION, "Sukses", "Akun pengguna siswa berhasil ditambahkan!");
                 clearAddStudentUserFields();
-                loadAllStudents(); // Refresh student list to show user info
+                loadAllStudents();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Gagal mengaitkan akun pengguna ke siswa.");
             }
@@ -1149,7 +1104,7 @@ public class AdminController implements Initializable {
             return;
         }
 
-        String nis = nisEditField.getText(); // NIS should not change
+        String nis = nisEditField.getText();
         String nama = nameEditField.getText();
         String jenisKelamin = genderEditComboBox.getSelectionModel().getSelectedItem();
         String tempatLahir = placeOfBirthEditField.getText();
@@ -1235,7 +1190,6 @@ public class AdminController implements Initializable {
         }
     }
 
-    // NEW: Handle Delete Schedule
     @FXML
     private void handleDeleteSchedule(ActionEvent event) {
         JadwalKelas selectedJadwal = scheduleTable.getSelectionModel().getSelectedItem();
@@ -1252,7 +1206,7 @@ public class AdminController implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             if (jadwalKelasDao.deleteJadwalKelas(selectedJadwal.getIdJadwalKelas())) {
                 showAlert(Alert.AlertType.INFORMATION, "Sukses", "Jadwal berhasil dihapus!");
-                loadSchedules(); // Refresh schedule table
+                loadSchedules();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Gagal menghapus jadwal.");
             }
@@ -1279,19 +1233,17 @@ public class AdminController implements Initializable {
             LocalTime jamMulai = LocalTime.parse(startTimeStr, DateTimeFormatter.ofPattern("HH:mm"));
             LocalTime jamSelesai = LocalTime.parse(endTimeStr, DateTimeFormatter.ofPattern("HH:mm"));
 
-            // Check if end time is after start time
             if (jamSelesai.isBefore(jamMulai) || jamSelesai.equals(jamMulai)) {
                 showAlert(Alert.AlertType.ERROR, "Input Error", "Jam selesai harus setelah jam mulai.");
                 return;
             }
 
-            // Updated JadwalKelas constructor call (removed semester)
             JadwalKelas newJadwal = new JadwalKelas(hari, jamMulai, jamSelesai, selectedKelas.getIdKelas(), selectedMapel.getIdMapel(), selectedGuru.getNip(), selectedTahunAjaran.getIdTahunAjaran());
 
             if (jadwalKelasDao.addJadwalKelas(newJadwal)) {
                 showAlert(Alert.AlertType.INFORMATION, "Sukses", "Jadwal berhasil ditambahkan!");
                 clearAddScheduleFields();
-                loadSchedules(); // Refresh schedule table
+                loadSchedules();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Gagal menambahkan jadwal.");
             }
@@ -1312,7 +1264,7 @@ public class AdminController implements Initializable {
             return;
         }
 
-        String tingkat = ""; // You might want to derive tingkat from namaKelas, e.g., "1A" -> "1"
+        String tingkat = "";
         if (namaKelas.matches("^\\d+[A-Za-z]?$")) {
             tingkat = namaKelas.replaceAll("[^\\d]", "");
         } else {
@@ -1321,12 +1273,11 @@ public class AdminController implements Initializable {
         }
 
 
-        // Kelas model does not have semester directly
         Kelas newKelas = new Kelas(namaKelas, tingkat, selectedWaliKelas.getNip(), selectedTahunAjaran.getIdTahunAjaran()); // "General" for tingkat, adjust if needed
         if (kelasDao.addKelas(newKelas)) {
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Kelas berhasil dibuat!");
             clearCreateClassFields();
-            loadKelasIntoComboBoxes(); // Refresh class comboboxes
+            loadKelasIntoComboBoxes();
         } else {
             showAlert(Alert.AlertType.ERROR, "Error", "Gagal membuat kelas. Nama kelas mungkin sudah ada untuk tahun ajaran ini.");
         }
@@ -1374,7 +1325,7 @@ public class AdminController implements Initializable {
                 showAlert(Alert.AlertType.INFORMATION, "Sukses", "Kelas berhasil dihapus!");
                 clearEditClassFields();
                 loadKelasIntoComboBoxes();
-                loadAllStudents(); // Refresh student list because their class might be null now
+                loadAllStudents();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Gagal menghapus kelas.");
             }
@@ -1385,7 +1336,7 @@ public class AdminController implements Initializable {
     private void handleSearchStudentToAssign() {
         String keyword = searchStudentAssignClassField.getText();
         if (keyword.isEmpty()) {
-            studentsToAssignTable.setItems(studentList); // Show all students if search is empty
+            studentsToAssignTable.setItems(studentList);
         } else {
             ObservableList<Siswa> filteredStudents = FXCollections.observableArrayList();
             for (Siswa siswa : studentList) {
@@ -1410,7 +1361,6 @@ public class AdminController implements Initializable {
             return;
         }
 
-        // Check if student is already in the same class for the same academic year
         Siswa studentInDb = siswaDao.getSiswaByNis(selectedStudent.getNis());
         if (studentInDb != null && studentInDb.getIdKelas() != null &&
                 studentInDb.getIdKelas().equals(selectedClass.getIdKelas()) &&
@@ -1422,8 +1372,8 @@ public class AdminController implements Initializable {
 
         if (siswaDao.assignStudentToClass(selectedStudent.getNis(), selectedClass.getIdKelas(), selectedTahunAjaran.getIdTahunAjaran())) {
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Siswa berhasil ditugaskan ke kelas!");
-            loadAllStudents(); // Refresh all student data
-            loadStudentsInSelectedClass(); // Refresh students in selected class if any is chosen
+            loadAllStudents();
+            loadStudentsInSelectedClass();
         } else {
             showAlert(Alert.AlertType.ERROR, "Error", "Gagal menugaskan siswa ke kelas.");
         }
@@ -1436,11 +1386,7 @@ public class AdminController implements Initializable {
             showAlert(Alert.AlertType.WARNING, "Peringatan", "Pilih siswa yang akan diedit.");
             return;
         }
-        // This is a placeholder for actual edit functionality.
-        // You would typically open the "Entry Student Data" tab and populate its "Edit Student Data" fields.
-        //showAlert(Alert.AlertType.INFORMATION, "Fitur Belum Tersedia", "Fungsi edit siswa dari tabel ini belum diimplementasikan. Silakan gunakan tab 'Entry Student Data' untuk mengedit siswa.");
 
-        // Optional: Programmatically switch tab and select the student in the edit combo box
         mainTabPane.getSelectionModel().select(entryStudentDataTab);
         selectNisEditComboBox.getSelectionModel().select(selectedStudent);
     }
@@ -1457,8 +1403,8 @@ public class AdminController implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             if (siswaDao.removeClassInfoFromStudent(selectedStudent.getNis())) {
                 showAlert(Alert.AlertType.INFORMATION, "Sukses", "Siswa berhasil dihapus dari kelas!");
-                loadAllStudents(); // Refresh all student data
-                loadStudentsInSelectedClass(); // Refresh current class view
+                loadAllStudents();
+                loadStudentsInSelectedClass();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Gagal menghapus siswa dari kelas.");
             }
@@ -1482,12 +1428,11 @@ public class AdminController implements Initializable {
             return;
         }
 
-        // Removed semester from AgendaSekolah constructor
         AgendaSekolah newAgenda = new AgendaSekolah(judul, "", tanggalMulai, tanggalSelesai, selectedTahunAjaran.getIdTahunAjaran()); // deskripsi can be empty or taken from title
         if (agendaSekolahDao.addAgendaSekolah(newAgenda)) {
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Agenda sekolah berhasil ditambahkan!");
             clearAddSchoolAgendaFields();
-            loadSchoolAgenda(); // Reload agenda table
+            loadSchoolAgenda();
         } else {
             showAlert(Alert.AlertType.ERROR, "Error", "Gagal menambahkan agenda sekolah.");
         }
@@ -1505,7 +1450,7 @@ public class AdminController implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             if (agendaSekolahDao.deleteAgendaSekolah(selectedAgenda.getIdAgendaSekolah())) {
                 showAlert(Alert.AlertType.INFORMATION, "Sukses", "Agenda sekolah berhasil dihapus!");
-                loadSchoolAgenda(); // Reload agenda table
+                loadSchoolAgenda();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Gagal menghapus agenda sekolah.");
             }
@@ -1526,7 +1471,6 @@ public class AdminController implements Initializable {
         }
 
         boolean success = true;
-        // Collect all selected mentors
         List<Guru> selectedMentors = new java.util.ArrayList<>();
         if (mentor1 != null) selectedMentors.add(mentor1);
         if (mentor2 != null && !selectedMentors.contains(mentor2)) selectedMentors.add(mentor2);
@@ -1544,7 +1488,7 @@ public class AdminController implements Initializable {
         if (success) {
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Mentor berhasil ditambahkan ke ekstrakurikuler!");
             clearAddMentorFields();
-            loadEkstrakurikulerIntoComboBoxes(); // Refresh extracurricular table
+            loadEkstrakurikulerIntoComboBoxes();
         } else {
             showAlert(Alert.AlertType.ERROR, "Error", "Beberapa mentor mungkin gagal ditambahkan atau sudah menjadi pembina untuk ekskul ini.");
         }
@@ -1564,21 +1508,17 @@ public class AdminController implements Initializable {
         if (mentor3ComboBox.getSelectionModel().getSelectedItem() != null && !newSelectedMentors.contains(mentor3ComboBox.getSelectionModel().getSelectedItem())) newSelectedMentors.add(mentor3ComboBox.getSelectionModel().getSelectedItem());
         if (mentor4ComboBox.getSelectionModel().getSelectedItem() != null && !newSelectedMentors.contains(mentor4ComboBox.getSelectionModel().getSelectedItem())) newSelectedMentors.add(mentor4ComboBox.getSelectionModel().getSelectedItem());
 
-        // Konfirmasi sebelum melakukan update
         Optional<ButtonType> result = showConfirmation("Konfirmasi Update Mentor", "Anda yakin ingin memperbarui mentor untuk ekstrakurikuler " + selectedEkskul.getNama() + "?\n\nMentor baru: " + newSelectedMentors.stream().map(Guru::getNama).collect(Collectors.joining(", ")));
         if (result.isPresent() && result.get() == ButtonType.OK) {
             boolean success = true;
             // 1. Hapus semua pembina yang ada untuk ekstrakurikuler ini
-            // PENTING: Anda perlu mengimplementasikan metode ini di PembinaDAO
-            // Contoh: public boolean deletePembinaByEkstrakurikulerId(int idEkstrakurikuler)
             if (!pembinaDao.deletePembinaByEkstrakurikulerId(selectedEkskul.getIdEkstrakurikuler())) {
                 showAlert(Alert.AlertType.ERROR, "Error", "Gagal menghapus mentor lama.");
-                return; // Berhenti jika gagal menghapus
+                return;
             }
 
             // 2. Tambahkan mentor yang baru dipilih
             for (Guru mentor : newSelectedMentors) {
-                //Pembina newPembina = new Pembina(0, mentor.getNip(), mentor.getNama(), selectedEkskul.getIdEkstrakurikuler(), selectedEkskul.getNama());
                 Pembina newPembina = new Pembina(mentor.getNip(), selectedEkskul.getIdEkstrakurikuler());
                 if (!pembinaDao.addPembina(newPembina)) {
                     success = false;
@@ -1589,7 +1529,7 @@ public class AdminController implements Initializable {
             if (success) {
                 showAlert(Alert.AlertType.INFORMATION, "Sukses", "Mentor ekstrakurikuler berhasil diperbarui!");
                 clearAddMentorFields();
-                loadEkstrakurikulerIntoComboBoxes(); // Refresh tabel ekstrakurikuler
+                loadEkstrakurikulerIntoComboBoxes();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Beberapa mentor mungkin gagal ditambahkan.");
             }
@@ -1608,7 +1548,7 @@ public class AdminController implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             if (ekstrakurikulerDao.deleteEkstrakurikuler(selectedEkskul.getIdEkstrakurikuler())) {
                 showAlert(Alert.AlertType.INFORMATION, "Sukses", "Ekstrakurikuler berhasil dihapus!");
-                loadEkstrakurikulerIntoComboBoxes(); // Refresh extracurricular table
+                loadEkstrakurikulerIntoComboBoxes();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Gagal menghapus ekstrakurikuler.");
             }
@@ -1632,8 +1572,8 @@ public class AdminController implements Initializable {
         PesertaEkskul newPeserta = new PesertaEkskul(selectedSiswa.getNis(), selectedEkskul.getIdEkstrakurikuler()); // ID 0 for auto-generated
         if (pesertaEkskulDao.addPesertaEkskul(newPeserta)) {
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Siswa berhasil ditambahkan ke ekstrakurikuler!");
-            clearAddStudentToExtracurricularFields(); // Clear inputs
-            loadStudentsInExtracurricularTable(); // Refresh table for the selected extracurricular
+            clearAddStudentToExtracurricularFields();
+            loadStudentsInExtracurricularTable();
         } else {
             showAlert(Alert.AlertType.ERROR, "Error", "Gagal menambahkan siswa ke ekstrakurikuler. Siswa mungkin sudah terdaftar.");
         }
@@ -1655,10 +1595,9 @@ public class AdminController implements Initializable {
 
         Optional<ButtonType> result = showConfirmation("Konfirmasi Hapus", "Anda yakin ingin menghapus siswa '" + selectedStudent.getNama() + "' dari ekstrakurikuler '" + selectedEkskul.getNama() + "'?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Call DAO to delete extracurricular participant
             if (pesertaEkskulDao.deletePesertaEkskulByNisAndEkskulId(selectedStudent.getNis(), selectedEkskul.getIdEkstrakurikuler())) {
                 showAlert(Alert.AlertType.INFORMATION, "Sukses", "Siswa berhasil dihapus dari ekstrakurikuler!");
-                loadStudentsInExtracurricularTable(); // Refresh the table
+                loadStudentsInExtracurricularTable();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Gagal menghapus siswa dari ekstrakurikuler.");
             }

@@ -4,18 +4,16 @@ import java.util.Objects;
 
 public class Pembina {
     private int idPembina;
-    private String nipGuru; // Foreign Key ke Guru
-    private String namaGuru; // Untuk tampilan
-    private int idEkstrakurikuler; // Foreign Key ke Ekstrakurikuler
-    private String namaEkstrakurikuler; // Untuk tampilan
+    private String nipGuru;
+    private String namaGuru;
+    private int idEkstrakurikuler;
+    private String namaEkstrakurikuler;
 
-    // Konstruktor untuk menambahkan pembina baru
     public Pembina(String nipGuru, int idEkstrakurikuler) {
         this.nipGuru = nipGuru;
         this.idEkstrakurikuler = idEkstrakurikuler;
     }
 
-    // Konstruktor untuk mengambil data pembina dari database
     public Pembina(int idPembina, String nipGuru, String namaGuru, int idEkstrakurikuler, String namaEkstrakurikuler) {
         this.idPembina = idPembina;
         this.nipGuru = nipGuru;

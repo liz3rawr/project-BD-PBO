@@ -8,19 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PengumumanDAO {
-    /**
-     * Menambahkan pengumuman baru ke database.
-     * @param pengumuman Objek Pengumuman yang akan ditambahkan.
-     * @return true jika berhasil, false jika gagal.
-     */
+
     public boolean addPengumuman(Pengumuman pengumuman) {
-        // Menggunakan nama tabel lowercase 'pengumuman'
         String sql = "INSERT INTO pengumuman (judul, deskripsi, tanggal, lampiran) VALUES (?, ?, ?, ?) RETURNING id_pengumuman";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, pengumuman.getJudul());
             stmt.setString(2, pengumuman.getDeskripsi());
-            stmt.setTimestamp(3, Timestamp.valueOf(pengumuman.getTanggal())); // Konversi LocalDateTime ke Timestamp
+            stmt.setTimestamp(3, Timestamp.valueOf(pengumuman.getTanggal()));
             stmt.setString(4, pengumuman.getLampiran());
             int rowsAffected = stmt.executeUpdate();
 
@@ -40,13 +35,8 @@ public class PengumumanDAO {
         }
     }
 
-    /**
-     * Mengambil semua pengumuman dari database.
-     * @return List objek Pengumuman.
-     */
     public List<Pengumuman> getAllPengumuman() {
         List<Pengumuman> pengumumanList = new ArrayList<>();
-        // Menggunakan nama tabel lowercase 'pengumuman'
         String sql = "SELECT id_pengumuman, judul, deskripsi, tanggal, lampiran FROM pengumuman ORDER BY tanggal DESC";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -56,7 +46,7 @@ public class PengumumanDAO {
                         rs.getInt("id_pengumuman"),
                         rs.getString("judul"),
                         rs.getString("deskripsi"),
-                        rs.getTimestamp("tanggal").toLocalDateTime(), // Konversi Timestamp ke LocalDateTime
+                        rs.getTimestamp("tanggal").toLocalDateTime(),
                         rs.getString("lampiran")
                 ));
             }
@@ -67,13 +57,7 @@ public class PengumumanDAO {
         return pengumumanList;
     }
 
-    /**
-     * Mengambil data pengumuman berdasarkan ID.
-     * @param idPengumuman ID pengumuman yang dicari.
-     * @return Objek Pengumuman jika ditemukan, null jika tidak.
-     */
     public Pengumuman getPengumumanById(int idPengumuman) {
-        // Menggunakan nama tabel lowercase 'pengumuman'
         String sql = "SELECT id_pengumuman, judul, deskripsi, tanggal, lampiran FROM pengumuman WHERE id_pengumuman = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -84,7 +68,7 @@ public class PengumumanDAO {
                         rs.getInt("id_pengumuman"),
                         rs.getString("judul"),
                         rs.getString("deskripsi"),
-                        rs.getTimestamp("tanggal").toLocalDateTime(), // Konversi Timestamp ke LocalDateTime
+                        rs.getTimestamp("tanggal").toLocalDateTime(),
                         rs.getString("lampiran")
                 );
             }
@@ -95,13 +79,7 @@ public class PengumumanDAO {
         return null;
     }
 
-    /**
-     * Memperbarui data pengumuman di database.
-     * @param pengumuman Objek Pengumuman dengan data terbaru.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean updatePengumuman(Pengumuman pengumuman) {
-        // Menggunakan nama tabel lowercase 'pengumuman'
         String sql = "UPDATE pengumuman SET judul = ?, deskripsi = ?, tanggal = ?, lampiran = ? WHERE id_pengumuman = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -119,13 +97,7 @@ public class PengumumanDAO {
         }
     }
 
-    /**
-     * Menghapus pengumuman dari database berdasarkan ID.
-     * @param idPengumuman ID pengumuman yang akan dihapus.
-     * @return true jika berhasil, false jika gagal.
-     */
     public boolean deletePengumuman(int idPengumuman) {
-        // Menggunakan nama tabel lowercase 'pengumuman'
         String sql = "DELETE FROM pengumuman WHERE id_pengumuman = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
