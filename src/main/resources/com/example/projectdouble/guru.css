@@ -45,7 +45,7 @@
 
 /* Efek untuk item yang sudah terpilih di dalam daftar */
 .combo-box-popup .list-view .list-cell:filled:selected {
-    -fx-background-color: #3182CE; =
+    -fx-background-color: #3182CE;
     -fx-text-fill: white;
 }
 /* Khusus untuk teks di dalam ChoiceBox agar tidak ikut berubah saat hover */
@@ -56,7 +56,7 @@
 
 /* --- Warna untuk Header Tab --- */
 .tab-pane .tab-header-area .tab-header-background {
-    -fx-background-color: #F8F9FA; =
+    -fx-background-color: #F8F9FA;
 }
 .tab-pane .tab {
     -fx-background-color: #E9ECEF; 

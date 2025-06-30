@@ -67,7 +67,7 @@ public class GuruController implements Initializable {
     @FXML private TextField editBiodataNipField, editBiodataNameField, editBiodataEmailField, editBiodataPhoneField;
     @FXML private ComboBox<String> biodataGenderCombo, editBiodataGenderCombo;
     @FXML private TextField editPasswordUsernameField;
-    @FXML private TextField editPasswordOldPassField, editPasswordNewPassField;
+    @FXML private PasswordField editPasswordOldPassField, editPasswordNewPassField;
     @FXML private Button updateBiodataButton, changePasswordButton;
 
     // Class Schedule Tab
