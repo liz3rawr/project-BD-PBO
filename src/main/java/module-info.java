@@ -2,7 +2,7 @@ module com.example.projectdouble { // Sesuaikan dengan nama modul proyek Anda
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql; // Pastikan ini ada jika Anda menggunakan JDBC
-    requires java.desktop; // Mungkin diperlukan untuk FileChooser
+    requires javafx.graphics; // Mungkin diperlukan untuk FileChooser
 
     // Buka paket controller ke javafx.fxml agar FXML dapat mengakses controller
     opens com.example.projectdouble.controller to javafx.fxml;
